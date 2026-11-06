@@ -211,7 +211,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("csv", nargs="+")
     ap.add_argument("--recherches", default="recherches.csv")
-    ap.add_argument("--resultats", nargs="*", default=["dsa_resultats.csv", "resultats_t6_t7.csv"],
+    ap.add_argument("--resultats", nargs="*", default=["dsa_resultats.csv", "resultats_t6_t7.csv", "resultats_t8_t9.csv"],
                     help="fichiers de verdicts produits par d'autres scripts (test,plateforme,verdict)")
     ap.add_argument("--out", default="rapport/contenus.md")
     ap.add_argument("--corpus", default="contenus/corpus.csv", help="pour la période de chaque post (T2 par période)")
@@ -254,6 +254,12 @@ def main():
                "instagram": "NON TESTABLE (vues non publiques pour les posts)", "youtube": "NON TESTABLE (hors périmètre)"}
     o.append("| **T7** Posts sur le mouvement moins vus que les autres posts du même compte | 3 | "
              + " | ".join(dsa.get(("T7", p), defaut7[p]) for p in PLATEFORMES) + " |")
+    defaut_tt = {"x": "NON TESTABLE (TikTok seulement)", "tiktok": "À VENIR (≥ 2 passages de contenus.py)",
+                 "instagram": "NON TESTABLE (TikTok seulement)", "youtube": "NON TESTABLE (TikTok seulement)"}
+    o.append("| **T8** Indicateurs internes TikTok qui changent pendant le suivi (non documentés) | 3 | "
+             + " | ".join(dsa.get(("T8", p), defaut_tt[p]) for p in PLATEFORMES) + " |")
+    o.append("| **T9** Vues qui stagnent, à popularité et âge égaux | 3 | "
+             + " | ".join(dsa.get(("T9", p), defaut_tt[p]) for p in PLATEFORMES) + " |")
     o.append("")
     o.append("**Lecture.** DÉTECTÉ décrit ce que la plateforme affiche, ou ce qui diffère entre pays. "
              "L'origine (demande de l'État ou décision de la plateforme) n'est établie **que** par une mention "

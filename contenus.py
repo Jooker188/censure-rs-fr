@@ -38,7 +38,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-VERSION = "1.2"
+VERSION = "1.3"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 COLONNES = ["ts_utc", "round_id", "tool_version", "vantage", "loc", "id", "plateforme", "categorie",
@@ -218,11 +218,33 @@ def verifier_tiktok(url):
     code, msg = d.get("statusCode"), d.get("statusMsg", "")
     item = (d.get("itemInfo") or {}).get("itemStruct")
     if code == 0 and item:
-        out.append(res("page", st, "visible", "", ms))
+        r = res("page", st, "visible", "", ms)
+        r["_metriques"] = metriques_tiktok(item)  # T8/T9 : écrit dans un fichier séparé
+        out.append(r)
     else:
         texte = f"statusCode={code} statusMsg={msg}"
         out.append(res("page", st, classer(msg) if msg else "indisponible", texte, ms))
     return out
+
+
+COLONNES_TT = ["ts_utc", "round_id", "vantage", "loc", "id", "categorie", "vues", "likes", "commentaires",
+               "partages", "reviewed", "display_penalty_type", "display_policy", "display_ui_type", "video_status",
+               "ec_global_verdict", "conclu_refine_reason", "is_prohibited", "is_reviewing", "item_control"]
+
+
+def metriques_tiktok(item):
+    """Compteurs et indicateurs internes NON DOCUMENTÉS d'une vidéo TikTok (enregistrés tels quels)."""
+    stt = item.get("stats") or {}
+    st2 = item.get("statsV2") or {}
+    pc = item.get("penaltyContext") or {}
+    def n(k):
+        return stt.get(k) if stt.get(k) is not None else st2.get(k, "")
+    return {"vues": n("playCount"), "likes": n("diggCount"), "commentaires": n("commentCount"),
+            "partages": n("shareCount"),
+            **{k: pc.get(k, "") for k in ("reviewed", "display_penalty_type", "display_policy", "display_ui_type",
+                                          "video_status", "ec_global_verdict", "conclu_refine_reason")},
+            "is_prohibited": item.get("isProhibited", ""), "is_reviewing": item.get("isReviewing", ""),
+            "item_control": json.dumps(item.get("item_control") or {}, sort_keys=True, separators=(",", ":"))}
 
 
 # ------------------------------------------------------------------ Instagram
@@ -315,6 +337,7 @@ def un_passage(corpus, a, ecrire=True):
     random.shuffle(ordre)
     lignes = []
     f = w = None
+    ftt = wtt = None
     if ecrire:  # écriture au fil de l'eau : une coupure ne fait perdre que le post en cours
         neuf = not os.path.exists(a.out) or os.path.getsize(a.out) == 0
         f = open(a.out, "a", newline="", encoding="utf-8")
@@ -322,17 +345,34 @@ def un_passage(corpus, a, ecrire=True):
         if neuf:
             w.writeheader()
             f.flush()
+        out_tt = os.path.join(os.path.dirname(a.out), "tiktok_metriques_" + a.vantage + ".csv")
+        neuf_tt = not os.path.exists(out_tt) or os.path.getsize(out_tt) == 0
+        ftt = open(out_tt, "a", newline="", encoding="utf-8")
+        wtt = csv.DictWriter(ftt, fieldnames=COLONNES_TT)
+        if neuf_tt:
+            wtt.writeheader()
     try:
         for i, p in enumerate(ordre):
             try:
                 resultats = VERIFS[p["plateforme"]](p["url"])
             except Exception as e:  # ne jamais perdre un passage
                 resultats = [res("crash", "", "non_reconnu", repr(e), 0)]
-            nouvelles = [{"ts_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                          "round_id": rid, "tool_version": VERSION, "vantage": a.vantage, "loc": loc,
+            ts = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            metriques = [r.pop("_metriques") for r in resultats if "_metriques" in r]
+            nouvelles = [{"ts_utc": ts, "round_id": rid, "tool_version": VERSION, "vantage": a.vantage, "loc": loc,
                           "id": p["id"], "plateforme": p["plateforme"], "categorie": p.get("categorie", ""),
                           "url": p["url"], **r} for r in resultats]
             lignes.extend(nouvelles)
+            for m in metriques:
+                m.update(ts_utc=ts, round_id=rid, vantage=a.vantage, loc=loc, id=p["id"],
+                         categorie=p.get("categorie", ""))
+                if a.test:
+                    print(f"  [T8/T9] {p['id']} vues={m['vues']} reviewed={m['reviewed']} "
+                          f"display_penalty_type={m['display_penalty_type']} video_status={m['video_status']}",
+                          file=sys.stderr)
+                if wtt:
+                    wtt.writerow(m)
+                    ftt.flush()
             if w:
                 w.writerows(nouvelles)
                 f.flush()
@@ -343,6 +383,8 @@ def un_passage(corpus, a, ecrire=True):
     finally:
         if f:
             f.close()
+        if ftt:
+            ftt.close()
     return loc, lignes
 
 
