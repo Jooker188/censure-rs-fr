@@ -286,7 +286,7 @@ def ecrire(posts, manuels, a):
         if p["est_repost"]:
             continue
         cat = "temoin" if p["categorie"] == "temoin" else p["categorie"]
-        corpus.append({"id": f"{p['plateforme'][0]}{len(corpus) + 1:04d}", "plateforme": p["plateforme"], "url": p["url"],
+        corpus.append({"id": f"{p['plateforme']}_{p['post_id']}", "plateforme": p["plateforme"], "url": p["url"],
                        "categorie": cat, "periode": p["periode"], "type_compte": p["type_compte"],
                        "date_post": p["date"].strftime("%Y-%m-%d") if p["date"] else "", "note": "zeeschuimer"})
         vus.add((p["plateforme"], p["post_id"]))
@@ -300,7 +300,7 @@ def ecrire(posts, manuels, a):
                     elif m["note"].startswith("controle"):
                         c["categorie"] = "controle"
             continue
-        corpus.append({"id": f"m{len(corpus) + 1:04d}", "plateforme": m["plateforme"], "url": m["url"],
+        corpus.append({"id": f"{m['plateforme']}_{m['post_id']}", "plateforme": m["plateforme"], "url": m["url"],
                        "categorie": "controle" if m["note"].startswith("controle")
                        else "revendication" if m["note"] in ("revendication", "a_verifier") else "mouvement",
                        "periode": "", "type_compte": "", "date_post": "", "note": "manuel+" + m["note"]})
