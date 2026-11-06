@@ -38,7 +38,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-VERSION = "1.3"
+VERSION = "1.4"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 COLONNES = ["ts_utc", "round_id", "tool_version", "vantage", "loc", "id", "plateforme", "categorie",
@@ -96,6 +96,18 @@ def get(url, timeout=20, accept="*/*"):
         return e.code, body, url, int((time.monotonic() - t0) * 1000)
     except Exception as e:
         return 0, f"{type(e).__name__}: {e}", url, int((time.monotonic() - t0) * 1000)
+
+
+DEBUG_DIR = None  # activé par --test : pages non reconnues enregistrées pour diagnostic
+
+
+def sauver_debug(plateforme, url, body):
+    if not DEBUG_DIR or not body:
+        return
+    os.makedirs(DEBUG_DIR, exist_ok=True)
+    nom = re.sub(r"[^\w]+", "_", url)[-60:]
+    with open(os.path.join(DEBUG_DIR, f"{plateforme}_{nom}.html"), "w", encoding="utf-8") as f:
+        f.write(body)
 
 
 def court(s, n=200):
@@ -200,15 +212,15 @@ def verifier_tiktok(url):
         out.append(res("oembed", st, "visible", "", ms))
     else:
         out.append(res("oembed", st, "indisponible" if st in (400, 403, 404) else "non_reconnu", body, ms))
-    # page publique : JSON embarqué avec statusCode / statusMsg
+    # page publique : JSON embarqué avec statusCode / statusMsg.
+    # On cherche d'abord les données : les pages TikTok normales mentionnent aussi « captcha »
+    # dans leurs scripts, donc la détection anti-robot ne s'applique que si les données manquent.
     st, body, final, ms = get(url, accept="text/html")
-    r = reseau_ou_robot("page", st, body, ms, final)
-    if r:
-        out.append(r)
-        return out
-    m = re.search(r'<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>(.*?)</script>', body, re.S)
+    m = re.search(r'<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>(.*?)</script>', body or "", re.S)
     if not m:
-        out.append(res("page", st, "non_reconnu", "données de page absentes (" + final + ")", ms))
+        sauver_debug("tiktok", url, body)
+        r = reseau_ou_robot("page", st, body, ms, final)
+        out.append(r or res("page", st, "non_reconnu", "données de page absentes (" + final + ")", ms))
         return out
     try:
         d = json.loads(m.group(1))["__DEFAULT_SCOPE__"].get("webapp.video-detail", {})
@@ -404,6 +416,8 @@ def main():
     print(f"contenus v{VERSION} | point={a.vantage} | {len(corpus)} posts | sortie={a.out}", file=sys.stderr)
 
     if a.test:
+        global DEBUG_DIR
+        DEBUG_DIR = "debug_contenus"
         par = {}
         for p in corpus:
             par.setdefault(p["plateforme"], [])
@@ -412,10 +426,12 @@ def main():
         echantillon = [p for v in par.values() for p in v]
         loc, lignes = un_passage(echantillon, a, ecrire=False)
         print(f"\nLocalisation vue par Cloudflare : {loc}\n")
-        print(f"{'id':6} {'plateforme':10} {'méthode':12} {'HTTP':5} {'état':16} {'légal':6} raison")
+        print(f"{'id':28} {'méthode':12} {'HTTP':5} {'état':16} {'légal':6} raison")
         for l in lignes:
-            print(f"{l['id']:6} {l['plateforme']:10} {l['methode']:12} {str(l['http_status']):5} {l['etat']:16} "
-                  f"{l['mention_legale']:6} {l['raison_brute'][:90]}")
+            print(f"{l['id'][:28]:28} {l['methode']:12} {str(l['http_status']):5} {l['etat']:16} "
+                  f"{l['mention_legale']:6} {l['raison_brute'][:80]}")
+        if os.path.isdir(DEBUG_DIR):
+            print(f"\nPages non reconnues enregistrées dans {DEBUG_DIR}/ : envoie-les pour diagnostic.")
         print("\nÀ vérifier : chaque plateforme doit avoir au moins une méthode en « visible » pour un post "
               "que tu vois dans ton navigateur. « anti_robot » ou « non_reconnu » partout = méthode inopérante.")
         return
