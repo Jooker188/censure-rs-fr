@@ -55,6 +55,10 @@ Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récen
 |---|---|---|
 | XT1 | `météo lang:fr since:2026-10-15` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-10-15&f=live` |
 | XT2 | `"ligue 1" lang:fr since:2026-10-15` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-10-15&f=live` |
+| XT3 | `météo lang:fr since:2026-10-15 until:2026-10-19` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-10-15%20until%3A2026-10-19&f=live` |
+| XT4 | `"ligue 1" lang:fr since:2026-10-22 until:2026-10-26` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-10-22%20until%3A2026-10-26&f=live` |
+
+**Pourquoi XT3 et XT4 (ajoutées le 06/11).** XT1 et XT2 n'ont ramené que des posts du jour même : ces sujets produisent tellement de posts qu'on ne remonte pas plus loin en 2 minutes. Or les témoins doivent avoir **le même âge** que les posts du mouvement (X1 et X2 datent des 17 et 24 octobre). Sinon, la comparaison des disparitions (T2) et des vues est faussée. XT3 et XT4 visent donc les mêmes jours que X1 et X2.
 
 ---
 
@@ -153,7 +157,9 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 
 | date et heure | réseau | n° de recherche | durée de défilement | items (compteur Zeeschuimer) | fichier exporté | remarques (peu de résultats, bruit, blocage…) |
 |---|---|---|---|---|---|---|
-| | | | | | | |
+| 06/11 soir | X | X1 à X8, X10 | 1 à 2 min | 390 (376 posts uniques) | `zeeschuimer-export-twitter.com-2026-11-06T213811.ndjson` | X5 (« égalité réelle ») : 1 seul post. Un seul fichier pour toutes les catégories (la catégorie est déduite de la recherche). |
+| 06/11 soir | X | X9 | — | 0 | — | **Aucun résultat.** Personne dans cette recherche n'écrit « compte suspendu » ou « tweet supprimé » à propos de la manif. Ce n'est pas une preuve : la requête est peut-être trop restrictive. |
+| 06/11 soir | X | XT1, XT2 | 1 à 2 min | 100 posts | `zeeschuimer-export-twitter.com-2026-11-06T214653.ndjson` | Tous du 06/11 : âge différent des posts du mouvement, d'où XT3 et XT4. |
 
 ## Recherches ajoutées après coup
 
