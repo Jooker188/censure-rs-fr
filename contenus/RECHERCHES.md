@@ -160,6 +160,7 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 | 06/11 soir | X | X1 à X8, X10 | 1 à 2 min | 390 (376 posts uniques) | `zeeschuimer-export-twitter.com-2026-11-06T213811.ndjson` | X5 (« égalité réelle ») : 1 seul post. Un seul fichier pour toutes les catégories (la catégorie est déduite de la recherche). |
 | 06/11 soir | X | X9 | — | 0 | — | **Aucun résultat.** Personne dans cette recherche n'écrit « compte suspendu » ou « tweet supprimé » à propos de la manif. Ce n'est pas une preuve : la requête est peut-être trop restrictive. |
 | 06/11 soir | X | XT1, XT2 | 1 à 2 min | 100 posts | `zeeschuimer-export-twitter.com-2026-11-06T214653.ndjson` | Tous du 06/11 : âge différent des posts du mouvement, d'où XT3 et XT4. |
+| 06/11 soir | X | XT3, XT4 | 1 à 2 min | 80 posts | `zeeschuimer-export-twitter.com-2026-11-06T214907.ndjson` | Témoins datés comme X1 et X2 (40 posts du 17 au 19 octobre, 40 du 22 au 26 octobre). Il manque encore des témoins pour la période du 27 octobre au 4 novembre, où se trouvent la plupart des posts « revendication » (103 sur 153). |
 
 ## Recherches ajoutées après coup
 
