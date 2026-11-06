@@ -144,7 +144,8 @@ def section_focus(args, out, anomalies):
         # large en UTC puis on filtre en heure de Paris.
         since = (d0 - dt.timedelta(days=1)).isoformat()
         until = (d0 + dt.timedelta(days=1)).isoformat()
-        out.append(f"### {d0.strftime('%A %d/%m/%Y')}\n")
+        jours_fr = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
+        out.append(f"### {jours_fr[d0.weekday()]} {d0.strftime('%d/%m/%Y')}\n")
         out.append("| domaine | " + " | ".join(f"{v} (AS{k})" for k, v in ASN.items()) + " | trou max (tous FAI) |")
         out.append("|---|" + "---|" * (len(ASN) + 1))
         for dom in CIBLES + TEMOINS_NEG + TEMOINS_POS:

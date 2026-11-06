@@ -44,7 +44,7 @@ import time
 import urllib.parse
 import urllib.request
 
-VERSION = "2.0"
+VERSION = "2.1"
 
 # (plateforme, hôte, rôle). rôle : web = DNS+TCP+TLS+HTTP ; infra = DNS+TCP+TLS
 # Les hôtes « infra » sont ceux qu'utilisent les applications mobiles ; liste
@@ -54,7 +54,6 @@ CIBLES = [
     ("x", "x.com", "web"), ("x", "api.x.com", "infra"),
     ("x", "pbs.twimg.com", "infra"), ("x", "video.twimg.com", "infra"),
     ("tiktok", "www.tiktok.com", "web"), ("tiktok", "tiktokv.com", "infra"),
-    ("tiktok", "tiktokcdn.com", "infra"),
     ("instagram", "www.instagram.com", "web"), ("instagram", "i.instagram.com", "infra"),
     ("instagram", "static.cdninstagram.com", "infra"),
     ("snapchat", "www.snapchat.com", "web"), ("snapchat", "app.snapchat.com", "infra"),
@@ -64,7 +63,14 @@ CIBLES = [
     ("telegram", "t.me", "web"), ("telegram", "web.telegram.org", "infra"),
     ("bluesky", "bsky.app", "web"), ("bluesky", "bsky.social", "infra"),
     ("whatsapp", "www.whatsapp.com", "web"), ("whatsapp", "web.whatsapp.com", "infra"),
-    ("signal", "signal.org", "web"), ("signal", "chat.signal.org", "infra"),
+    ("signal", "signal.org", "web"),
+    # ajouts v2.1 : autres lieux d'organisation ou de diffusion en direct
+    ("reddit", "www.reddit.com", "web"),
+    ("twitch", "www.twitch.tv", "web"), ("twitch", "usher.ttvnw.net", "infra"),
+    ("messenger", "www.messenger.com", "web"),
+    ("threads", "www.threads.net", "web"),
+    ("bereal", "bere.al", "web"),
+    ("mastodon", "mastodon.social", "web"),
 ]
 # Témoins négatifs : doivent fonctionner. Les CDN génériques servent à
 # repérer une panne d'hébergeur (Akamai, Fastly, Cloudflare, Google).
@@ -262,14 +268,23 @@ def bogon(ip):
             or (a.version == 4 and a in ipaddress.ip_network("100.64.0.0/10")))
 
 
-def verdict_dns(sys_ips, sys_err, doh_rc, doh_ips):
+def verdict_dns(sys_ips, sys_err, doh_rc, doh_ips, isp_rc="", isp_ips=()):
+    """Résumé lisible. Le résolveur du FAI interrogé en direct prime : c'est
+    lui que viserait un filtrage DNS d'opérateur. L'analyse recalcule tout à
+    partir des colonnes brutes (analyse.py)."""
     doh_ok = doh_rc == "NOERROR" and doh_ips
-    if sys_err and not sys_ips:
-        return "local_echec" if doh_ok else "echec_global"
-    if any(bogon(i) for i in sys_ips) and not any(bogon(i) for i in doh_ips):
-        return "bogon"
     if not doh_ok:
-        return "doh_indisponible"
+        if doh_rc in ("NXDOMAIN", "NODATA"):
+            return "inexistant"
+        return "echec_global" if (sys_err and not sys_ips) else "doh_indisponible"
+    if isp_rc in ("NXDOMAIN", "NODATA", "REFUSED", "SERVFAIL") or isp_rc.startswith("ERR:"):
+        return "fai:" + isp_rc.lower().replace("err:", "err_")
+    if any(bogon(i) for i in isp_ips):
+        return "fai:bogon"
+    if sys_err and not sys_ips:
+        return "sys:echec"
+    if any(bogon(i) for i in sys_ips):
+        return "sys:bogon"
     return "coherent" if set(sys_ips) & set(doh_ips) else "ips_differentes"
 
 
@@ -397,11 +412,12 @@ def mesurer(cible, kind, ctx):
     # 4. DoH
     doh_rc, doh_ips = dns_doh(host, timeout=to + 2)
     row.update(doh_rcode=doh_rc, doh_ips=" ".join(sorted(doh_ips)))
-    row["dns_verdict"] = verdict_dns(sys_ips, row["sys_err"], doh_rc, doh_ips)
+    row["dns_verdict"] = verdict_dns(sys_ips, row["sys_err"], doh_rc, doh_ips,
+                                     row["isp_rcode"], row["isp_ips"].split())
 
     if role == "dns":  # témoin positif : jamais de connexion
         v = row["dns_verdict"]
-        row["fail_stage"] = ("dns" if v in ("local_echec", "bogon")
+        row["fail_stage"] = ("dns" if v.startswith(("fai:", "sys:"))
                              else "aucun" if v in ("coherent", "ips_differentes") else "indetermine")
         return row
     if not sys_ips:
