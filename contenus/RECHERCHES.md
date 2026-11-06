@@ -57,6 +57,7 @@ Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récen
 | XT2 | `"ligue 1" lang:fr since:2026-10-15` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-10-15&f=live` |
 | XT3 | `météo lang:fr since:2026-10-15 until:2026-10-19` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-10-15%20until%3A2026-10-19&f=live` |
 | XT4 | `"ligue 1" lang:fr since:2026-10-22 until:2026-10-26` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-10-22%20until%3A2026-10-26&f=live` |
+| XT5 | `météo lang:fr since:2026-10-28 until:2026-11-03` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-10-28%20until%3A2026-11-03&f=live` |
 
 **Pourquoi XT3 et XT4 (ajoutées le 06/11).** XT1 et XT2 n'ont ramené que des posts du jour même : ces sujets produisent tellement de posts qu'on ne remonte pas plus loin en 2 minutes. Or les témoins doivent avoir **le même âge** que les posts du mouvement (X1 et X2 datent des 17 et 24 octobre). Sinon, la comparaison des disparitions (T2) et des vues est faussée. XT3 et XT4 visent donc les mêmes jours que X1 et X2.
 
@@ -161,6 +162,7 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 | 06/11 soir | X | X9 | — | 0 | — | **Aucun résultat.** Personne dans cette recherche n'écrit « compte suspendu » ou « tweet supprimé » à propos de la manif. Ce n'est pas une preuve : la requête est peut-être trop restrictive. |
 | 06/11 soir | X | XT1, XT2 | 1 à 2 min | 100 posts | `zeeschuimer-export-twitter.com-2026-11-06T214653.ndjson` | Tous du 06/11 : âge différent des posts du mouvement, d'où XT3 et XT4. |
 | 06/11 soir | X | XT3, XT4 | 1 à 2 min | 80 posts | `zeeschuimer-export-twitter.com-2026-11-06T214907.ndjson` | Témoins datés comme X1 et X2 (40 posts du 17 au 19 octobre, 40 du 22 au 26 octobre). Il manque encore des témoins pour la période du 27 octobre au 4 novembre, où se trouvent la plupart des posts « revendication » (103 sur 153). |
+| 06/11 soir | X | XT5 | 1 à 2 min | 60 posts | `zeeschuimer-export-twitter.com-2026-11-06T223505.ndjson` | Comble le trou du 27 octobre au 4 novembre. **Bilan X : 616 posts (223 mouvement, 153 revendication, 240 témoins), avec des témoins sur les quatre périodes.** |
 
 ## Recherches ajoutées après coup
 

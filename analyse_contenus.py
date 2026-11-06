@@ -214,6 +214,7 @@ def main():
     ap.add_argument("--resultats", nargs="*", default=["dsa_resultats.csv", "resultats_t6_t7.csv"],
                     help="fichiers de verdicts produits par d'autres scripts (test,plateforme,verdict)")
     ap.add_argument("--out", default="rapport/contenus.md")
+    ap.add_argument("--corpus", default="contenus/corpus.csv", help="pour la période de chaque post (T2 par période)")
     a = ap.parse_args()
     fichiers = sorted({f for m in a.csv for f in (glob.glob(m) or [m])})
     passages, info = lire(fichiers)
@@ -278,6 +279,37 @@ def main():
         if t2[p]["deja"]:
             o.append(f"- {NOMS[p]} : {t2[p]['deja']} post(s) déjà non visibles au premier passage (exclus).")
     o.append("")
+    # T2 par période : taux de disparition comparés à âge égal
+    periodes = {}
+    if os.path.exists(a.corpus):
+        for r in csv.DictReader(open(a.corpus, newline="", encoding="utf-8")):
+            d = r.get("date_post", "")
+            periodes[r["id"]] = ("1. 17-19 oct" if d and d <= "2026-10-19" else "2. 22-26 oct" if d and d <= "2026-10-26"
+                                 else "3. 27 oct-4 nov" if d and d < "2026-11-05" else "4. 5 nov et après" if d else "?")
+    if periodes:
+        o.append("## T2 par période de publication (disparus / suivis)\n")
+        o.append("Comparer à âge égal : un post ancien et un post récent n'ont pas le même risque d'être supprimé.\n")
+        o.append("| réseau | période | mouvement | revendication | témoins |")
+        o.append("|---|---|---|---|---|")
+        tab = collections.defaultdict(lambda: [0, 0])
+        for pid, pv in passages.items():
+            plat, cat, _ = info[pid]
+            cat = "temoin" if cat.startswith("temoin") else cat
+            serie = sorted([x for v in fr for x in pv.get(v, []) if x[1] not in TECHNIQUE], key=lambda x: x[0])
+            if not serie or serie[0][1] != "visible":
+                continue
+            k = (plat, periodes.get(pid, "?"), cat)
+            tab[k][1] += 1
+            if any(x[1] in NON_VISIBLE for x in serie[1:]):
+                tab[k][0] += 1
+        for plat in PLATEFORMES:
+            for per in sorted({k[1] for k in tab if k[0] == plat}):
+                cells = []
+                for cat in ("mouvement", "revendication", "temoin"):
+                    dn = tab.get((plat, per, cat))
+                    cells.append(f"{dn[0]}/{dn[1]}" if dn else "—")
+                o.append(f"| {NOMS[plat]} | {per} | " + " | ".join(cells) + " |")
+        o.append("")
     if t5:
         o.append("## Détail T5 : recherches\n")
         for p in PLATEFORMES:
