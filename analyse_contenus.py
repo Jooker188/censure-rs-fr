@@ -92,7 +92,7 @@ def test1(passages, info, fr, etr):
     res = {p: {"cas": [], "paires": 0, "posts": set(), "tech": collections.Counter()} for p in PLATEFORMES}
     for pid, pv in passages.items():
         plat, cat, url = info[pid]
-        if plat not in res:
+        if plat not in res or cat == "controle":
             continue
         for vf in fr:
             for (t, e, legal, _, _) in pv.get(vf, []):
@@ -120,7 +120,7 @@ def test2(passages, info, fr):
     res = {p: {"mouvement": [0, []], "temoin": [0, []], "deja": 0, "suivis": 0} for p in PLATEFORMES}
     for pid, pv in passages.items():
         plat, cat, url = info[pid]
-        if plat not in res:
+        if plat not in res or cat == "controle":
             continue
         cat = "temoin" if cat.startswith("temoin") else "mouvement"
         serie = sorted([p for v in fr for p in pv.get(v, []) if p[1] not in TECHNIQUE], key=lambda x: x[0])
@@ -279,6 +279,19 @@ def main():
         if t2[p]["deja"]:
             o.append(f"- {NOMS[p]} : {t2[p]['deja']} post(s) déjà non visibles au premier passage (exclus).")
     o.append("")
+    # Contrôles positifs : l'outil voit-il une suppression / une rétention connue ?
+    ctrl = [pid for pid in passages if info[pid][1] == "controle"]
+    o.append("## Contrôles positifs\n")
+    if not ctrl:
+        o.append("Aucun contrôle positif dans le corpus : on ne sait pas encore si l'outil détecte une "
+                 "suppression ou une rétention (voir contenus/PROTOCOLE_T6_T7.md et ajouts_manuels.txt).\n")
+    for pid in sorted(ctrl):
+        plat, _, url = info[pid]
+        for v, lst in sorted(passages[pid].items()):
+            suite = " → ".join(f"{x[0]:%d/%m %H:%M} {x[1]}{' (légal)' if x[2] else ''}" for x in lst)
+            o.append(f"- {NOMS.get(plat, plat)} `{pid}` depuis {v} : {suite}")
+    o.append("")
+
     # T2 par période : taux de disparition comparés à âge égal
     periodes = {}
     if os.path.exists(a.corpus):
@@ -294,6 +307,8 @@ def main():
         tab = collections.defaultdict(lambda: [0, 0])
         for pid, pv in passages.items():
             plat, cat, _ = info[pid]
+            if cat == "controle":
+                continue
             cat = "temoin" if cat.startswith("temoin") else cat
             serie = sorted([x for v in fr for x in pv.get(v, []) if x[1] not in TECHNIQUE], key=lambda x: x[0])
             if not serie or serie[0][1] != "visible":

@@ -176,6 +176,10 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 
 Les posts repérés à la main, par exemple un post qui annonce de la censure ou qui appelle à la contourner, vont dans `ajouts_manuels.txt`, une adresse par ligne. `importer.py` les inclut **toujours** dans le corpus, quel que soit l'échantillon tiré, avec la marque `manuel`.
 
+**Contrôles positifs** (comme `sputnikglobe.com` pour le moniteur réseau) : ils vérifient que l'outil **voit** une suppression ou une rétention. Ils sont traités à part et n'entrent pas dans les statistiques.
+- `https://x.com/TONCOMPTE/status/… controle_suppression` : un tweet de test publié par toi, **supprimé après le premier passage** de `contenus.py`. Attendu : `visible`, puis `supprime_auteur` ou `indisponible`.
+- `https://x.com/RT_com/status/… controle_retenu` : un tweet d'un compte retenu dans l'UE (à ma connaissance, RT et Sputnik depuis 2022). Attendu : `retenu_pays` avec mention légale, depuis la France **et** depuis l'Allemagne (les deux sont dans l'UE).
+
 **Limite de méthode à dire dans la vidéo.** Si le mouvement passe à un vocabulaire codé (morse, hashtags détournés), une collecte par mots-clés en rate une partie. Ce n'est pas de la censure, c'est une limite de la collecte.
 
 ## Pour la vidéo

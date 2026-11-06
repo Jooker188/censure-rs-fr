@@ -13,7 +13,8 @@ capturé (Zeeschuimer garde l'adresse de l'onglet). Règles par défaut :
   temoin         la recherche contient météo, ligue 1…
   mouvement      tout le reste
 Les posts de ajouts_manuels.txt sont toujours inclus (note : revendication,
-a_verifier ou mouvement).
+a_verifier, mouvement, ou controle_suppression / controle_retenu pour les
+contrôles positifs, traités à part dans l'analyse).
 
 Vie privée :
   - le pseudo de l'auteur est remplacé par un code HMAC (clé locale aléatoire,
@@ -296,9 +297,12 @@ def ecrire(posts, manuels, a):
                     c["note"] = "manuel+" + m["note"]
                     if m["note"] in ("revendication", "a_verifier"):
                         c["categorie"] = "revendication"
+                    elif m["note"].startswith("controle"):
+                        c["categorie"] = "controle"
             continue
         corpus.append({"id": f"m{len(corpus) + 1:04d}", "plateforme": m["plateforme"], "url": m["url"],
-                       "categorie": "revendication" if m["note"] in ("revendication", "a_verifier") else "mouvement",
+                       "categorie": "controle" if m["note"].startswith("controle")
+                       else "revendication" if m["note"] in ("revendication", "a_verifier") else "mouvement",
                        "periode": "", "type_compte": "", "date_post": "", "note": "manuel+" + m["note"]})
     with open(os.path.join(DOSSIER, "corpus.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["id", "plateforme", "url", "categorie", "periode", "type_compte", "date_post", "note"])
