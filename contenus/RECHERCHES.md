@@ -1,0 +1,129 @@
+# Recherches utilisées pour collecter les posts
+
+> Ce fichier fixe **les recherches faites, sur quel réseau, quand et comment**. Il sert à reproduire la collecte et à l'expliquer dans la vidéo.
+> Règle : **on ne change pas une recherche en cours de route**. Si on en ajoute une, on la note avec sa date d'ajout.
+
+## Méthode commune
+
+- **Outil** : [Zeeschuimer](https://github.com/digitalmethodsinitiative/zeeschuimer) (extension Firefox des chercheurs de l'université d'Amsterdam). Il enregistre les posts que le navigateur affiche pendant qu'on fait défiler les résultats.
+- **Compte** : mon vrai compte, jamais un faux. ⚠️ Les résultats sont **personnalisés** : un autre compte verrait d'autres posts. C'est un échantillon, pas un comptage de tout ce qui a été publié.
+- **Défilement** : 1 à 2 minutes par recherche.
+- **Export** : en `.ndjson (original)`, un fichier par réseau et par catégorie. Noms de fichiers : `mouvement_x.ndjson`, `temoin_x.ndjson`, `mouvement_tiktok.ndjson`, etc.
+- **Avant chaque catégorie**, on vide les données dans Zeeschuimer. **Après**, on désactive la capture.
+- **Les témoins** sont des recherches neutres, collectées exactement de la même façon, qui servent de point de comparaison.
+- **Les hashtags réels du mouvement** seront affinés à partir des données : `importer.py` listera les hashtags qui reviennent le plus souvent avec ceux de départ. Les nouvelles recherches qui en sortent seront ajoutées en bas, avec leur date.
+
+## Statut des recherches de départ
+
+| recherche | statut | source |
+|---|---|---|
+| `#17octobre` | **vérifié** : environ 800 millions de vues sur TikTok (données Visibrain) | [franceinfo](https://franceinfo.fr/vrai-ou-fake/manifestations-contre-la-vie-chere-des-videos-ont-elles-disparu-des-reseaux-sociaux_8268335.html) |
+| `#24octobre` | **vérifié** : environ 121 millions de vues sur TikTok (données Visibrain) | même source |
+| « égalité réelle » | mot d'ordre de l'acte IV (documenté) ; à tester comme recherche | [Sud Radio](https://www.sudradio.fr/sud-radio/acte-4-des-gilets-jaunes-90-mobilisations-sous-haute-surveillance-ce-samedi-7-novembre) |
+| « tout bloquer » | mot d'ordre de l'appel d'origine (documenté) ; à tester comme recherche | [ICI](https://www.ici.fr/infos/economie-social/prix-des-carburants-sur-tik-tok-des-jeunes-appellent-a-relancer-le-mouvement-des-gilets-jaunes-le-17-octobre-9122130) |
+| « gilets jaunes », `#acte4`, `#acteIV`, `#7novembre` | à tester (aucune source sur un hashtag officiel de l'acte IV) | — |
+
+**⚠️ Bruit connu.** Ces recherches ramènent aussi des posts sans rapport avec le mouvement :
+- `#17octobre` sert aussi à commémorer le **massacre du 17 octobre 1961** ;
+- `#31octobre`, c'est **Halloween** (non utilisé pour cette raison) ;
+- « gilets jaunes » ramène aussi des posts sur le mouvement de 2018.
+
+Les filtres de date limitent ce bruit sur X. Sur TikTok et Instagram, qui n'ont pas de filtre de date, il faudra trier à l'import.
+
+---
+
+## X
+
+Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récent »**, c'est-à-dire l'ordre chronologique.
+
+### Mouvement
+
+| # | requête | adresse |
+|---|---|---|
+| X1 | `#17octobre since:2026-10-15 until:2026-10-19` | `https://x.com/search?q=%2317octobre%20since%3A2026-10-15%20until%3A2026-10-19&f=live` |
+| X2 | `#24octobre since:2026-10-22 until:2026-10-26` | `https://x.com/search?q=%2324octobre%20since%3A2026-10-22%20until%3A2026-10-26&f=live` |
+| X3 | `"gilets jaunes" since:2026-11-01` | `https://x.com/search?q=%22gilets%20jaunes%22%20since%3A2026-11-01&f=live` |
+| X4 | `#acte4 OR #acteIV OR #7novembre` | `https://x.com/search?q=%23acte4%20OR%20%23acteIV%20OR%20%237novembre&f=live` |
+| X5 | `"égalité réelle" since:2026-11-01` | `https://x.com/search?q=%22%C3%A9galit%C3%A9%20r%C3%A9elle%22%20since%3A2026-11-01&f=live` |
+| X6 | `"tout bloquer" OR "bloquons tout" since:2026-11-01` | `https://x.com/search?q=%22tout%20bloquer%22%20OR%20%22bloquons%20tout%22%20since%3A2026-11-01&f=live` |
+
+### Témoins
+
+| # | requête | adresse |
+|---|---|---|
+| XT1 | `météo lang:fr since:2026-10-15` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-10-15&f=live` |
+| XT2 | `"ligue 1" lang:fr since:2026-10-15` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-10-15&f=live` |
+
+---
+
+## TikTok
+
+TikTok n'a pas de filtre de date, et son moteur ne reconnaît pas les opérateurs `OR` ni les guillemets. On fait **une recherche par terme**. Pour chaque hashtag, deux entrées sont possibles : la **page du hashtag** (`/tag/`) ou la **recherche** (`/search`). Commence par la page du hashtag. Si elle n'affiche rien, prends la recherche.
+
+### Mouvement
+
+| # | terme | page du hashtag | recherche |
+|---|---|---|---|
+| T1 | `#17octobre` | `https://www.tiktok.com/tag/17octobre` | `https://www.tiktok.com/search?q=%2317octobre` |
+| T2 | `#24octobre` | `https://www.tiktok.com/tag/24octobre` | `https://www.tiktok.com/search?q=%2324octobre` |
+| T3 | `#giletsjaunes` | `https://www.tiktok.com/tag/giletsjaunes` | `https://www.tiktok.com/search?q=gilets%20jaunes` |
+| T4 | `#acte4` | `https://www.tiktok.com/tag/acte4` | `https://www.tiktok.com/search?q=acte%204` |
+| T5 | `#egalitereelle` | `https://www.tiktok.com/tag/egalitereelle` | `https://www.tiktok.com/search?q=%C3%A9galit%C3%A9%20r%C3%A9elle` |
+| T6 | `#toutbloquer` | `https://www.tiktok.com/tag/toutbloquer` | `https://www.tiktok.com/search?q=tout%20bloquer` |
+
+### Témoins
+
+| # | terme | adresse |
+|---|---|---|
+| TT1 | `#meteo` | `https://www.tiktok.com/tag/meteo` |
+| TT2 | `#ligue1` | `https://www.tiktok.com/tag/ligue1` |
+
+---
+
+## Instagram
+
+Instagram n'a pas de filtre de date. Ses pages de hashtags ont changé de format ces dernières années : essaie d'abord l'adresse de recherche par mot-clé, puis l'ancienne page de hashtag. Zeeschuimer ne capture que les **posts et les Reels**.
+
+### Mouvement
+
+| # | terme | recherche par mot-clé | ancienne page de hashtag |
+|---|---|---|---|
+| I1 | `#17octobre` | `https://www.instagram.com/explore/search/keyword/?q=%2317octobre` | `https://www.instagram.com/explore/tags/17octobre/` |
+| I2 | `#24octobre` | `https://www.instagram.com/explore/search/keyword/?q=%2324octobre` | `https://www.instagram.com/explore/tags/24octobre/` |
+| I3 | `#giletsjaunes` | `https://www.instagram.com/explore/search/keyword/?q=%23giletsjaunes` | `https://www.instagram.com/explore/tags/giletsjaunes/` |
+| I4 | `#acte4` | `https://www.instagram.com/explore/search/keyword/?q=%23acte4` | `https://www.instagram.com/explore/tags/acte4/` |
+| I5 | `#egalitereelle` | `https://www.instagram.com/explore/search/keyword/?q=%23egalitereelle` | `https://www.instagram.com/explore/tags/egalitereelle/` |
+| I6 | `#toutbloquer` | `https://www.instagram.com/explore/search/keyword/?q=%23toutbloquer` | `https://www.instagram.com/explore/tags/toutbloquer/` |
+
+### Témoins
+
+| # | terme | adresse |
+|---|---|---|
+| IT1 | `#meteo` | `https://www.instagram.com/explore/search/keyword/?q=%23meteo` |
+| IT2 | `#ligue1` | `https://www.instagram.com/explore/search/keyword/?q=%23ligue1` |
+
+---
+
+## YouTube
+
+Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé gratuite, et les mêmes termes.
+
+---
+
+## Journal de collecte (à remplir à chaque session)
+
+| date et heure | réseau | n° de recherche | durée de défilement | items (compteur Zeeschuimer) | fichier exporté | remarques (peu de résultats, bruit, blocage…) |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+## Recherches ajoutées après coup
+
+| date d'ajout | réseau | requête | pourquoi (par exemple : hashtag fréquent dans les données) |
+|---|---|---|---|
+| | | | |
+
+## Pour la vidéo
+
+- Montrer ce fichier à l'écran : les recherches ont été **fixées à l'avance**, elles ne sont pas choisies pour arranger le résultat.
+- Le dire clairement : « un échantillon personnalisé par mon compte, pas un comptage de tout ce qui a été publié ».
+- Chiffres à reporter ici après l'import : nombre de posts par réseau et par catégorie, hashtags associés les plus fréquents, part du bruit (par exemple les posts sur 1961).
