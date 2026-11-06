@@ -1,0 +1,5 @@
+ooni/cache/
+__pycache__/
+*.pyc
+mesures_*.csv
+certs_invalides/
