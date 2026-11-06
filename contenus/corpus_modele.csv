@@ -1,0 +1,5 @@
+id,plateforme,url,categorie,periode,type_compte,date_post,note
+m001,x,https://x.com/COMPTE/status/1234567890123456789,mouvement,acte_precedent,media,2026-10-24,exemple à remplacer
+t001,x,https://x.com/COMPTE/status/1234567890123456790,temoin,temoin,media,2026-10-24,même compte que m001 sujet sans lien
+m002,tiktok,https://www.tiktok.com/@compte/video/7400000000000000000,mouvement,aujourdhui,particulier,2026-11-06,exemple à remplacer
+m003,instagram,https://www.instagram.com/reel/ABCDEFGHIJK/,mouvement,appel_futur,organisation,2026-11-06,exemple à remplacer

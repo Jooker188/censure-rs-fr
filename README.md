@@ -19,8 +19,8 @@ Ce dépôt contient trois outils en Python, sans dépendance :
 | forme | exemple | mesurable ici ? |
 |---|---|---|
 | **1. Blocage réseau** | filtrage DNS chez l'opérateur, blocage d'adresses IP, coupure mobile | **oui** : c'est le périmètre de ce projet |
-| **2. Retrait de contenus** | demandes de Pharos, retrait administratif | non. C'est documenté par les textes, pas par des mesures |
-| **3. Déclassement par la plateforme** | portée réduite, « shadowban » | non. Hors périmètre, trop fragile à tester sans faux comptes ni automatisation |
+| **2. Retrait de contenus** | demandes de Pharos, retrait administratif | **en partie** : contenus retenus en France seulement, disparitions de posts suivis, décisions déclarées dans la base européenne DSA (section 3.3) |
+| **3. Déclassement par la plateforme** | portée réduite, « shadowban » | **très partiellement** : déclassements déclarés dans la base DSA, recherches qui ne renvoient rien en France seulement (section 3.3). La portée réelle reste non testable |
 
 ---
 
@@ -81,7 +81,32 @@ Le script recalcule tout à partir des colonnes brutes.
 - **Autres sorties** : changements d'émetteur de certificat (une rotation chez un CDN se voit aussi depuis les autres points de mesure), codes HTTP pour information, trous de mesure et pannes de la connexion de mesure.
 - **Frise** (`rapport/frise.html`) : disponibilité par plateforme et par point de mesure, en heure de Paris, avec les événements de `evenements.csv`. Le détail s'affiche au survol.
 
-### 3.3 Règles d'interprétation
+### 3.3 Retrait de contenus et visibilité (`contenus.py`, `analyse_contenus.py`)
+
+Une liste de posts publics (`contenus/corpus.csv`, non publiée) est constituée à la main. Elle comprend des posts sur le mouvement et des **posts témoins** sans lien avec la politique, idéalement publiés par les mêmes comptes. `contenus.py` vérifie chaque post toutes les 6 heures, **depuis la France (box) et depuis l'Allemagne (VPS)**, uniquement par des accès publics et sans connexion à un compte :
+
+- **X** : oEmbed, plus le widget d'intégration, qui donne le motif quand un post n'est plus visible ;
+- **TikTok** : oEmbed, plus la page publique ;
+- **Instagram** : la page d'intégration publique (expérimental) ;
+- **YouTube** : oEmbed, plus le statut de lecture de la page.
+
+Chaque vérification est classée dans un vocabulaire fermé : `visible`, `supprime_auteur`, `retire_regles`, `compte_suspendu`, `retenu_pays`, `prive`, `indisponible`, ou un échec technique (`anti_robot`, `non_reconnu`, `erreur_reseau`).
+
+Les cinq tests :
+
+| test | forme | question | ce qui établit l'origine |
+|---|---|---|---|
+| **T1** | 2 | Le post est-il visible depuis l'Allemagne mais pas depuis la France, ou affiché avec une mention de demande légale ? | la mention légale affichée par la plateforme ; les demandes publiées sur Lumen |
+| **T2** | 2 | Le post était-il visible, puis ne l'est plus ? Avec quel motif ? Le taux est-il plus élevé que pour les témoins ? | rien de plus que le motif affiché |
+| **T3** | 2 | Combien de décisions de modération concernant la France les plateformes ont-elles déclarées dans la base DSA pendant le mouvement, par rapport aux semaines précédentes ? | déclaration de la plateforme (motif légal ou règles internes) |
+| **T4** | 3 | Même chose pour les décisions de **déclassement** (`DECISION_VISIBILITY_CONTENT_DEMOTED`) | déclaration de la plateforme |
+| **T5** | 3 | Une recherche renvoie-t-elle « aucun résultat » en France seulement ? Relevé manuel, voir `contenus/PROTOCOLE_T5.md` | aucune |
+
+`analyse_contenus.py` produit un tableau test × plateforme. Chaque case vaut **RIEN DÉTECTÉ**, **DÉTECTÉ (n)** (avec les preuves listées), **NON TESTABLE** (avec la raison) ou **À VENIR**.
+
+**Limites propres à ces tests.** Le corpus est petit et dépend de la façon dont on l'a choisi. Les auteurs suppriment aussi leurs posts eux-mêmes. Les méthodes d'accès peuvent cesser de fonctionner du jour au lendemain, et dans ce cas le résultat est « non testable », pas « rien détecté ». Hors mention légale, aucun test ne dit **qui** a demandé un retrait.
+
+### 3.4 Règles d'interprétation
 
 1. **Une différence de DNS n'est pas une preuve.** Les CDN de Meta, TikTok ou X renvoient des adresses différentes selon le résolveur (verdict `ips_differentes`). Ce qui compte : un certificat valide sur l'adresse obtenue veut dire que tout va bien.
 2. **Seuls comptent les motifs répétés**, absents des témoins et cohérents entre plusieurs mesures (autre point de mesure, OONI).
@@ -221,7 +246,7 @@ Le rapport complet est dans [`ooni/rapport_ooni.md`](ooni/rapport_ooni.md), gén
 
 ## 7. Éthique et périmètre
 
-Les mesures sont passives, peu fréquentes (une page publique toutes les 5 minutes environ) et portent sur des sites publics. Le projet n'utilise aucun compte, aucun faux profil, aucune automatisation sur les plateformes et aucun test de portée de contenus. Aucune mesure ne vise une personne. L'adresse IP publique du point de mesure n'est pas enregistrée.
+Les mesures réseau sont passives et peu fréquentes : une page publique toutes les 5 minutes environ, sur des sites publics. Le suivi des contenus automatise des requêtes vers des **accès publics** des plateformes (oEmbed, pages d'intégration, pages publiques), **sans compte**, à raison d'une vérification par post toutes les 6 heures et d'une requête toutes les 2 à 5 secondes. Le projet n'utilise aucun faux profil et aucun test de portée. Il ne publie aucun post. La liste des posts suivis n'est pas publiée ; les résultats sont agrégés, et aucun particulier n'est montré ni nommé. L'adresse IP publique du point de mesure n'est pas enregistrée.
 
 ---
 

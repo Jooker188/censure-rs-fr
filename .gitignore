@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 mesures_*.csv
 certs_invalides/
+contenus/corpus.csv
+corpus.csv
+contenus_*.csv
+recherches.csv
+captures/
