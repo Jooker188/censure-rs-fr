@@ -122,7 +122,15 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 
 | date d'ajout | réseau | requête | pourquoi (par exemple : hashtag fréquent dans les données) |
 |---|---|---|---|
-| | | | |
+| 2026-11-06 | X (X7) | `#RadioLondres since:2026-11-01` → `https://x.com/search?q=%23RadioLondres%20since%3A2026-11-01&f=live` | Vu dans un post qui appelle à détourner ce hashtag pour parler des cortèges et « éviter d'être shadowbanned ». ⚠️ Hashtag ancien, utilisé depuis des années pour d'autres choses (par exemple les soirs d'élection) : beaucoup de bruit. |
+| 2026-11-06 | TikTok, Instagram | `#radiolondres` → `https://www.tiktok.com/tag/radiolondres` ; `https://www.instagram.com/explore/search/keyword/?q=%23radiolondres` | Même raison. |
+| 2026-11-06 | (constat) | `#acte4`, `#7novembre` | Leur usage est confirmé par un post réel (X4 n'est plus une supposition). |
+
+## Ajouts manuels
+
+Les posts repérés à la main, par exemple un post qui annonce de la censure ou qui appelle à la contourner, vont dans `ajouts_manuels.txt`, une adresse par ligne. `importer.py` les inclut **toujours** dans le corpus, quel que soit l'échantillon tiré, avec la marque `manuel`.
+
+**Limite de méthode à dire dans la vidéo.** Si le mouvement passe à un vocabulaire codé (morse, hashtags détournés), une collecte par mots-clés en rate une partie. Ce n'est pas de la censure, c'est une limite de la collecte.
 
 ## Pour la vidéo
 
