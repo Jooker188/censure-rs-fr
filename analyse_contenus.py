@@ -297,7 +297,8 @@ def main():
     if os.path.exists(a.corpus):
         for r in csv.DictReader(open(a.corpus, newline="", encoding="utf-8")):
             d = r.get("date_post", "")
-            periodes[r["id"]] = ("1. 17-19 oct" if d and d <= "2026-10-19" else "2. 22-26 oct" if d and d <= "2026-10-26"
+            periodes[r["id"]] = ("0. avant sept. 2026" if d and d < "2026-09-01" else
+                                 "1. jusqu'au 19 oct" if d and d <= "2026-10-19" else "2. 20-26 oct" if d and d <= "2026-10-26"
                                  else "3. 27 oct-4 nov" if d and d < "2026-11-05" else "4. 5 nov et après" if d else "?")
     if periodes:
         o.append("## T2 par période de publication (disparus / suivis)\n")
