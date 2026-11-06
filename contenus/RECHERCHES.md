@@ -8,7 +8,7 @@
 - **Outil** : [Zeeschuimer](https://github.com/digitalmethodsinitiative/zeeschuimer) (extension Firefox des chercheurs de l'université d'Amsterdam). Il enregistre les posts que le navigateur affiche pendant qu'on fait défiler les résultats.
 - **Compte** : mon vrai compte, jamais un faux. ⚠️ Les résultats sont **personnalisés** : un autre compte verrait d'autres posts. C'est un échantillon, pas un comptage de tout ce qui a été publié.
 - **Défilement** : 1 à 2 minutes par recherche.
-- **Export** : en `.ndjson (original)`, un fichier par réseau et par catégorie. Noms de fichiers : `mouvement_x.ndjson`, `temoin_x.ndjson`, `mouvement_tiktok.ndjson`, etc.
+- **Export** : en `.ndjson (original)`, un fichier par réseau et par catégorie. Noms de fichiers : `mouvement_x.ndjson`, `temoin_x.ndjson`, `revendication_x.ndjson`, `mouvement_tiktok.ndjson`, etc.
 - **Avant chaque catégorie**, on vide les données dans Zeeschuimer. **Après**, on désactive la capture.
 - **Les témoins** sont des recherches neutres, collectées exactement de la même façon, qui servent de point de comparaison.
 - **Les hashtags réels du mouvement** seront affinés à partir des données : `importer.py` listera les hashtags qui reviennent le plus souvent avec ceux de départ. Les nouvelles recherches qui en sortent seront ajoutées en bas, avec leur date.
@@ -109,6 +109,43 @@ Instagram n'a pas de filtre de date. Ses pages de hashtags ont changé de format
 ## YouTube
 
 Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé gratuite, et les mêmes termes.
+
+---
+
+## Catégorie « revendication » : posts qui affirment une censure
+
+**But.** Collecter les posts qui **affirment** une censure : « mes tweets sont censurés », « mon compte a été suspendu », « TikTok est coupé ». Ces posts servent deux fois :
+1. **Documenter la rumeur** : ce qui est affirmé, par qui (type de compte), à quel moment.
+2. **Vérifier les affirmations précises.** Quand un post désigne un compte ou un post précis (« ma vidéo a été supprimée »), on l'ajoute dans `ajouts_manuels.txt` avec la note `a_verifier`. `contenus.py` vérifie alors s'il est vraiment indisponible, depuis la France et depuis l'Allemagne, et avec quel motif.
+
+**À ne pas mélanger.** Ces posts sont exportés **à part** (`revendication_x.ndjson`, etc.), et ne vont ni dans « mouvement » ni dans « témoin ». Leur taux de retrait n'est pas comparable à celui des autres posts.
+
+**Statut.** Une affirmation de censure n'est **pas une preuve** de censure. Dans la vidéo, on les présente comme des affirmations, confrontées aux mesures.
+
+### X (onglet Récent)
+
+| # | requête | adresse |
+|---|---|---|
+| X8 | `(censure OR censuré OR shadowban OR shadowbanned OR "shadow ban") (manif OR "gilets jaunes" OR #acte4 OR #7novembre OR #17octobre OR #24octobre) since:2026-10-15` | `https://x.com/search?q=%28censure%20OR%20censur%C3%A9%20OR%20shadowban%20OR%20shadowbanned%20OR%20%22shadow%20ban%22%29%20%28manif%20OR%20%22gilets%20jaunes%22%20OR%20%23acte4%20OR%20%237novembre%20OR%20%2317octobre%20OR%20%2324octobre%29%20since%3A2026-10-15&f=live` |
+| X9 | `("compte suspendu" OR "compte bloqué" OR "tweet supprimé" OR "vidéo supprimée" OR "post supprimé") (manif OR "gilets jaunes" OR #acte4 OR #7novembre) since:2026-10-15` | `https://x.com/search?q=%28%22compte%20suspendu%22%20OR%20%22compte%20bloqu%C3%A9%22%20OR%20%22tweet%20supprim%C3%A9%22%20OR%20%22vid%C3%A9o%20supprim%C3%A9e%22%20OR%20%22post%20supprim%C3%A9%22%29%20%28manif%20OR%20%22gilets%20jaunes%22%20OR%20%23acte4%20OR%20%237novembre%29%20since%3A2026-10-15&f=live` |
+| X10 | `(TikTok OR Instagram OR Snapchat) (coupé OR coupure OR bloqué OR "ne marche plus") (manif OR "gilets jaunes" OR #acte4 OR #7novembre) since:2026-10-15` | `https://x.com/search?q=%28TikTok%20OR%20Instagram%20OR%20Snapchat%29%20%28coup%C3%A9%20OR%20coupure%20OR%20bloqu%C3%A9%20OR%20%22ne%20marche%20plus%22%29%20%28manif%20OR%20%22gilets%20jaunes%22%20OR%20%23acte4%20OR%20%237novembre%29%20since%3A2026-10-15&f=live` |
+
+### TikTok
+
+| # | terme | adresse |
+|---|---|---|
+| T7 | `censure manif` | `https://www.tiktok.com/search?q=censure%20manif` |
+| T8 | `shadowban gilets jaunes` | `https://www.tiktok.com/search?q=shadowban%20gilets%20jaunes` |
+| T9 | `#censure` | `https://www.tiktok.com/tag/censure` |
+
+### Instagram
+
+| # | terme | adresse |
+|---|---|---|
+| I7 | `#censure` | `https://www.instagram.com/explore/search/keyword/?q=%23censure` |
+| I8 | `#shadowban` | `https://www.instagram.com/explore/search/keyword/?q=%23shadowban` |
+
+⚠️ Sur TikTok et Instagram, `#censure` et `#shadowban` ramènent beaucoup de posts sans lien avec le mouvement (créateurs qui se plaignent de leurs vues, autres pays). Le tri se fait à l'import.
 
 ---
 
