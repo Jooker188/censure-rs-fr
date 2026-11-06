@@ -37,7 +37,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-VERSION = "1.0"
+VERSION = "1.1"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 COLONNES = ["ts_utc", "round_id", "tool_version", "vantage", "loc", "id", "plateforme", "categorie",
@@ -313,27 +313,35 @@ def un_passage(corpus, a, ecrire=True):
     ordre = list(corpus)
     random.shuffle(ordre)
     lignes = []
-    for i, p in enumerate(ordre):
-        try:
-            resultats = VERIFS[p["plateforme"]](p["url"])
-        except Exception as e:  # ne jamais perdre un passage
-            resultats = [res("crash", "", "non_reconnu", repr(e), 0)]
-        for r in resultats:
-            lignes.append({"ts_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                           "round_id": rid, "tool_version": VERSION, "vantage": a.vantage, "loc": loc,
-                           "id": p["id"], "plateforme": p["plateforme"], "categorie": p.get("categorie", ""),
-                           "url": p["url"], **r})
-        if not a.test:
-            print(f"  {i + 1}/{len(ordre)} {p['id']} {p['plateforme']}: "
-                  + ", ".join(f"{r['methode']}={r['etat']}" for r in resultats), file=sys.stderr)
-        time.sleep(random.uniform(2, 5))
-    if ecrire:
+    f = w = None
+    if ecrire:  # écriture au fil de l'eau : une coupure ne fait perdre que le post en cours
         neuf = not os.path.exists(a.out) or os.path.getsize(a.out) == 0
-        with open(a.out, "a", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=COLONNES)
-            if neuf:
-                w.writeheader()
-            w.writerows(lignes)
+        f = open(a.out, "a", newline="", encoding="utf-8")
+        w = csv.DictWriter(f, fieldnames=COLONNES)
+        if neuf:
+            w.writeheader()
+            f.flush()
+    try:
+        for i, p in enumerate(ordre):
+            try:
+                resultats = VERIFS[p["plateforme"]](p["url"])
+            except Exception as e:  # ne jamais perdre un passage
+                resultats = [res("crash", "", "non_reconnu", repr(e), 0)]
+            nouvelles = [{"ts_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                          "round_id": rid, "tool_version": VERSION, "vantage": a.vantage, "loc": loc,
+                          "id": p["id"], "plateforme": p["plateforme"], "categorie": p.get("categorie", ""),
+                          "url": p["url"], **r} for r in resultats]
+            lignes.extend(nouvelles)
+            if w:
+                w.writerows(nouvelles)
+                f.flush()
+            if not a.test:
+                print(f"  {i + 1}/{len(ordre)} {p['id']} {p['plateforme']}: "
+                      + ", ".join(f"{r['methode']}={r['etat']}" for r in resultats), file=sys.stderr)
+            time.sleep(random.uniform(2, 5))
+    finally:
+        if f:
+            f.close()
     return loc, lignes
 
 
