@@ -214,6 +214,7 @@ Le rapport complet est dans [`ooni/rapport_ooni.md`](ooni/rapport_ooni.md), gén
 - Elles ne permettent pas de détecter un **blocage sur IPv6 seulement** : le moniteur teste l'IPv4.
 - Elles ne disent pas si les **applications mobiles** sont bloquées par un domaine non mesuré : la liste des domaines d'application est partielle.
 - Elles ne permettent pas de détecter un blocage **plus court que l'intervalle de mesure** (5 à 10 minutes), ni un blocage pendant un **trou de mesure**.
+- Le point « fixe » de l'auteur utilise un **DNS chiffré (1.1.1.1)** au niveau du système : sa colonne « DNS système » ne reflète pas l'expérience d'un client Bouygues ordinaire. Le filtrage DNS de l'opérateur y est mesuré par l'interrogation directe du résolveur de la box (`isp_rcode`).
 - Elles ne disent rien d'une **demande** de blocage qui n'a pas été appliquée : la lettre du 22 octobre relève des textes, pas des mesures.
 
 ---
