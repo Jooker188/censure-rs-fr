@@ -65,7 +65,11 @@ Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récen
 
 ## TikTok
 
-TikTok n'a pas de filtre de date, et son moteur ne reconnaît pas les opérateurs `OR` ni les guillemets. On fait **une recherche par terme**. Pour chaque hashtag, deux entrées sont possibles : la **page du hashtag** (`/tag/`) ou la **recherche** (`/search`). Commence par la page du hashtag. Si elle n'affiche rien, prends la recherche.
+TikTok n'a pas de filtre de date, et son moteur ne reconnaît pas les opérateurs `OR` ni les guillemets. On fait **une recherche par terme**.
+
+**Règle : la page du hashtag (`/tag/`) en priorité.** Elle ne ramène que les vidéos qui portent ce hashtag, et elle est reproductible. La **recherche** (`/search`, onglet « Vidéos », avec le filtre de date de publication s'il est proposé) ne sert que pour les expressions qui ne sont pas des hashtags, ou si la page du hashtag est vide. Dans ce cas, note-le dans le journal. Zeeschuimer capture les deux types de pages.
+
+**⚠️ Biais propre à TikTok :** aucune des deux pages n'est chronologique. Elles sont triées par popularité et pertinence selon l'algorithme. L'échantillon TikTok est donc fait **plutôt de vidéos populaires**, alors que celui de X suit l'ordre chronologique (« Récent »). Les deux réseaux ne se comparent pas directement.
 
 ### Mouvement
 
