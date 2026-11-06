@@ -16,3 +16,5 @@ contenus/ajouts_manuels.txt
 rapport/
 resultats_*.csv
 dsa_resultats.csv
+.DS_Store
+references_subtitles/
