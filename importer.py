@@ -245,6 +245,7 @@ def importer(fichiers, cle, publics):
             cle_p = (p["plateforme"], p["post_id"])
             if cle_p in posts:  # même post vu par plusieurs recherches
                 posts[cle_p]["recherches"].add(q)
+                posts[cle_p]["capture"] = min(posts[cle_p]["capture"], p["capture"])
                 if cat == "revendication":
                     posts[cle_p]["categorie"] = cat
                 continue
@@ -306,7 +307,9 @@ def ecrire(posts, manuels, a):
         cat = "temoin" if p["categorie"] == "temoin" else p["categorie"]
         corpus.append({"id": f"{p['plateforme']}_{p['post_id']}", "plateforme": p["plateforme"], "url": p["url"],
                        "categorie": cat, "periode": p["periode"], "type_compte": p["type_compte"],
-                       "date_post": p["date"].strftime("%Y-%m-%d") if p["date"] else "", "note": "zeeschuimer"})
+                       "date_post": p["date"].strftime("%Y-%m-%d") if p["date"] else "", "note": "zeeschuimer",
+                       # vu visible à cette heure par Zeeschuimer (depuis la France) : première observation de T2
+                       "vu_le": p["capture"].strftime("%Y-%m-%dT%H:%M:%SZ")})
         vus.add((p["plateforme"], p["post_id"]))
     for m in manuels:
         if (m["plateforme"], m["post_id"]) in vus:
@@ -323,7 +326,7 @@ def ecrire(posts, manuels, a):
                        else "revendication" if m["note"] in ("revendication", "a_verifier") else "mouvement",
                        "periode": "", "type_compte": "", "date_post": "", "note": "manuel+" + m["note"]})
     with open(os.path.join(DOSSIER, "corpus.csv"), "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["id", "plateforme", "url", "categorie", "periode", "type_compte", "date_post", "note"])
+        w = csv.DictWriter(f, fieldnames=["id", "plateforme", "url", "categorie", "periode", "type_compte", "date_post", "note", "vu_le"])
         w.writeheader()
         w.writerows(corpus)
     return corpus

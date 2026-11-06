@@ -115,15 +115,24 @@ def test1(passages, info, fr, etr):
     return res
 
 
-def test2(passages, info, fr):
-    """Disparitions : visible au premier passage testable, puis non visible ensuite (point français)."""
+def serie_fr(pv, fr, vu_le=None):
+    """Observations françaises testables, précédées de la capture Zeeschuimer (visible) si on la connaît."""
+    serie = sorted([p for v in fr for p in pv.get(v, []) if p[1] not in TECHNIQUE], key=lambda x: x[0])
+    if vu_le and (not serie or vu_le < serie[0][0]):
+        serie.insert(0, (vu_le, "visible", False, "FR", []))
+    return serie
+
+
+def test2(passages, info, fr, vus=None):
+    """Disparitions : visible au départ (capture Zeeschuimer ou premier passage), puis non visible (France)."""
+    vus = vus or {}
     res = {p: {"mouvement": [0, []], "temoin": [0, []], "deja": 0, "suivis": 0} for p in PLATEFORMES}
     for pid, pv in passages.items():
         plat, cat, url = info[pid]
         if plat not in res or cat == "controle":
             continue
         cat = "temoin" if cat.startswith("temoin") else "mouvement"
-        serie = sorted([p for v in fr for p in pv.get(v, []) if p[1] not in TECHNIQUE], key=lambda x: x[0])
+        serie = serie_fr(pv, fr, vus.get(pid))
         if not serie:
             continue
         if serie[0][1] != "visible":
@@ -221,7 +230,12 @@ def main():
     if not passages:
         sys.exit("Aucune donnée.")
     fr, etr, loc = points(passages)
-    t1, t2, t5 = test1(passages, info, fr, etr), test2(passages, info, fr), test5(a.recherches)
+    vu_le = {}
+    if os.path.exists(a.corpus):
+        for r in csv.DictReader(open(a.corpus, newline="", encoding="utf-8")):
+            if r.get("vu_le"):
+                vu_le[r["id"]] = dt.datetime.strptime(r["vu_le"], "%Y-%m-%dT%H:%M:%SZ")
+    t1, t2, t5 = test1(passages, info, fr, etr), test2(passages, info, fr, vu_le), test5(a.recherches)
     n_posts = collections.Counter(info[pid][0] for pid in passages)
     for p in PLATEFORMES:
         t1[p]["n_posts"] = t2[p]["n_posts"] = n_posts.get(p, 0)
@@ -317,7 +331,7 @@ def main():
             if cat == "controle":
                 continue
             cat = "temoin" if cat.startswith("temoin") else cat
-            serie = sorted([x for v in fr for x in pv.get(v, []) if x[1] not in TECHNIQUE], key=lambda x: x[0])
+            serie = serie_fr(pv, fr, vu_le.get(pid))
             if not serie or serie[0][1] != "visible":
                 continue
             k = (plat, periodes.get(pid, "?"), cat)
