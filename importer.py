@@ -55,6 +55,7 @@ BRUIT = {
 APPEL = re.compile(r"\bdemain\b|\bsamedi\b|rdv|rendez[- ]vous|\brejoign|\bon se retrouve|\btous [àa]\b|\bappel\b", re.I)
 REVENDICATION_TXT = re.compile(r"censur|shadow ?ban|suspendu|supprim|\bbloqu[ée]e?s?\b|invisibilis|d[ée]class", re.I)
 DEBUT_ACTE_IV = dt.datetime(2026, 11, 5)
+DEBUT_MOUVEMENT = dt.datetime(2026, 9, 1)
 
 
 # ------------------------------------------------------------------ outils
@@ -149,7 +150,7 @@ def parse_x(item):
     }
 
 
-def parse_tiktok(item):  # structure itemStruct de TikTok — à valider sur un export réel
+def parse_tiktok(item):  # structure itemStruct de TikTok — validée sur un export réel du 06/11/2026
     d = item["data"]
     a = d.get("author") or {}
     st = d.get("stats") or d.get("statsV2") or {}
@@ -171,6 +172,10 @@ def parse_tiktok(item):  # structure itemStruct de TikTok — à valider sur un 
         "est_reponse": "", "est_repost": "", "hashtags": " ".join(sorted(t for t in tags if t)),
         "media": "oui", "sensible": "",
         "url": f"https://www.tiktok.com/@{handle}/video/{d.get('id')}",
+        # Indicateurs internes NON DOCUMENTÉS de TikTok : enregistrés tels quels, jamais interprétés seuls.
+        "tiktok_interne": ";".join(f"{k}={(d.get('penaltyContext') or {}).get(k)}" for k in
+                                   ("display_penalty_type", "display_policy", "reviewed", "ec_global_verdict",
+                                    "conclu_refine_reason", "video_status")),
     }
 
 
@@ -201,6 +206,7 @@ PARSEURS = {"twitter.com": parse_x, "x.com": parse_x, "tiktok.com": parse_tiktok
 # ------------------------------------------------------------------ import
 def importer(fichiers, cle, publics):
     posts = {}
+    ecartes = collections.defaultdict(collections.Counter)
     captures = []  # (contexte, compte_visé, post) pour T6/T7
     erreurs = collections.Counter()
     for f in fichiers:
@@ -225,6 +231,17 @@ def importer(fichiers, cle, publics):
             if ctx != "recherche":
                 continue
             cat = categorie_recherche(q)
+            # TikTok/Instagram ajoutent des vidéos « proches » sur les pages de hashtag :
+            # on ne garde que celles qui portent réellement le hashtag recherché.
+            hors_sujet = False
+            if p["plateforme"] in ("tiktok", "instagram") and q.startswith("#"):
+                tag = q[1:].lower()
+                hors_sujet = tag not in p["hashtags"].split() and tag not in (p["texte"] or "").lower().replace(" ", "")
+            # Posts antérieurs au mouvement (appels lancés en septembre 2026) : hors période.
+            ancien = cat != "temoin" and p["date"] is not None and p["date"] < DEBUT_MOUVEMENT
+            if hors_sujet or ancien:
+                ecartes["hors_sujet" if hors_sujet else "anterieur_au_mouvement"][(p["plateforme"], q)] += 1
+                continue
             cle_p = (p["plateforme"], p["post_id"])
             if cle_p in posts:  # même post vu par plusieurs recherches
                 posts[cle_p]["recherches"].add(q)
@@ -243,6 +260,7 @@ def importer(fichiers, cle, publics):
         p["affirme_censure"] = "oui" if REVENDICATION_TXT.search(p["texte"] or "") else ""
         p["periode"] = ("acte_IV" if p["date"] and p["date"] >= DEBUT_ACTE_IV else "acte_precedent") \
             if p["categorie"] != "temoin" else "temoin"
+    erreurs["_ecartes"] = ecartes
     return posts, captures, erreurs
 
 
@@ -270,7 +288,7 @@ def ecrire(posts, manuels, a):
     champs = ["plateforme", "post_id", "categorie", "periode", "recherches", "date", "auteur", "type_compte",
               "abonnes", "verifie", "lang", "vues", "likes", "partages", "reponses", "citations", "est_reponse",
               "est_repost", "media", "sensible", "hashtags", "appel", "affirme_censure", "bruit_1961",
-              "rappel_2018", "texte", "url"]
+              "rappel_2018", "tiktok_interne", "texte", "url"]
     with open(os.path.join(DOSSIER, "posts.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=champs, extrasaction="ignore")
         w.writeheader()
@@ -325,7 +343,7 @@ def comptes_t6(posts, a):
     lignes = []
     for groupe, quota in (("revendication", a.comptes_revendication), ("mouvement", a.comptes_mouvement),
                           ("temoin", a.comptes_temoin)):
-        cands = [(k, v) for k, v in par.items() if groupe in v["cats"]
+        cands = [(k, v) for k, v in par.items() if groupe in v["cats"] and k[0] == "x"
                  and not any(l["handle"] == k[1] for l in lignes)]
         cands.sort(key=lambda kv: -kv[1]["n"])
         for (plat, handle, auteur), v in cands[:quota]:
@@ -348,8 +366,20 @@ def rapport(posts, corpus, comptes, erreurs, a):
          f"Généré le {dt.datetime.now(dt.timezone.utc):%Y-%m-%d %H:%M} UTC par `importer.py`. "
          "Échantillon issu de recherches faites avec un compte réel (résultats personnalisés) : "
          "ce ne sont **pas** des comptages de tout ce qui a été publié.\n"]
+    ecartes = erreurs.pop("_ecartes", {})
     if erreurs:
         o.append(f"Éléments illisibles ignorés : {dict(erreurs)}\n")
+    if ecartes:
+        o.append("## Posts écartés à l'import\n")
+        o.append("- **hors sujet** : vidéo capturée sur une page de hashtag mais qui ne porte pas ce hashtag "
+                 "(TikTok et Instagram ajoutent des vidéos « proches » quand on fait défiler) ;")
+        o.append("- **antérieur au mouvement** : publié avant le 1er septembre 2026.\n")
+        o.append("| motif | réseau | recherche | posts écartés |")
+        o.append("|---|---|---|---|")
+        for motif, c in ecartes.items():
+            for (plat, q), n in sorted(c.items()):
+                o.append(f"| {motif} | {plat} | `{q}` | {n} |")
+        o.append("")
     o.append("## Par réseau et par catégorie\n")
     o.append("| réseau | catégorie | posts | auteurs distincts | période des posts | médiane des vues | part de réponses | bruit « 1961 » | appels à se rassembler |")
     o.append("|---|---|---|---|---|---|---|---|---|")

@@ -88,6 +88,10 @@ TikTok n'a pas de filtre de date, et son moteur ne reconnaît pas les opérateur
 |---|---|---|
 | TT1 | `#meteo` | `https://www.tiktok.com/tag/meteo` |
 | TT2 | `#ligue1` | `https://www.tiktok.com/tag/ligue1` |
+| TT3 | `#recette` | `https://www.tiktok.com/tag/recette` |
+| TT4 | `#foot` | `https://www.tiktok.com/tag/foot` |
+
+**Pourquoi TT3 et TT4 (ajoutées le 06/11).** Le premier export TikTok n'avait que 46 témoins (#meteo seul), presque tous récents, et aucune vidéo à plus d'un million de vues, alors que le mouvement en compte 49. Or certaines mesures dépendent de la popularité (voir le journal). Il faut des témoins **nombreux, populaires et d'âges variés** : sur les pages témoins, fais défiler **3 minutes** au lieu d'une.
 
 ---
 
@@ -158,6 +162,35 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 
 ---
 
+## Collecte de l'acte IV (samedi soir ou dimanche matin)
+
+**Pourquoi.** Le corpus du 06/11 s'arrête aux posts du 6 novembre. Il ne contient **aucun post de l'acte IV**. Une seconde collecte, avec les mêmes recherches limitées au 7 novembre, les ajoute.
+
+### X (onglet Récent)
+
+| # | requête | adresse |
+|---|---|---|
+| X3-IV | `"gilets jaunes" since:2026-11-07` | `https://x.com/search?q=%22gilets%20jaunes%22%20since%3A2026-11-07&f=live` |
+| X4-IV | `#acte4 OR #acteIV OR #7novembre since:2026-11-07` | `https://x.com/search?q=%23acte4%20OR%20%23acteIV%20OR%20%237novembre%20since%3A2026-11-07&f=live` |
+| X6-IV | `"tout bloquer" OR "bloquons tout" since:2026-11-07` | `https://x.com/search?q=%22tout%20bloquer%22%20OR%20%22bloquons%20tout%22%20since%3A2026-11-07&f=live` |
+| X7-IV | `#RadioLondres since:2026-11-07` | `https://x.com/search?q=%23RadioLondres%20since%3A2026-11-07&f=live` |
+| X8-IV | revendication : censure ou shadowban + mouvement, `since:2026-11-07` | `https://x.com/search?q=%28censure%20OR%20censur%C3%A9%20OR%20shadowban%20OR%20shadowbanned%20OR%20%22shadow%20ban%22%29%20%28manif%20OR%20%22gilets%20jaunes%22%20OR%20%23acte4%20OR%20%237novembre%29%20since%3A2026-11-07&f=live` |
+| X10-IV | revendication : « TikTok coupé »… + mouvement, `since:2026-11-07` | `https://x.com/search?q=%28TikTok%20OR%20Instagram%20OR%20Snapchat%29%20%28coup%C3%A9%20OR%20coupure%20OR%20bloqu%C3%A9%20OR%20%22ne%20marche%20plus%22%29%20%28manif%20OR%20%22gilets%20jaunes%22%20OR%20%23acte4%20OR%20%237novembre%29%20since%3A2026-11-07&f=live` |
+| XT6 | témoin : `météo lang:fr since:2026-11-07 until:2026-11-08` | `https://x.com/search?q=m%C3%A9t%C3%A9o%20lang%3Afr%20since%3A2026-11-07%20until%3A2026-11-08&f=live` |
+| XT7 | témoin : `"ligue 1" lang:fr since:2026-11-07 until:2026-11-08` | `https://x.com/search?q=%22ligue%201%22%20lang%3Afr%20since%3A2026-11-07%20until%3A2026-11-08&f=live` |
+
+### TikTok (pages de hashtag, pas de filtre de date)
+
+`#acte4`, `#giletsjaunes`, `#toutbloquer`, plus **`#7novembre`** (`https://www.tiktok.com/tag/7novembre`), et les témoins `#meteo`, `#ligue1`, `#recette` et `#foot`. L'import garde chaque vidéo une seule fois et déduit sa période de sa date de publication.
+
+### Ensuite
+
+1. Lance l'import avec **tous** les exports (06/11 et acte IV) : `python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson`
+2. Copie le nouveau `contenus/corpus.csv` sur le VPS, puis relance `contenus.py` (Ctrl+C, puis la même commande). L'historique continue, puisque les identifiants sont stables.
+3. Les posts de l'acte IV sont ceux qui ont le moins de recul : continue le suivi **au moins deux semaines**.
+
+---
+
 ## Journal de collecte (à remplir à chaque session)
 
 | date et heure | réseau | n° de recherche | durée de défilement | items (compteur Zeeschuimer) | fichier exporté | remarques (peu de résultats, bruit, blocage…) |
@@ -167,6 +200,7 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 | 06/11 soir | X | XT1, XT2 | 1 à 2 min | 100 posts | `zeeschuimer-export-twitter.com-2026-11-06T214653.ndjson` | Tous du 06/11 : âge différent des posts du mouvement, d'où XT3 et XT4. |
 | 06/11 soir | X | XT3, XT4 | 1 à 2 min | 80 posts | `zeeschuimer-export-twitter.com-2026-11-06T214907.ndjson` | Témoins datés comme X1 et X2 (40 posts du 17 au 19 octobre, 40 du 22 au 26 octobre). Il manque encore des témoins pour la période du 27 octobre au 4 novembre, où se trouvent la plupart des posts « revendication » (103 sur 153). |
 | 06/11 soir | X | XT5 | 1 à 2 min | 60 posts | `zeeschuimer-export-twitter.com-2026-11-06T223505.ndjson` | Comble le trou du 27 octobre au 4 novembre. **Bilan X : 616 posts (223 mouvement, 153 revendication, 240 témoins), avec des témoins sur les quatre périodes.** |
+| 06/11 23 h | TikTok | T1, T2, T3, T4, T6, TT1 (pages de hashtag) ; recherche `#17octobre` en complément | 1 à 2 min | 528 (521 uniques) | `zeeschuimer-export-tiktok.com-2026-11-06T233210.ndjson` | **230 vidéos hors sujet écartées** (sur la page d'un hashtag, TikTok ajoute des vidéos qui ne le portent pas : 72/118 pour #giletsjaunes, 53/58 pour #toutbloquer) et 10 antérieures au mouvement. Restent **227 vidéos du mouvement** et **46 témoins**, trop peu et mal répartis dans le temps (d'où TT3 et TT4). Non faits : T5, #radiolondres, TT2. |
 
 ## Recherches ajoutées après coup
 
