@@ -8,3 +8,11 @@ corpus.csv
 contenus_*.csv
 recherches.csv
 captures/
+contenus/posts.csv
+contenus/comptes_t6.csv
+contenus/.cle_pseudonyme
+contenus/ajouts_manuels.txt
+*.ndjson
+rapport/
+resultats_*.csv
+dsa_resultats.csv

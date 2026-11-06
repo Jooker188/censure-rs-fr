@@ -211,7 +211,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("csv", nargs="+")
     ap.add_argument("--recherches", default="recherches.csv")
-    ap.add_argument("--dsa", default="dsa_resultats.csv")
+    ap.add_argument("--resultats", nargs="*", default=["dsa_resultats.csv", "resultats_t6_t7.csv"],
+                    help="fichiers de verdicts produits par d'autres scripts (test,plateforme,verdict)")
     ap.add_argument("--out", default="rapport/contenus.md")
     a = ap.parse_args()
     fichiers = sorted({f for m in a.csv for f in (glob.glob(m) or [m])})
@@ -224,9 +225,10 @@ def main():
     for p in PLATEFORMES:
         t1[p]["n_posts"] = t2[p]["n_posts"] = n_posts.get(p, 0)
     dsa = {}
-    if os.path.exists(a.dsa):
-        for r in csv.DictReader(open(a.dsa, newline="", encoding="utf-8")):
-            dsa[(r["test"], r["plateforme"])] = r["verdict"]
+    for fr_ in a.resultats:
+        if os.path.exists(fr_):
+            for r in csv.DictReader(open(fr_, newline="", encoding="utf-8")):
+                dsa[(r["test"], r["plateforme"])] = r["verdict"]
 
     o = ["# Retrait de contenus et visibilité : verdicts par test et par plateforme\n",
          f"Points de mesure : France = {', '.join(fr) or 'aucun'} ; étranger = {', '.join(etr) or 'aucun'} "
@@ -243,6 +245,14 @@ def main():
              + " | ".join(dsa.get(("T4", p), "À VENIR (base DSA)") for p in PLATEFORMES) + " |")
     o.append("| **T5** Recherches : aucun résultat en France seulement | 3 | "
              + " | ".join(case_t5(t5[p] if t5 else None) for p in PLATEFORMES) + " |")
+    defaut6 = {"x": "À VENIR (session comptes)", "tiktok": "NON TESTABLE (pas de recherche par auteur fiable)",
+               "instagram": "NON TESTABLE (pas de recherche par auteur fiable)", "youtube": "NON TESTABLE (hors périmètre)"}
+    o.append("| **T6** Comptes absents de la recherche « from: » (search ban) | 3 | "
+             + " | ".join(dsa.get(("T6", p), defaut6[p]) for p in PLATEFORMES) + " |")
+    defaut7 = {"x": "À VENIR (session comptes)", "tiktok": "À VENIR (profils à capturer)",
+               "instagram": "NON TESTABLE (vues non publiques pour les posts)", "youtube": "NON TESTABLE (hors périmètre)"}
+    o.append("| **T7** Posts sur le mouvement moins vus que les autres posts du même compte | 3 | "
+             + " | ".join(dsa.get(("T7", p), defaut7[p]) for p in PLATEFORMES) + " |")
     o.append("")
     o.append("**Lecture.** DÉTECTÉ décrit ce que la plateforme affiche, ou ce qui diffère entre pays. "
              "L'origine (demande de l'État ou décision de la plateforme) n'est établie **que** par une mention "

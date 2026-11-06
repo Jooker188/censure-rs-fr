@@ -101,6 +101,10 @@ Les cinq tests :
 | **T3** | 2 | Combien de décisions de modération concernant la France les plateformes ont-elles déclarées dans la base DSA pendant le mouvement, par rapport aux semaines précédentes ? | déclaration de la plateforme (motif légal ou règles internes) |
 | **T4** | 3 | Même chose pour les décisions de **déclassement** (`DECISION_VISIBILITY_CONTENT_DEMOTED`) | déclaration de la plateforme |
 | **T5** | 3 | Une recherche renvoie-t-elle « aucun résultat » en France seulement ? Relevé manuel, voir `contenus/PROTOCOLE_T5.md` | aucune |
+| **T6** | 3 | Les posts d'un compte existent-ils sur son profil mais sont-ils absents de la recherche « from:compte » (search ban) ? Voir `contenus/PROTOCOLE_T6_T7.md` | aucune |
+| **T7** | 3 | Pour un même compte, les posts sur le mouvement sont-ils moins vus que ses autres posts ? (test du signe sur l'ensemble des comptes) | aucune |
+
+**Collecte des posts.** Les posts suivis ne sont pas choisis à la main. Ils sont collectés avec [Zeeschuimer](https://github.com/digitalmethodsinitiative/zeeschuimer), l'extension Firefox des chercheurs de l'université d'Amsterdam, à partir de recherches fixées à l'avance (`contenus/RECHERCHES.md`). `importer.py` transforme ensuite les exports en corpus : catégorie déduite de la recherche (mouvement, revendication, témoin), pseudonymisation des auteurs dès l'import par un code HMAC à clé locale, suppression des doublons, et chiffres agrégés dans `rapport/collecte.md`. `comptes.py` calcule T6 et T7 à partir d'une session Zeeschuimer sur les profils.
 
 `analyse_contenus.py` produit un tableau test × plateforme. Chaque case vaut **RIEN DÉTECTÉ**, **DÉTECTÉ (n)** (avec les preuves listées), **NON TESTABLE** (avec la raison) ou **À VENIR**.
 
