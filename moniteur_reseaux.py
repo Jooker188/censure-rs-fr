@@ -181,6 +181,8 @@ def dns_doh(name, timeout=6.0):
 
 
 def resolveur_systeme():
+    """Résolveur utilisé par la machine : /etc/resolv.conf (Linux, macOS),
+    sinon serveur par défaut annoncé par nslookup (Windows)."""
     try:
         with open("/etc/resolv.conf", encoding="utf-8") as f:
             for line in f:
@@ -189,7 +191,37 @@ def resolveur_systeme():
                     return p[1]
     except OSError:
         pass
+    try:
+        import re
+        import subprocess
+        out = subprocess.run(["nslookup", "a.root-servers.net"], capture_output=True,
+                             text=True, timeout=15, errors="replace").stdout
+        # 1re adresse du bloc « Serveur / Address » (avant la réponse)
+        bloc = out.split("\n\n")[0]
+        m = re.search(r"(\d{1,3}(?:\.\d{1,3}){3})", bloc) or re.search(r"Address(?:es)?:\s*([0-9a-fA-F:]+)", bloc)
+        if m:
+            return m.group(1)
+    except Exception:
+        pass
     return ""
+
+
+def empecher_veille():
+    """Empêche la mise en veille tant que le script tourne (sans droits admin).
+    Ne résiste pas à la fermeture du capot d'un portable."""
+    try:
+        if sys.platform == "win32":
+            import ctypes
+            # ES_CONTINUOUS | ES_SYSTEM_REQUIRED
+            ctypes.windll.kernel32.SetThreadExecutionState(0x80000000 | 0x00000001)
+            return "SetThreadExecutionState"
+        if sys.platform == "darwin":
+            import subprocess
+            subprocess.Popen(["caffeinate", "-i", "-w", str(os.getpid())])
+            return "caffeinate"
+    except Exception as e:
+        return "échec:" + repr(e)
+    return "non géré (Linux : systemd-inhibit si besoin)"
 
 
 # ------------------------------------------------------------- utilitaires
@@ -197,7 +229,9 @@ def classe_err(e):
     if e is None:
         return ""
     if isinstance(e, socket.gaierror):
-        return {socket.EAI_NONAME: "gai_noname", socket.EAI_AGAIN: "gai_again"}.get(e.errno, f"gai_{e.errno}")
+        codes = {getattr(socket, "EAI_NONAME", -2): "gai_noname", getattr(socket, "EAI_AGAIN", -3): "gai_again",
+                 11001: "gai_noname", 11002: "gai_again"}  # 1100x : codes Windows (WSA)
+        return codes.get(e.errno, f"gai_{e.errno}")
     if isinstance(e, ssl.SSLCertVerificationError):
         return "cert_invalide:" + (e.verify_message or "").replace(" ", "_")
     if isinstance(e, ssl.SSLError):
@@ -520,6 +554,7 @@ def main():
     if a.once:
         afficher(un_tour(ctx, cibles))
         return
+    print("anti-veille :", empecher_veille(), file=sys.stderr)
     while True:
         t0 = time.time()
         try:
