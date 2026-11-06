@@ -20,7 +20,8 @@ Une requête toutes les 2 à 5 secondes, un passage toutes les 6 h par défaut.
 Bibliothèque standard uniquement, Python >= 3.9.
 
   python3 contenus.py --corpus corpus.csv --vantage fixe --test
-  python3 contenus.py --corpus corpus.csv --vantage vps
+  python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800   # en continu (VPS)
+  python3 contenus.py --corpus corpus.csv --vantage fixe --une-fois         # un passage (Mac)
 """
 import argparse
 import csv
@@ -37,7 +38,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-VERSION = "1.1"
+VERSION = "1.2"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 COLONNES = ["ts_utc", "round_id", "tool_version", "vantage", "loc", "id", "plateforme", "categorie",
@@ -353,6 +354,8 @@ def main():
     ap.add_argument("--interval", type=int, default=21600, help="secondes entre deux passages (défaut 6 h)")
     ap.add_argument("--test", action="store_true",
                     help="diagnostic : 2 posts par plateforme, affichage détaillé, rien n'est écrit")
+    ap.add_argument("--une-fois", action="store_true",
+                    help="un seul passage complet, écrit dans le CSV, puis s'arrête (point de mesure intermittent)")
     a = ap.parse_args()
     a.out = a.out or f"contenus_{a.vantage}.csv"
     corpus = lire_corpus(a.corpus)
@@ -378,6 +381,9 @@ def main():
         t0 = time.time()
         print(f"{dt.datetime.now():%Y-%m-%d %H:%M} passage sur {len(corpus)} posts…", file=sys.stderr)
         loc, lignes = un_passage(corpus, a)
+        if a.une_fois:
+            print(f"terminé (loc={loc}, {len(lignes)} lignes). Passage unique : arrêt.", file=sys.stderr)
+            return
         print(f"terminé (loc={loc}, {len(lignes)} lignes). Prochain passage dans {a.interval // 3600} h.", file=sys.stderr)
         time.sleep(max(60, a.interval * random.uniform(0.95, 1.05) - (time.time() - t0)))
 
