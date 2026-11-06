@@ -28,13 +28,15 @@
 - `#31octobre`, c'est **Halloween** (non utilisé pour cette raison) ;
 - « gilets jaunes » ramène aussi des posts sur le mouvement de 2018.
 
-Les filtres de date limitent ce bruit sur X. Sur TikTok et Instagram, qui n'ont pas de filtre de date, il faudra trier à l'import.
+Les filtres de date **ne suppriment pas** le bruit de `#17octobre`, puisque la commémoration de 1961 a lieu les mêmes jours. Ce tri se fait à l'import, d'après les autres mots du post (« 1961 », « Algériens »…). Sur TikTok et Instagram, qui n'ont pas de filtre de date, tout le tri se fait à l'import.
 
 ---
 
 ## X
 
-Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récent »**, c'est-à-dire l'ordre chronologique.
+Sur X, les filtres de date marchent. `f=live` correspond à l'onglet **« Récent »**, qui affiche **les posts les plus récents d'abord**.
+
+**Pourquoi `until:` seulement pour X1 et X2.** Ces deux recherches visent des actes **passés**. Sans `until:`, « Récent » afficherait d'abord les posts d'aujourd'hui qui reparlent du 17 octobre, et il faudrait faire défiler trois semaines de posts pour atteindre ceux du jour même. Le `until:` place la recherche sur les jours de l'acte. On veut ces posts anciens pour vérifier s'ils sont toujours en ligne. Les recherches X3 à X6 suivent l'actualité : elles n'ont qu'un `since:` et restent ouvertes jusqu'à aujourd'hui.
 
 ### Mouvement
 
