@@ -5,6 +5,14 @@
 
 ---
 
+## ⚑ Décision du 07/11 : mode minimal jusqu'à lundi
+
+On garde **uniquement ce qui tourne tout seul** : le moniteur réseau sur la tour et sur le VPS, et le suivi des contenus sur le VPS (T2, T8, T9). Plus les analyses que Claude fait de son côté : OONI public, base DSA (T3, T4).
+**Non réalisés :** T1 (sauf si le proxy est lancé sur le VPS, 5 min, facultatif), T5, T6, T7, et la collecte des posts de l'acte IV. Dans la vidéo, on les présente comme « non testés », avec la raison : temps et effort disponibles, un seul week-end.
+**À faire :** dimanche soir, envoyer les `mesures_*.csv` de la tour (puis l'éteindre) ; lundi, récupérer sur le VPS `contenus_vps.csv`, `tiktok_metriques_vps.csv` et `mesures_vps.csv`, et les envoyer.
+
+---
+
 ## 1. Vue d'ensemble : les 3 formes de censure
 
 | forme | question | tests | état |
