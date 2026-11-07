@@ -224,18 +224,23 @@ def main():
                     help="fichiers de verdicts produits par d'autres scripts (test,plateforme,verdict)")
     ap.add_argument("--out", default="rapport/contenus.md")
     ap.add_argument("--corpus", default="contenus/corpus.csv", help="pour la période de chaque post (T2 par période)")
+    ap.add_argument("--france", help="T1 : points comptés comme France, séparés par des virgules (ex. fixe)")
+    ap.add_argument("--etranger", help="T1 : points comptés comme étranger (ex. etranger)")
     a = ap.parse_args()
     fichiers = sorted({f for m in a.csv for f in (glob.glob(m) or [m])})
     passages, info = lire(fichiers)
     if not passages:
         sys.exit("Aucune donnée.")
     fr, etr, loc = points(passages)
+    # T1 : on peut imposer les points « France » et « étranger » (pays d'un VPS incertain, par exemple)
+    fr_t1 = a.france.split(",") if a.france else fr
+    etr_t1 = a.etranger.split(",") if a.etranger else etr
     vu_le = {}
     if os.path.exists(a.corpus):
         for r in csv.DictReader(open(a.corpus, newline="", encoding="utf-8")):
             if r.get("vu_le"):
                 vu_le[r["id"]] = dt.datetime.strptime(r["vu_le"], "%Y-%m-%dT%H:%M:%SZ")
-    t1, t2, t5 = test1(passages, info, fr, etr), test2(passages, info, fr, vu_le), test5(a.recherches)
+    t1, t2, t5 = test1(passages, info, fr_t1, etr_t1), test2(passages, info, fr, vu_le), test5(a.recherches)
     n_posts = collections.Counter(info[pid][0] for pid in passages)
     for p in PLATEFORMES:
         t1[p]["n_posts"] = t2[p]["n_posts"] = n_posts.get(p, 0)
@@ -247,7 +252,8 @@ def main():
 
     o = ["# Retrait de contenus et visibilité : verdicts par test et par plateforme\n",
          f"Points de mesure : France = {', '.join(fr) or 'aucun'} ; étranger = {', '.join(etr) or 'aucun'} "
-         f"(localisation vue par Cloudflare : " + "; ".join(f"{v} → {dict(c)}" for v, c in loc.items()) + ").\n",
+         f"(localisation vue par Cloudflare : " + "; ".join(f"{v} → {dict(c)}" for v, c in loc.items()) + "). "
+         f"Pour T1 : France = {', '.join(fr_t1) or 'aucun'} ; étranger = {', '.join(etr_t1) or 'aucun'}.\n",
          "| test | forme | " + " | ".join(NOMS[p] for p in PLATEFORMES) + " |",
          "|---|---|" + "---|" * len(PLATEFORMES)]
     o.append("| **T1** Retenu en France (visible à l'étranger, pas en France) | 2 | "
