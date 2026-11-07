@@ -5,6 +5,45 @@
 
 ---
 
+## ★ PROGRAMME : samedi 7, dimanche 8, lundi 9 novembre
+
+> Avant chaque lancement du collecteur : **Firefox habituel fermé**, Mac branché, capot ouvert. Toutes les commandes se lancent dans le dossier du dépôt, après `git pull`.
+
+### Samedi 7 (acte IV)
+
+| heure | quoi | comment | durée |
+|---|---|---|---|
+| 13 h 30, 15 h 30, 17 h 30, 20 h | **OONI** (forme 1, mobile) | iPhone en 4G, Wi-Fi coupé, sur **les 2 SIM** : carte « Sites web » (17 adresses) puis carte « Messageries instantanées ». Noter les heures dans `video/JOURNAL_DE_BORD.md` | 5 min chaque fois |
+| vers 15 h | **T6, session 2 (« pendant »)** sur X | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x` | 1 min, puis environ 50 min tout seul |
+| soir, après les rassemblements | **collecte de l'acte IV, X** | `caffeinate -i python3 collecteur.py --plan acte4 --cookies-firefox --plateformes x` | 1 min, puis environ 15 min tout seul |
+| soir | **collecte de l'acte IV, TikTok** (recommandé) | Zeeschuimer dans ton Firefox, pages `/tag/` : acte4, 7novembre, 6novembre, 5novembre, giletsjaunes, toutbloquer, manif, manifestation, revolution, puis les témoins meteo, ligue1, recette, foot (environ 1 min chacune). Export en `.ndjson` | 15 min |
+| soir, ensuite | **import** (et ajout des 15 créateurs TikTok, **une seule fois**) | `python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson --ajouter-tiktok 15` | 1 min |
+| soir, ensuite | **mise à jour du VPS** | `scp contenus/corpus.csv smeshr-deploy@IP_DU_VPS:~/`, puis sur le VPS, pour `contenus`, `t1fr` et `t1us` : `tmux attach -t NOM`, Ctrl+C, flèche du haut, Entrée, Ctrl+B puis D | 5 min |
+
+### Dimanche 8
+
+| quand | quoi | comment | durée |
+|---|---|---|---|
+| quand tu veux | **analyse de T6, session 2** | `python3 comptes.py exports/collecteur-t6-DATE_SAMEDI.ndjson`, puis m'envoyer les lignes T6 et T7 | 2 min |
+| quand tu veux | **vérifier que le VPS tourne** | `ps -eo args \| grep -E "[m]oniteur_reseaux.py\|[c]ontenus.py"` : 4 lignes attendues | 1 min |
+| soir | **arrêter la tour Windows** | m'envoyer d'abord ses fichiers `mesures_*.csv`, puis fermer la fenêtre et éteindre | 5 min |
+
+### Lundi 9
+
+| quand | quoi | comment | durée |
+|---|---|---|---|
+| soir | **T6/T7, session 3 (« après »), X** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x --defilements 12` | 1 min, puis environ 1 h tout seul |
+| soir | **T7 TikTok** | page de liens (30 créateurs du mouvement, commande dans la conversation), Zeeschuimer, 30 s par profil, export en `exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 15 min |
+| soir | **analyse de T6/T7, session 3** | `python3 comptes.py exports/collecteur-t6-DATE_LUNDI.ndjson exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 2 min |
+| soir | **récupérer les données du VPS et me les envoyer** | `scp smeshr-deploy@IP_DU_VPS:'~/contenus_*.csv ~/tiktok_metriques_vps.csv ~/mesures_vps.csv' .` | 2 min |
+| — | **laisser le VPS tourner** encore environ 2 semaines (T1, T2, T8, T9) | rien à faire | 0 |
+
+### Ce que Claude fait de son côté (dimanche et lundi)
+
+OONI public des 6 et 7 novembre ; base DSA (T3, T4) ; analyse du moniteur réseau et frise (`analyse.py`) ; T1, T2, T8 et T9 avec les données du VPS ; tableau final des verdicts ; mise à jour des séquences 7 à 10 du script.
+
+---
+
 ## ⚑ Décision du 07/11 : mode minimal jusqu'à lundi
 
 On garde **uniquement ce qui tourne tout seul** : le moniteur réseau sur la tour et sur le VPS, et le suivi des contenus sur le VPS (T2, T8, T9). Plus les analyses que Claude fait de son côté : OONI public, base DSA (T3, T4).
