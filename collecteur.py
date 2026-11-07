@@ -252,7 +252,7 @@ def main():
                          "dans le navigateur piloté ; nécessite minet et « python3 -m playwright install firefox »")
     ap.add_argument("--max-comptes", type=int, default=100)
     ap.add_argument("--plateformes", default="x,tiktok",
-                    help="plan t6 : plateformes à visiter (ex. « x » : les profils TikTok refusent le navigateur piloté)")
+                    help="plateformes à visiter, pour les deux plans (ex. « x » : TikTok refuse le navigateur piloté)")
     ap.add_argument("--defilements", type=int, help="nombre de défilements par page (défaut : 12 pour acte4, 6 pour t6)")
     a = ap.parse_args()
     if a.cookies_firefox and not a.plan:
@@ -294,7 +294,11 @@ def main():
         nom = os.path.join(SORTIE, f"collecteur-{a.plan}-{dt.datetime.now():%Y-%m-%dT%H%M}.ndjson")
         capture = Capture(nom)
         page.on("response", capture.sur_reponse)
-        urls = PLAN_ACTE4 if a.plan == "acte4" else plan_t6(a.max_comptes, a.plateformes.split(","))
+        plateformes = a.plateformes.split(",")
+        if a.plan == "acte4":
+            urls = [u for u in PLAN_ACTE4 if ("tiktok" if "tiktok.com" in u else "x") in plateformes]
+        else:
+            urls = plan_t6(a.max_comptes, plateformes)
         defil = a.defilements or (12 if a.plan == "acte4" else 6)
         print(f"Plan {a.plan} : {len(urls)} pages, {defil} défilements maximum par page → {nom}", file=sys.stderr)
         journal = []
