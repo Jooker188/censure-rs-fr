@@ -12,6 +12,9 @@ Ce dépôt contient trois outils en Python, sans dépendance :
 - **`analyse.py`** détecte les anomalies et dessine une frise ;
 - **`ooni_verif.py`** interroge les mesures publiques d'[OONI](https://ooni.org).
 
+
+> **Pour savoir où en est le projet et quoi faire ensuite : [`TABLEAU_DE_BORD.md`](TABLEAU_DE_BORD.md).**
+
 ---
 
 ## 1. Trois formes de « censure » à ne pas confondre
