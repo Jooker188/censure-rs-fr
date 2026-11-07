@@ -55,7 +55,16 @@ def charger(fichiers):
     profils = collections.defaultdict(dict)    # handle -> {post_id: post}
     recherches = collections.defaultdict(dict)  # handle -> {post_id: post}
     captures_profil = collections.Counter()
+    visitees = None      # recherches « from: » réellement ouvertes, d'après le journal du collecteur
+    derniere = dt.datetime.min
     for f in fichiers:
+        journal = re.sub(r"\.ndjson$", "", f) + ".visites.csv"
+        if os.path.exists(journal):
+            visitees = visitees or set()
+            for v in csv.DictReader(open(journal, newline="", encoding="utf-8")):
+                m = re.search(r"from(?::|%3A)@?(\w+)", v["url"], re.I)
+                if m:
+                    visitees.add(("x", m.group(1).lower()))
         for ligne in open(f, encoding="utf-8"):
             if not ligne.strip():
                 continue
@@ -73,6 +82,7 @@ def charger(fichiers):
             ctx, cible = importer.contexte_capture(src)
             p["capture"] = dt.datetime.fromtimestamp(item.get("timestamp_collected", 0) / 1000,
                                                       dt.timezone.utc).replace(tzinfo=None)
+            derniere = max(derniere, p["capture"])
             cible = cible.lstrip("@")
             if ctx == "profil":
                 captures_profil[(p["plateforme"], cible)] += 1
@@ -82,14 +92,22 @@ def charger(fichiers):
                 m = re.fullmatch(r"\s*from:@?(\w+)\s*", importer.requete_de(src), re.I)
                 if m and p["handle"] == m.group(1).lower():
                     recherches[("x", m.group(1).lower())][p["post_id"]] = p
-    return profils, recherches, captures_profil, cle
+    return profils, recherches, captures_profil, cle, visitees, derniere
 
 
-def t6(handle, prof, rech):
+def t6(handle, prof, rech, visitee=None, derniere=None):
+    """visitee : True/False si le journal du collecteur dit si la recherche a été ouverte,
+    None sinon (session manuelle ou ancien collecteur)."""
     originaux = [p for p in prof.values() if not p["est_reponse"] and p["date"]]
     if not originaux:
         return "non_verifie", "aucun post original capturé sur le profil", 0, 0
     capt = max(p["capture"] for p in prof.values())
+    if not rech:
+        # Recherche vide : était-elle vraiment ouverte, ou la session s'est-elle arrêtée avant ?
+        if visitee is False:
+            return "non_verifie", "recherche jamais ouverte (session interrompue)", 0, 0
+        if visitee is None and derniere is not None and capt >= derniere - dt.timedelta(seconds=90):
+            return "non_verifie", "dernier compte de la session : recherche peut-être jamais ouverte", 0, 0
     if rech:
         borne = min(p["date"] for p in rech.values() if p["date"])
     else:
@@ -123,7 +141,7 @@ def main():
     ap.add_argument("--comptes", default=os.path.join(importer.DOSSIER, "comptes_t6.csv"))
     a = ap.parse_args()
     fichiers = sorted({f for m in a.ndjson for f in (glob.glob(m) or [m])})
-    profils, recherches, captures_profil, cle = charger(fichiers)
+    profils, recherches, captures_profil, cle, visitees, derniere = charger(fichiers)
     liste = list(csv.DictReader(open(a.comptes, newline="", encoding="utf-8")))
     groupes = {(l.get("plateforme") or "x", l["handle"]): l for l in liste}
 
@@ -131,7 +149,9 @@ def main():
     for (plat, handle), l in groupes.items():
         prof, rech = profils.get((plat, handle), {}), recherches.get((plat, handle), {})
         if plat == "x":
-            etat, detail, n_fen, n_abs = t6(handle, prof, rech) if (prof or rech) else ("non_verifie", "compte non visité", 0, 0)
+            visitee = None if visitees is None else (plat, handle) in visitees
+            etat, detail, n_fen, n_abs = t6(handle, prof, rech, visitee, derniere) if (prof or rech) \
+                else ("non_verifie", "compte non visité", 0, 0)
         else:
             etat, detail = "sans_objet", "T6 non testable sur TikTok"
         r, n_mv, n_aut = t7(prof)

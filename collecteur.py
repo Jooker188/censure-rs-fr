@@ -41,6 +41,7 @@ import datetime as dt
 import json
 import os
 import random
+import re
 import sys
 import time
 import urllib.parse
@@ -127,6 +128,10 @@ def videos_de(obj):
 class Capture:
     def __init__(self, chemin):
         self.f = open(chemin, "a", encoding="utf-8")
+        # Journal des pages réellement ouvertes : distingue « recherche vide » et « recherche jamais ouverte »
+        self.journal = open(re.sub(r"\.ndjson$", "", chemin) + ".visites.csv", "a", encoding="utf-8")
+        if self.journal.tell() == 0:
+            self.journal.write("ts_utc,url,posts,alerte\n")
         self.vus = set()
         self.n_page = 0
         self.page_url = ""
@@ -215,6 +220,8 @@ def visiter(page, capture, url, defilements, journal):
             and capture.n_page == 0:
         alerte = "vérification ou limite affichée : à regarder dans la fenêtre"
     journal.append((url, capture.n_page, alerte))
+    capture.journal.write(f"{dt.datetime.now(dt.timezone.utc):%Y-%m-%dT%H:%M:%SZ},{url},{capture.n_page},{alerte}\n")
+    capture.journal.flush()
     print(f"  {capture.n_page:4d} posts  {urllib.parse.unquote(url)[:110]} {alerte}", file=sys.stderr)
 
 
