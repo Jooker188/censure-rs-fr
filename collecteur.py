@@ -18,6 +18,13 @@ Première fois :
   python3 -m playwright install chromium
   python3 collecteur.py --connexion        # ouvre le navigateur : connecte-toi à X et TikTok, puis Entrée
 
+Si la connexion échoue dans le navigateur piloté (X et TikTok repèrent souvent
+Playwright au moment du login), reprendre la session de ton Firefox habituel,
+déjà connecté, au lieu de te connecter :
+  pip install minet
+  python3 -m playwright install firefox
+  python3 collecteur.py --plan t6 --cookies-firefox
+
 Ensuite :
   python3 collecteur.py --plan acte4
   python3 collecteur.py --plan t6
@@ -149,6 +156,34 @@ class Capture:
             pass  # réponse non JSON ou interrompue : on ignore
 
 
+# ------------------------------------------------------------------ session Firefox
+def cookies_firefox(domaine, url):
+    """Cookies de ta session Firefox pour un site, lus localement avec « minet cookies firefox ».
+    Ils ne sont ni affichés ni écrits sur le disque : ils passent directement au navigateur piloté."""
+    import subprocess
+    try:
+        sortie = subprocess.run(["minet", "cookies", "firefox", "--url", url], capture_output=True,
+                                text=True, timeout=60).stdout.strip()
+    except FileNotFoundError:
+        sys.exit("Minet manque pour lire les cookies de Firefox : pip install minet")
+    return analyser_cookies(sortie, domaine)
+
+
+def analyser_cookies(entete, domaine):
+    """« nom=valeur; nom2=valeur2 » → cookies au format Playwright pour le domaine donné."""
+    cookies = []
+    if not entete:
+        return cookies
+    for morceau in entete.splitlines()[-1].split(";"):
+        if "=" not in morceau:
+            continue
+        nom, valeur = morceau.strip().split("=", 1)
+        if nom:
+            cookies.append({"name": nom, "value": valeur, "domain": "." + domaine, "path": "/",
+                            "secure": True, "sameSite": "Lax"})
+    return cookies
+
+
 # ------------------------------------------------------------------ navigation
 def pause(a, b):
     time.sleep(random.uniform(a, b))
@@ -204,19 +239,39 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--plan", choices=["acte4", "t6"])
     ap.add_argument("--connexion", action="store_true", help="ouvre le navigateur pour te connecter, une seule fois")
+    ap.add_argument("--cookies-firefox", action="store_true",
+                    help="reprend la session de ton Firefox (déjà connecté à X et TikTok) au lieu de se connecter "
+                         "dans le navigateur piloté ; nécessite minet et « python3 -m playwright install firefox »")
     ap.add_argument("--max-comptes", type=int, default=100)
     ap.add_argument("--defilements", type=int, help="nombre de défilements par page (défaut : 12 pour acte4, 6 pour t6)")
     a = ap.parse_args()
+    if a.cookies_firefox and not a.plan:
+        sys.exit("Avec --cookies-firefox, indique un plan : --plan t6 ou --plan acte4")
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         sys.exit("Playwright manque : pip install playwright && python3 -m playwright install chromium")
 
     with sync_playwright() as p:
-        ctx = p.chromium.launch_persistent_context(PROFIL, headless=False, locale="fr-FR",
-                                                   viewport={"width": 1280, "height": 900})
-        page = ctx.pages[0] if ctx.pages else ctx.new_page()
-        if a.connexion or not a.plan:
+        if a.cookies_firefox:
+            # Session reprise de ton Firefox habituel : aucune connexion dans le navigateur piloté.
+            navigateur = p.firefox.launch(headless=False)
+            ctx = navigateur.new_context(locale="fr-FR", viewport={"width": 1280, "height": 900})
+            total = 0
+            for domaine, url in (("x.com", "https://x.com"), ("tiktok.com", "https://www.tiktok.com")):
+                cookies = cookies_firefox(domaine, url)
+                if cookies:
+                    ctx.add_cookies(cookies)
+                total += len(cookies)
+                print(f"  {len(cookies)} cookie(s) de session repris pour {domaine}", file=sys.stderr)
+            if total == 0:
+                sys.exit("Aucun cookie trouvé : es-tu connecté à X et TikTok dans Firefox ?")
+            page = ctx.new_page()
+        else:
+            ctx = p.chromium.launch_persistent_context(PROFIL, headless=False, locale="fr-FR",
+                                                       viewport={"width": 1280, "height": 900})
+            page = ctx.pages[0] if ctx.pages else ctx.new_page()
+        if not a.cookies_firefox and (a.connexion or not a.plan):
             page.goto("https://x.com/login")
             input("Connecte-toi à X dans la fenêtre, puis à TikTok (onglet suivant), puis appuie sur Entrée ici… ")
             t = ctx.new_page()
