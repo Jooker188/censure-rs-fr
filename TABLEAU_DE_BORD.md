@@ -17,11 +17,11 @@
 
 ## 2. Ce qui tourne tout seul (à ne pas arrêter)
 
-| où | quoi | commande lancée | session | ❓ à confirmer |
+| où | quoi | commande lancée | session | état |
 |---|---|---|---|---|
-| **VPS** | moniteur réseau (forme 1) | `python3 moniteur_reseaux.py --vantage vps --fai "Contabo …"` | `tmux attach -t sonde` | qu'il tourne toujours |
-| **VPS** | suivi des contenus X + TikTok (T2, T8, T9) | `python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800` | `tmux attach -t contenus` | qu'il a été relancé avec la **v1.4 ou plus** et le corpus de **981 posts** (X + TikTok) |
-| **Tour Windows** | moniteur réseau sur la box Bouygues (forme 1) | `lancer_windows.bat` | fenêtre ouverte | qu'elle tourne toujours (pas de veille) |
+| **VPS** | moniteur réseau (forme 1) | `python3 moniteur_reseaux.py --vantage vps --fai "Contabo …"` | `tmux attach -t sonde` | ✅ confirmé le 07/11 |
+| **VPS** | suivi des contenus X + TikTok (T2, T8, T9) | `python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800` | `tmux attach -t contenus` | ✅ confirmé le 07/11 (v1.4+, 981 posts) |
+| **Tour Windows** | moniteur réseau sur la box Bouygues (forme 1) | `lancer_windows.bat` | fenêtre ouverte | ✅ confirmé le 07/11 |
 
 **Ton VPS :** il est enregistré en Allemagne (whois DE), mais les bases de géolocalisation le placent à Lauterbourg, en France. On ne sait donc pas quel pays les plateformes lui attribuent. Il sert pour tout **sauf T1**.
 
@@ -107,7 +107,7 @@ python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv 
 | test | question | outil | où | état | ce qu'on sait déjà |
 |---|---|---|---|---|---|
 | **T1** | visible depuis l'étranger, retenu en France ? | `contenus.py` | **Mac sans proxy (France) + Mac avec proxy (États-Unis)** | 🕒 à démarrer samedi | Le contrôle RT est vu « retenu » depuis la France : la détection fonctionne. ❓ Il doit être visible depuis les États-Unis. |
-| **T2** | un post disparaît-il, avec quel motif, plus souvent que les témoins ? | `contenus.py` | VPS (en continu) + Mac | 🔄 | Premier passage : mouvement, 2 posts indisponibles et 1 supprimé par son auteur ; témoins, 2 comptes suspendus. Rien d'anormal. ❓ Tweet de test **supprimé** ? |
+| **T2** | un post disparaît-il, avec quel motif, plus souvent que les témoins ? | `contenus.py` | VPS (en continu) + Mac | 🔄 | Premier passage : mouvement, 2 posts indisponibles et 1 supprimé par son auteur ; témoins, 2 comptes suspendus. Rien d'anormal. ✅ Tweet de test supprimé : le prochain passage doit le voir disparaître. |
 | **T3** | décisions de modération déclarées (base DSA) | à écrire | — | 🧑‍💻 | — |
 
 ### Forme 3 : réduire la visibilité
