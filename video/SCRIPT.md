@@ -274,19 +274,52 @@
 
 ---
 
-## Séquence 9 : Ce que je ne peux pas mesurer (19:30 – 21:30)
+## Séquence 9 : Le shadowban, et ce que je ne peux pas mesurer (19:30 – 23:30)
 
 🎥 Retour du schéma en trois colonnes ; les colonnes 2 et 3 reprennent leur couleur.
 
+**9a. Supprimer des contenus (forme 2), en bref**
+
 🎙️
-> Bon. Couper l'accès, on a mesuré. Mais je vous ai promis de parler des deux autres formes.
->
-> **Supprimer des contenus.** Ça, ça ne se mesure pas avec une sonde réseau : le site marche, c'est une vidéo qui disparaît. Ce qui existe, ce sont des textes. L'amendement voté au Sénat organise justement ce retrait sans juge. Que vous trouviez ça nécessaire ou liberticide, c'est un débat politique. Moi, je constate que c'est écrit, voté en première lecture, et pas encore en vigueur.
-> [À COMPLÉTER, facultatif : ce que montrent la base de transparence européenne (DSA) ou les rapports des plateformes sur les demandes du gouvernement français, avec leurs limites. Ces rapports ne sortent que tous les six mois.]
->
-> **Le shadowban.** C'est sans doute la question que beaucoup d'entre vous se posent. « Ma vidéo sur la manif a fait trois fois moins de vues, c'est la preuve. » Le problème, c'est qu'une vidéo peut faire moins de vues pour mille raisons : l'algorithme, l'actualité, une tendance qui s'essouffle, la modération normale de la plateforme sur les contenus violents.
-> Pour le prouver, il faudrait créer des comptes, publier des contenus tests, automatiser des mesures. C'est contraire aux règles des plateformes, et je me suis interdit de le faire. Et même si on prouvait qu'un contenu est moins montré, on ne saurait pas si c'est la plateforme qui l'a décidé seule ou si quelqu'un le lui a demandé.
-> Donc le shadowban d'État, c'est **non testable** de l'extérieur. Personne ne peut affirmer honnêtement qu'il existe, ni qu'il n'existe pas, sans les données internes des plateformes.
+> Supprimer des contenus, d'abord. J'ai suivi [RÉSULTAT : nombre] posts sur le mouvement, et autant de posts sans rapport, pendant [RÉSULTAT : durée]. [RÉSULTAT : T2, disparitions, motifs, comparaison avec les témoins.] [RÉSULTAT : T1, retenus en France seulement, ou pas.]
+> Et côté textes : l'amendement voté au Sénat organise le retrait sans juge. Voté en première lecture, pas encore en vigueur. [À COMPLÉTER : T3, ce que déclarent les plateformes dans la base européenne.]
+
+**9b. Le shadowban (forme 3)**
+
+🎥 Le tweet « les stats sont anormalement basses… je pense que la date est censurée », pseudo flouté.
+
+🎙️
+> Et puis il y a ce que beaucoup d'entre vous pensent : le shadowban. « Ma vidéo sur la manif a fait trois fois moins de vues, c'est la preuve. »
+> Le problème, c'est qu'une vidéo peut faire moins de vues pour mille raisons. Et je me suis interdit de créer de faux comptes pour tester. Alors j'ai découpé la question en morceaux qu'on peut vraiment vérifier.
+
+🎥 Liste des questions qui s'affiche : traitée à part ? / ça change pendant l'acte IV ? / moins diffusée ? / que déclarent les plateformes ? / cachée dans la recherche ?
+
+🎙️ **Expérience 1 : le marquage `reviewed` de TikTok**
+> Quand vous ouvrez TikTok, votre navigateur reçoit plus d'informations que ce qui s'affiche. Parmi elles, des indicateurs internes que TikTok ne documente pas. L'un d'eux s'appelle `reviewed`, « examiné ».
+
+🎥 Capture des données reçues par le navigateur, avec le champ `reviewed` surligné. Puis le tableau.
+
+> Premier chiffre : les vidéos marquées « examinées » ont en médiane 1,6 million de vues, contre 43 000 pour les autres. Suspect ?
+> Non, c'est le piège : plus une vidéo est vue, plus elle a de chances d'être examinée. Alors comparons à popularité égale, avec des vidéos de recettes et de foot aussi populaires.
+> Et là, il reste une vraie différence. Au-dessus d'un million de vues, 39 % des vidéos du mouvement sont marquées, contre 19 % pour les autres. Ce n'est pas du hasard.
+> Mais voilà ce que ça ne prouve pas. Un : personne ne sait ce que veut dire « examiné », TikTok ne le documente pas. Deux : la modération ordinaire suffit à l'expliquer, parce que les vidéos d'actualité et de manifestation, avec parfois des images violentes, sont plus signalées et plus vérifiées que des recettes. Trois : rien n'indique qui a demandé quoi.
+> Une différence réelle, ce n'est pas une preuve de censure. C'est exactement là qu'il faut s'arrêter.
+
+🎙️ **Expérience 2 : est-ce que ça change pendant l'acte IV ? (T8)**
+> J'ai ensuite surveillé ces indicateurs sur [RÉSULTAT : nombre] vidéos, toutes les trois heures, pendant et après l'acte IV. [RÉSULTAT : T8, changements mouvement contre témoins.]
+
+🎙️ **Expérience 3 : les courbes de vues (T9)**
+🎥 Graphique : croissance des vues, mouvement contre témoins de même popularité et de même âge.
+> Si une vidéo est mise de côté, elle reste en ligne mais cesse de gagner des vues. J'ai comparé les courbes à popularité et âge égaux. [RÉSULTAT : T9.]
+
+🎙️ **Ce que déclarent les plateformes (T4)**
+> Depuis le règlement européen DSA, les plateformes doivent déclarer leurs décisions de « contenu déclassé » dans une base publique. [À COMPLÉTER : T4, nombre de décisions pour la France pendant le mouvement, comparé aux semaines d'avant.] Limite : ce sont leurs propres déclarations.
+
+🎙️ **Ce que je n'ai pas pu tester**
+> Je n'ai pas testé si des comptes X étaient cachés dans la recherche, faute de temps ce week-end [ou RÉSULTAT T6/T7 si fait dimanche]. Je n'ai pas mesuré la portée réelle avec des comptes tests, je me l'étais interdit. Et surtout, aucune de ces expériences ne dit **qui** décide.
+
+🎙️ **Le verdict**
+> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. [RÉSULTAT : ce qui a été observé ou non avec T8, T9 et T4.] Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
 
 🎥 Changement de ton. Images d'archives de la Nouvelle-Calédonie en 2024 (droits à vérifier).
 
@@ -294,11 +327,11 @@
 > Et si vous vous demandez pourquoi je me suis donné autant de mal pour mesurer un truc qui, peut-être, ne s'est pas produit : parce que ça s'est déjà produit. En mai 2024, en Nouvelle-Calédonie, pendant les émeutes, le gouvernement a coupé TikTok. Et le Conseil d'État a jugé cette coupure illégale [À COMPLÉTER : date exacte de la décision].
 > Couper un réseau, ce n'est pas un scénario de science-fiction. C'est un outil qui existe, qui a déjà servi, et qui a été préparé le mois dernier. Alors savoir le voir, ça me semble utile, que vous soyez pour ou contre le mouvement.
 
-📝 Mécanique empruntée à Seb : le changement de ton. Reste factuel : le précédent suffit, inutile de dramatiser.
+📝 Le passage sur `reviewed` est le moment « VAR » de la forme 3 : le chiffre brut, puis le piège, puis la vraie différence, puis ses limites. Garde le rythme en trois temps. Les pseudos sont toujours floutés, et aucun compte de particulier n'est montré.
 
 ---
 
-## Séquence 10 : Verdicts et fin (21:30 – 23:30) ⏳
+## Séquence 10 : Verdicts et fin (23:30 – 25:30) ⏳
 
 🎥 Le tableau final, ligne par ligne.
 

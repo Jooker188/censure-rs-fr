@@ -11,7 +11,7 @@
 
 - **Titre de travail.** « J'ai mesuré si le gouvernement coupe les réseaux sociaux ». Ce titre tient quel que soit le résultat.
 - **Titres à éviter.** Tout titre qui annonce une conclusion avant les données, comme « Le gouvernement censure TikTok » ou « La censure est prouvée ».
-- **Durée cible.** 20 à 25 minutes.
+- **Durée cible.** 22 à 26 minutes.
 - **Public.** Des gens curieux, sans bagage technique, venant des deux bords politiques. La vidéo doit rester crédible pour quelqu'un qui croit à la censure comme pour quelqu'un qui n'y croit pas.
 
 ## 2. Ce que le spectateur doit retenir
@@ -71,8 +71,8 @@ Légende des statuts : ✅ prêt · ✏️ texte à relire ou tester · ⏳ dép
 | 6 | Le piège et la VAR | 13:00 – 14:45 | retournement et critères | ✏️ 🖼️ | exemple réel tiré de tes données (panne ou `ips_differentes`) |
 | 7 | Le passé : 24 et 31 octobre | 14:45 – 16:45 | résultats OONI | ✅ 🖼️ | captures d'OONI Explorer et du rapport |
 | 8 | L'acte IV en direct | 16:45 – 19:30 | frise et VAR par plateforme | ⏳ | `analyse.py` sur les CSV ; `ooni_verif.py` sur les 6 et 7 novembre |
-| 9 | Ce que je ne peux pas mesurer | 19:30 – 21:30 | contenus, shadowban, pourquoi ça compte | ✏️ | DSA (facultatif) |
-| 10 | Verdicts et fin | 21:30 – 23:30 | tableau final et appel à participer | ⏳ | verdicts de la séquence 8 |
+| 9 | Contenus et shadowban | 19:30 – 23:30 | forme 2 en bref, puis forme 3 en trois expériences (`reviewed`, T8, T9) et la base DSA (T4), puis pourquoi ça compte | ✏️ ⏳ | résultats T1, T2, T8, T9, T3, T4 ; capture du champ `reviewed` ; graphique des courbes de vues |
+| 10 | Verdicts et fin | 23:30 – 25:30 | tableau final et appel à participer | ⏳ | verdicts de la séquence 8 |
 
 ## 6. Ce qui dépend des données de l'acte IV
 
