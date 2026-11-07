@@ -25,8 +25,25 @@ On garde **uniquement ce qui tourne tout seul** : le moniteur réseau sur la tou
 
 ## 2. Ce qui tourne tout seul (à ne pas arrêter)
 
-| où | quoi | commande lancée | session | état |
-|---|---|---|---|---|
+**5 programmes en tout : 1 sur la tour Windows, 4 sur le VPS.**
+
+| # | où | nom de la session | ce qu'il mesure | forme | commande de lancement (dans la session) |
+|---|---|---|---|---|---|
+| 1 | tour Windows | fenêtre `lancer_windows.bat` | blocage réseau sur la box Bouygues | 1 | double-clic sur `lancer_windows.bat` |
+| 2 | VPS | `sonde` | blocage réseau depuis le serveur | 1 | `python3 moniteur_reseaux.py --vantage vps --fai "Contabo"` |
+| 3 | VPS | `contenus` | posts X et TikTok qui disparaissent ; indicateurs TikTok (T2, T8, T9) | 2 et 3 | `python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800` |
+| 4 | VPS | `t1fr` | les mêmes posts, vus depuis la France via le proxy (T1) | 2 | `. ~/.proxy_fr && python3 contenus.py --corpus corpus.csv --vantage fr_resid --leger --interval 43200` |
+| 5 | VPS | `t1us` | les mêmes posts, vus depuis les États-Unis via le proxy (T1) | 2 | `. ~/.proxy_us && python3 contenus.py --corpus corpus.csv --vantage us_resid --leger --interval 43200` |
+
+**Vérifier d'un coup que les 4 programmes du VPS tournent** (sur le VPS, hors de tmux) :
+```bash
+ps -eo args | grep -E "[m]oniteur_reseaux.py|[c]ontenus.py"
+```
+→ 4 lignes attendues (`--vantage vps` deux fois, `fr_resid`, `us_resid`). S'il en manque une : `tmux attach -t NOM`, colle la commande de la ligne correspondante, puis **Ctrl+B puis D** pour ressortir sans l'arrêter.
+
+**Ton VPS :** il est enregistré en Allemagne (whois DE), mais les bases de géolocalisation le placent à Lauterbourg, en France. On ne sait donc pas quel pays les plateformes lui attribuent. C'est pour ça que T1 passe par les proxies `t1fr` et `t1us`.
+
+---|---|---|---|---|
 | **VPS** | moniteur réseau (forme 1) | `python3 moniteur_reseaux.py --vantage vps --fai "Contabo …"` | `tmux attach -t sonde` | ✅ confirmé le 07/11 |
 | **VPS** | suivi des contenus X + TikTok (T2, T8, T9) | `python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800` | `tmux attach -t contenus` | ✅ confirmé le 07/11 (v1.4+, 981 posts) |
 | **Tour Windows** | moniteur réseau sur la box Bouygues (forme 1) | `lancer_windows.bat` | fenêtre ouverte | ✅ confirmé le 07/11 |
