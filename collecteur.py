@@ -204,13 +204,28 @@ def visiter(page, capture, url, defilements, journal):
         return
     pause(4, 7)
     sans_nouveau = 0
-    for _ in range(defilements):
+    # Souris au centre de la colonne principale : sans ça, la molette peut agir sur une zone
+    # qui ne défile pas (X ne charge alors que le premier lot de 20 posts).
+    try:
+        page.mouse.move(640 + random.randint(-40, 40), 500 + random.randint(-40, 40))
+    except Exception:
+        pass
+    for i in range(defilements):
         avant = capture.n_page
-        page.mouse.wheel(0, random.randint(1800, 2600))
+        try:
+            page.mouse.wheel(0, random.randint(1800, 2600))
+            pause(0.8, 1.5)
+            # Deuxième geste, comme un humain qui va en bas de la page : déclenche le lot suivant.
+            if i % 2:
+                page.keyboard.press("End")
+            else:
+                page.evaluate("window.scrollTo(0, document.documentElement.scrollHeight)")
+        except Exception:
+            pass
         pause(2.5, 5)
         if capture.n_page == avant:
             sans_nouveau += 1
-            if sans_nouveau >= 3:
+            if sans_nouveau >= 4:
                 break
         else:
             sans_nouveau = 0
