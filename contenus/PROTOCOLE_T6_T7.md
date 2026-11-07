@@ -1,4 +1,6 @@
-# T6 et T7 : session « comptes » sur X (avec Zeeschuimer)
+# T6 et T7 : session « comptes » (X pour T6 et T7, TikTok pour T7)
+
+> **Version automatique (recommandée)** : `caffeinate -i python3 collecteur.py --plan t6`, puis `python3 comptes.py exports/collecteur-t6-DATE.ndjson`. Le collecteur visite les 40 comptes X (profil + recherche `from:`) et les 25 créateurs TikTok (profil seulement), soit environ 1 h. La version manuelle ci-dessous reste valable.
 
 **Question.** Les comptes qui parlent du mouvement, et surtout ceux qui disent être censurés, sont-ils :
 - **T6** : absents de la recherche, alors que leurs posts existent sur leur profil (« search ban ») ?

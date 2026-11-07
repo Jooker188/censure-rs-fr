@@ -375,6 +375,14 @@ def comptes_t6(posts, a):
                            "profil": f"https://x.com/{handle}",
                            "recherche": "https://x.com/search?q=" + urllib.parse.quote(f"from:{handle}", safe="") + "&f=live",
                            "fait": ""})
+    # TikTok : T7 seulement (pas de recherche par auteur fiable pour T6) — on visite le profil
+    for groupe, quota in (("mouvement", a.comptes_tiktok_mouvement), ("temoin", a.comptes_tiktok_temoin)):
+        cands = [(k, v) for k, v in par.items() if groupe in v["cats"] and k[0] == "tiktok" and k[1]]
+        cands.sort(key=lambda kv: (-kv[1]["n"], -(kv[1]["abonnes"] or 0)))
+        for (plat, handle, auteur), v in cands[:quota]:
+            lignes.append({"groupe": groupe, "plateforme": plat, "auteur": auteur, "handle": handle,
+                           "abonnes": v["abonnes"], "posts_collectes": v["n"],
+                           "profil": f"https://www.tiktok.com/@{handle}", "recherche": "", "fait": ""})
     with open(os.path.join(DOSSIER, "comptes_t6.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(lignes[0].keys()) if lignes else ["groupe"])
         w.writeheader()
@@ -452,6 +460,8 @@ def main():
     ap.add_argument("--comptes-revendication", type=int, default=15)
     ap.add_argument("--comptes-mouvement", type=int, default=15)
     ap.add_argument("--comptes-temoin", type=int, default=10)
+    ap.add_argument("--comptes-tiktok-mouvement", type=int, default=15)
+    ap.add_argument("--comptes-tiktok-temoin", type=int, default=10)
     a = ap.parse_args()
     fichiers = sorted({f for m in a.ndjson for f in (glob.glob(m) or [m])})
     cle = cle_pseudo()

@@ -9,8 +9,9 @@ comptes.py le lisent sans changement.
 Plans :
   acte4   recherches de l'acte IV (X et TikTok), section « Collecte de l'acte IV »
           de contenus/RECHERCHES.md, plus les témoins
-  t6      session T6/T7 : pour chaque compte de contenus/comptes_t6.csv, le profil
-          puis la recherche « from:compte » (onglet Récent)
+  t6      session T6/T7 : pour chaque compte X de contenus/comptes_t6.csv, le profil
+          puis la recherche « from:compte » (onglet Récent) ; pour chaque créateur
+          TikTok, le profil seulement (T7)
 
 Première fois :
   pip install playwright
@@ -19,7 +20,7 @@ Première fois :
 
 Ensuite :
   python3 collecteur.py --plan acte4
-  python3 collecteur.py --plan t6 --max-comptes 40
+  python3 collecteur.py --plan t6
 
 ⚠️ C'est de l'automatisation avec ton compte : contraire aux conditions
 d'utilisation de X et TikTok, avec un risque de restriction du compte.
@@ -195,7 +196,7 @@ def plan_t6(max_comptes):
                 ordre.append(par[g].pop(0))
     urls = []
     for l in ordre:
-        urls += [l["profil"], l["recherche"]]
+        urls += [l["profil"]] + ([l["recherche"]] if l.get("recherche") else [])
     return urls
 
 
@@ -203,7 +204,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--plan", choices=["acte4", "t6"])
     ap.add_argument("--connexion", action="store_true", help="ouvre le navigateur pour te connecter, une seule fois")
-    ap.add_argument("--max-comptes", type=int, default=40)
+    ap.add_argument("--max-comptes", type=int, default=100)
     ap.add_argument("--defilements", type=int, help="nombre de défilements par page (défaut : 12 pour acte4, 6 pour t6)")
     a = ap.parse_args()
     try:

@@ -62,9 +62,9 @@ def charger(fichiers):
             try:
                 import json
                 item = json.loads(ligne)
-                if item["source_platform"] not in ("twitter.com", "x.com"):
+                if item["source_platform"] not in importer.PARSEURS:
                     continue
-                p = importer.parse_x(item)
+                p = importer.PARSEURS[item["source_platform"]](item)
             except Exception:
                 continue
             if not p:
@@ -73,14 +73,15 @@ def charger(fichiers):
             ctx, cible = importer.contexte_capture(src)
             p["capture"] = dt.datetime.fromtimestamp(item.get("timestamp_collected", 0) / 1000,
                                                       dt.timezone.utc).replace(tzinfo=None)
+            cible = cible.lstrip("@")
             if ctx == "profil":
-                captures_profil[cible] += 1
+                captures_profil[(p["plateforme"], cible)] += 1
                 if p["handle"] == cible and not p["est_repost"]:
-                    profils[cible][p["post_id"]] = p
-            elif ctx == "recherche":
+                    profils[(p["plateforme"], cible)][p["post_id"]] = p
+            elif ctx == "recherche" and p["plateforme"] == "x":
                 m = re.fullmatch(r"\s*from:@?(\w+)\s*", importer.requete_de(src), re.I)
                 if m and p["handle"] == m.group(1).lower():
-                    recherches[m.group(1).lower()][p["post_id"]] = p
+                    recherches[("x", m.group(1).lower())][p["post_id"]] = p
     return profils, recherches, captures_profil, cle
 
 
@@ -124,16 +125,18 @@ def main():
     fichiers = sorted({f for m in a.ndjson for f in (glob.glob(m) or [m])})
     profils, recherches, captures_profil, cle = charger(fichiers)
     liste = list(csv.DictReader(open(a.comptes, newline="", encoding="utf-8")))
-    groupes = {l["handle"]: l for l in liste}
+    groupes = {(l.get("plateforme") or "x", l["handle"]): l for l in liste}
 
     res = []
-    for handle, l in groupes.items():
-        prof, rech = profils.get(handle, {}), recherches.get(handle, {})
-        etat, detail, n_fen, n_abs = t6(handle, prof, rech) if (prof or rech) else ("non_verifie", "compte non visité", 0, 0)
+    for (plat, handle), l in groupes.items():
+        prof, rech = profils.get((plat, handle), {}), recherches.get((plat, handle), {})
+        if plat == "x":
+            etat, detail, n_fen, n_abs = t6(handle, prof, rech) if (prof or rech) else ("non_verifie", "compte non visité", 0, 0)
+        else:
+            etat, detail = "sans_objet", "T6 non testable sur TikTok"
         r, n_mv, n_aut = t7(prof)
-        res.append({"groupe": l["groupe"], "auteur": l["auteur"], "t6": etat, "t6_detail": detail,
-                    "t7_ratio": r, "t7_n_mouvement": n_mv, "t7_n_autres": n_aut,
-                    "recherche_visitee": handle in recherches or bool(rech)})
+        res.append({"plateforme": plat, "groupe": l["groupe"], "auteur": l["auteur"], "t6": etat, "t6_detail": detail,
+                    "t7_ratio": r, "t7_n_mouvement": n_mv, "t7_n_autres": n_aut})
 
     o = ["# Visibilité des comptes (T6 et T7) : résultats agrégés\n",
          f"Généré le {dt.datetime.now(dt.timezone.utc):%Y-%m-%d %H:%M} UTC. Comptes désignés par un code ; "
@@ -142,8 +145,9 @@ def main():
          "| groupe | comptes vérifiés | présents | absents de la recherche | partiellement absents | non vérifiés |",
          "|---|---|---|---|---|---|"]
     verdicts = []
+    res_x = [x for x in res if x["plateforme"] == "x"]
     par_g = collections.defaultdict(collections.Counter)
-    for x in res:
+    for x in res_x:
         par_g[x["groupe"]][x["t6"]] += 1
     for g, c in sorted(par_g.items()):
         verif = c["present"] + c["absent"] + c["partiel"]
@@ -161,37 +165,47 @@ def main():
     verdicts.append({"test": "T6", "plateforme": "x", "verdict": v6})
     o.append(f"\n**Verdict T6 (X)** : {v6}\n")
     o.append("Détail par compte :\n")
-    for x in sorted(res, key=lambda x: (x["groupe"], x["t6"])):
+    for x in sorted(res_x, key=lambda x: (x["groupe"], x["t6"])):
         o.append(f"- `{x['auteur']}` ({x['groupe']}) : {x['t6']} — {x['t6_detail']}")
-    o.append("")
+    o.append("\nT6 n'est pas testable sur TikTok : sa recherche ne permet pas de lister les vidéos d'un compte, "
+             "et ses pages de hashtag sont triées par popularité.\n")
 
     o.append("## T7 : portée comparée (vues des posts sur le mouvement / vues des autres posts du même compte)\n")
     o.append(f"Posts originaux de plus de {AGE_MIN_H} h et de moins de 30 jours ; au moins 2 posts dans chaque catégorie. "
              "Un rapport inférieur à 1 veut dire que les posts sur le mouvement sont moins vus que les autres posts du même compte.\n")
-    o.append("| groupe | comptes comparables | rapport médian | comptes avec rapport < 1 | p (test du signe) |")
-    o.append("|---|---|---|---|---|")
-    v7_parts, v7_signal, n7_tot = [], False, 0
-    for g in sorted({x["groupe"] for x in res}):
-        rs = [x["t7_ratio"] for x in res if x["groupe"] == g and x["t7_ratio"] is not None]
-        if not rs:
-            o.append(f"| {g} | 0 | — | — | — |")
+    v7s = {}
+    for plat, nom in (("x", "X"), ("tiktok", "TikTok")):
+        rp = [x for x in res if x["plateforme"] == plat]
+        if not rp:
             continue
-        k = sum(1 for r in rs if r < 1)
-        p = binom_bilateral(k, len(rs))
-        o.append(f"| {g} | {len(rs)} | {statistics.median(rs):.2f} | {k}/{len(rs)} | {p:.3f} |")
-        if g != "temoin":
-            n7_tot += len(rs)
-            v7_parts.append(f"{g} : {k}/{len(rs)} comptes, rapport médian {statistics.median(rs):.2f}, p = {p:.3f}")
-            if len(rs) >= MIN_COMPTES and p < 0.05 and k > len(rs) / 2:
-                v7_signal = True
-    if n7_tot < MIN_COMPTES:
-        v7 = f"NON TESTABLE (seulement {n7_tot} compte(s) comparables, il en faut au moins {MIN_COMPTES})"
-    elif v7_signal:
-        v7 = "**DÉTECTÉ (posts sur le mouvement significativement moins vus que les autres posts des mêmes comptes)** — " + " ; ".join(v7_parts)
-    else:
-        v7 = "RIEN DÉTECTÉ (pas d'écart significatif) — " + " ; ".join(v7_parts)
-    verdicts.append({"test": "T7", "plateforme": "x", "verdict": v7})
-    o.append(f"\n**Verdict T7 (X)** : {v7}\n")
+        o.append(f"### {nom}\n")
+        o.append("| groupe | comptes comparables | rapport médian | comptes avec rapport < 1 | p (test du signe) |")
+        o.append("|---|---|---|---|---|")
+        v7_parts, v7_signal, n7_tot = [], False, 0
+        for g in sorted({x["groupe"] for x in rp}):
+            rs = [x["t7_ratio"] for x in rp if x["groupe"] == g and x["t7_ratio"] is not None]
+            if not rs:
+                o.append(f"| {g} | 0 | — | — | — |")
+                continue
+            k = sum(1 for r in rs if r < 1)
+            p = binom_bilateral(k, len(rs))
+            o.append(f"| {g} | {len(rs)} | {statistics.median(rs):.2f} | {k}/{len(rs)} | {p:.3f} |")
+            if g != "temoin":
+                n7_tot += len(rs)
+                v7_parts.append(f"{g} : {k}/{len(rs)} comptes, rapport médian {statistics.median(rs):.2f}, p = {p:.3f}")
+                if len(rs) >= MIN_COMPTES and p < 0.05 and k > len(rs) / 2:
+                    v7_signal = True
+        if n7_tot < MIN_COMPTES:
+            v7 = f"NON TESTABLE (seulement {n7_tot} compte(s) comparables, il en faut au moins {MIN_COMPTES})"
+        elif v7_signal:
+            v7 = ("**DÉTECTÉ (posts sur le mouvement significativement moins vus que les autres posts des mêmes comptes)** — "
+                  + " ; ".join(v7_parts))
+        else:
+            v7 = "RIEN DÉTECTÉ (pas d'écart significatif) — " + " ; ".join(v7_parts)
+        verdicts.append({"test": "T7", "plateforme": plat, "verdict": v7})
+        v7s[nom] = v7
+        o.append(f"\n**Verdict T7 ({nom})** : {v7}\n")
+    v7 = " | ".join(f"{k} : {v}" for k, v in v7s.items()) or "NON TESTABLE (aucun profil capturé)"
     o.append("**Lecture.** T6 et T7 décrivent une visibilité, pas son origine. Moins de vues peut venir d'un moindre "
              "intérêt du public. Un compte absent de la recherche peut l'être à cause de filtres automatiques de X "
              "(spam, signalements). Seule une déclaration de « contenu déclassé » dans la base DSA (T4) indique une "
