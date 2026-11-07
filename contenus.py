@@ -22,6 +22,7 @@ Bibliothèque standard uniquement, Python >= 3.9.
   python3 contenus.py --corpus corpus.csv --vantage fixe --test
   python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800   # en continu (VPS)
   python3 contenus.py --corpus corpus.csv --vantage fixe --une-fois         # un passage (Mac)
+  HTTPS_PROXY=http://… python3 contenus.py --vantage etranger --une-fois --leger   # via un proxy hors de France
 """
 import argparse
 import csv
@@ -38,7 +39,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-VERSION = "1.4"
+VERSION = "1.5"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
       "Chrome/124.0 Safari/537.36")
 COLONNES = ["ts_utc", "round_id", "tool_version", "vantage", "loc", "id", "plateforme", "categorie",
@@ -202,6 +203,9 @@ def verifier_x(url):
 
 
 # ------------------------------------------------------------------ TikTok
+LEGER = False  # --leger : TikTok en oEmbed seulement (proxy facturé au volume)
+
+
 def verifier_tiktok(url):
     out = []
     st, body, _, ms = get("https://www.tiktok.com/oembed?" + urllib.parse.urlencode({"url": url}))
@@ -212,6 +216,8 @@ def verifier_tiktok(url):
         out.append(res("oembed", st, "visible", "", ms))
     else:
         out.append(res("oembed", st, "indisponible" if st in (400, 403, 404) else "non_reconnu", body, ms))
+    if LEGER:
+        return out
     # page publique : JSON embarqué avec statusCode / statusMsg.
     # On cherche d'abord les données : les pages TikTok normales mentionnent aussi « captcha »
     # dans leurs scripts, donc la détection anti-robot ne s'applique que si les données manquent.
@@ -408,10 +414,16 @@ def main():
     ap.add_argument("--interval", type=int, default=21600, help="secondes entre deux passages (défaut 6 h)")
     ap.add_argument("--test", action="store_true",
                     help="diagnostic : 2 posts par plateforme, affichage détaillé, rien n'est écrit")
+    ap.add_argument("--leger", action="store_true",
+                    help="TikTok : oEmbed seulement, sans la page (≈ 100 fois moins de données, pour un proxy facturé)")
     ap.add_argument("--une-fois", action="store_true",
                     help="un seul passage complet, écrit dans le CSV, puis s'arrête (point de mesure intermittent)")
     a = ap.parse_args()
     a.out = a.out or f"contenus_{a.vantage}.csv"
+    global LEGER
+    LEGER = a.leger
+    if os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy"):
+        print("Proxy détecté (HTTPS_PROXY) : toutes les requêtes passent par lui.", file=sys.stderr)
     corpus = lire_corpus(a.corpus)
     print(f"contenus v{VERSION} | point={a.vantage} | {len(corpus)} posts | sortie={a.out}", file=sys.stderr)
 

@@ -83,7 +83,7 @@ Le script recalcule tout à partir des colonnes brutes.
 
 ### 3.3 Retrait de contenus et visibilité (`contenus.py`, `analyse_contenus.py`)
 
-Une liste de posts publics (`contenus/corpus.csv`, non publiée) est constituée à la main. Elle comprend des posts sur le mouvement et des **posts témoins** sans lien avec la politique, idéalement publiés par les mêmes comptes. `contenus.py` vérifie chaque post toutes les 6 heures, **depuis la France (VPS en continu, et la box ou le Mac ponctuellement) et depuis un point hors de France, de préférence hors UE (VPN ou second VPS)**. ⚠️ Vérifier le pays attribué à chaque point avec `curl -s https://1.1.1.1/cdn-cgi/trace | grep loc=` : un VPS « EU » peut être vu comme français, uniquement par des accès publics et sans connexion à un compte :
+Une liste de posts publics (`contenus/corpus.csv`, non publiée) est constituée à la main. Elle comprend des posts sur le mouvement et des **posts témoins** sans lien avec la politique, idéalement publiés par les mêmes comptes. `contenus.py` vérifie chaque post toutes les 6 heures, **depuis la France (VPS en continu, et la box ou le Mac ponctuellement) et depuis un point hors de France, de préférence hors UE (VPN ou second VPS)**. ⚠️ Vérifier le pays attribué à chaque point avec `curl -s https://1.1.1.1/cdn-cgi/trace | grep loc=` : un VPS « EU » peut être vu comme français. Le point hors de France peut passer par un proxy (`HTTPS_PROXY=… python3 contenus.py --vantage etranger --une-fois --leger`) ; `--leger` limite TikTok à l'oEmbed pour réduire le volume facturé, uniquement par des accès publics et sans connexion à un compte :
 
 - **X** : oEmbed, plus le widget d'intégration, qui donne le motif quand un post n'est plus visible ;
 - **TikTok** : oEmbed, plus la page publique ;

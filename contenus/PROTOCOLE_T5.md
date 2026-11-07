@@ -8,7 +8,8 @@
 
 1. **Vue depuis la France** : Firefox en fenêtre privée, **sans être connecté**, sur ta box.
 2. **Vue depuis l'étranger, de préférence hors UE** :
-   - **Le plus simple** : un **VPN** dans un deuxième navigateur (ou une extension VPN de navigateur), avec une sortie au Royaume-Uni, en Suisse ou aux États-Unis.
+   - **Avec un proxy résidentiel hors UE** (par exemple aux États-Unis) : dans un **deuxième profil Firefox** (`about:profiles`), Paramètres → Réseau → Paramètres de connexion → « Configuration manuelle » → **Proxy HTTP** avec l'hôte et le port du proxy, en cochant « Utiliser aussi ce proxy pour HTTPS ». Firefox demandera l'identifiant et le mot de passe du proxy.
+   - **Ou** un **VPN** dans un deuxième navigateur (ou une extension VPN de navigateur), avec une sortie au Royaume-Uni, en Suisse ou aux États-Unis.
    - **Ou** un second serveur hors de France, via un tunnel SOCKS : dans un terminal, lance `ssh -N -D 1080 utilisateur@IP_DU_SERVEUR` et laisse-le ouvert. Puis, dans un **deuxième profil Firefox** (`about:profiles`) : Paramètres → Réseau → Paramètres de connexion → « Configuration manuelle » → **Hôte SOCKS** `127.0.0.1`, port `1080`, SOCKS v5, et coche **« Utiliser un DNS distant lorsque SOCKS v5 est actif »**.
    - ⚠️ **Le VPS actuel ne convient pas** : son adresse est vue comme française.
    - **Vérifie** que https://1.1.1.1/cdn-cgi/trace affiche un `loc=` différent de `FR` (par exemple `GB`, `CH` ou `US`). Note le pays dans la colonne `pays` de `recherches.csv`.
