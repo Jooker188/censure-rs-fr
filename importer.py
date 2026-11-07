@@ -466,6 +466,8 @@ def main():
     ap.add_argument("--comptes-temoin", type=int, default=10)
     ap.add_argument("--comptes-tiktok-mouvement", type=int, default=15)
     ap.add_argument("--comptes-tiktok-temoin", type=int, default=10)
+    ap.add_argument("--ajouter-tiktok", type=int, default=0,
+                    help="ajoute N créateurs TikTok du mouvement à la liste T6/T7 existante (même règle de choix)")
     ap.add_argument("--nouvelle-liste-comptes", action="store_true",
                     help="régénère contenus/comptes_t6.csv (sinon la liste existante est conservée, pour comparer les sessions)")
     a = ap.parse_args()
@@ -481,6 +483,28 @@ def main():
         comptes = list(csv.DictReader(open(chemin_comptes, newline="", encoding="utf-8")))
         print(f"Liste des comptes T6/T7 conservée ({len(comptes)} comptes). "
               "Pour la refaire : --nouvelle-liste-comptes", file=sys.stderr)
+        if a.ajouter_tiktok:
+            # Complète la liste (créateurs TikTok du mouvement) SANS toucher aux comptes existants,
+            # avec la même règle de choix : le plus de posts collectés, puis le plus d'abonnés.
+            deja = {(l.get("plateforme"), l["handle"]) for l in comptes}
+            par = collections.defaultdict(lambda: {"n": 0, "abonnes": 0})
+            for p in posts.values():
+                if p["plateforme"] == "tiktok" and p["categorie"] == "mouvement" and p["handle"] \
+                        and ("tiktok", p["handle"]) not in deja:
+                    c = par[(p["handle"], p["auteur"])]
+                    c["n"] += 1
+                    c["abonnes"] = p["abonnes"] or 0
+            nouveaux = sorted(par.items(), key=lambda kv: (-kv[1]["n"], -kv[1]["abonnes"]))[:a.ajouter_tiktok]
+            for (handle, auteur), v in nouveaux:
+                comptes.append({"groupe": "mouvement", "plateforme": "tiktok", "auteur": auteur, "handle": handle,
+                                "abonnes": v["abonnes"], "posts_collectes": v["n"],
+                                "profil": f"https://www.tiktok.com/@{handle}", "recherche": "", "fait": ""})
+            with open(chemin_comptes, "w", newline="", encoding="utf-8") as f:
+                w = csv.DictWriter(f, fieldnames=list(comptes[0].keys()))
+                w.writeheader()
+                w.writerows(comptes)
+            print(f"{len(nouveaux)} créateur(s) TikTok du mouvement ajoutés à la liste (comptes existants inchangés).",
+                  file=sys.stderr)
     else:
         comptes = comptes_t6(posts, a)
     rapport(posts, corpus, comptes, erreurs, a)
