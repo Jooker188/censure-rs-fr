@@ -27,22 +27,19 @@
 
 ---
 
-## 3. Samedi 7 novembre (acte IV) : la journée
+## 3. Samedi 7 novembre (acte IV) : la journée, automatisée
 
-| heure | quoi | forme | durée | mode d'emploi |
-|---|---|---|---|---|
-| matin | **T1** : passage France puis passage États-Unis sur le Mac (voir §5) | 2 | 2 × 35 min | ci-dessous, §5 |
-| 13 h | **T5** : recherches France contre États-Unis, série 1 | 3 | 10 min | `contenus/PROTOCOLE_T5.md` |
-| 13 h – 19 h | **OONI Probe** sur l'iPhone, en 4G, avec les 2 SIM, vers 14 h, 16 h et 18 h | 1 | 5 min chaque fois | liste de sites dans OONI |
-| 15 h – 17 h | **T6/T7** : session des 40 comptes X avec Zeeschuimer | 3 | 40 min | `contenus/PROTOCOLE_T6_T7.md` |
-| 16 h | **T5**, série 2 | 3 | 10 min | idem |
-| 19 h | **T5**, série 3 | 3 | 10 min | idem |
-| soir | **Collecte de l'acte IV** avec Zeeschuimer (X et TikTok) | 2-3 | 30 min | `contenus/RECHERCHES.md`, section « Collecte de l'acte IV » |
-| soir | **T1** : nouveau passage France puis États-Unis | 2 | 2 × 35 min | §5 |
+| quand | quoi | ce que tu fais | durée de ta part |
+|---|---|---|---|
+| **maintenant** | **T1 automatique** sur le VPS (proxy résidentiel France et États-Unis) | les commandes du §5, une seule fois | 5 min |
+| **maintenant** | **installer le collecteur** sur le Mac et te connecter une fois | `pip install playwright`, puis `python3 -m playwright install chromium`, puis `python3 collecteur.py --connexion` | 5 min |
+| **15 h – 17 h** | **T6/T7** : le collecteur visite les 40 comptes tout seul | `python3 collecteur.py --plan t6`, Mac allumé, environ 40 min sans rien faire | 1 min |
+| **soir** | **collecte de l'acte IV** (X et TikTok) | `python3 collecteur.py --plan acte4`, environ 30 min sans rien faire | 1 min |
+| **soir** | **import et mise à jour du VPS** | §5 « Importer » puis « Mettre à jour le VPS » | 5 min |
+| toute la journée | **OONI** sur l'iPhone | laisse les tests automatiques activés ; un test manuel à 16 h si tu y penses | 0 à 5 min |
+| — | **T5** (recherches à la main) | **abandonné** : le plus fragile des tests, et T6 mesure la visibilité dans la recherche de façon plus solide | 0 |
 
-Facultatif : le moniteur réseau en 4G sur le Mac, en partage de connexion (forme 1). Voir le README, section « 4G ou 5G ».
-
----
+Si le collecteur affiche une vérification (captcha) ou s'arrête sur une erreur, reprends la version manuelle avec Zeeschuimer (`contenus/PROTOCOLE_T6_T7.md`, `contenus/RECHERCHES.md`).
 
 ## 4. Dimanche et les jours suivants
 
@@ -61,7 +58,23 @@ Facultatif : le moniteur réseau en 4G sur le Mac, en partage de connexion (form
 
 ## 5. Commandes à retenir
 
-**T1 : passages appariés sur le Mac** (même machine, l'un juste après l'autre)
+**T1 : automatique sur le VPS, avec deux sorties résidentielles Webshare (France et États-Unis)**
+
+Sur le VPS, une seule fois. Crée deux fichiers d'identifiants, lisibles par toi seul. Ils ne doivent jamais aller dans le dépôt.
+```bash
+printf 'export HTTPS_PROXY="http://TONUSER-fr-rotate:TONMOTDEPASSE@p.webshare.io:80"\n' > ~/.proxy_fr && chmod 600 ~/.proxy_fr
+printf 'export HTTPS_PROXY="http://TONUSER-us-rotate:TONMOTDEPASSE@p.webshare.io:80"\n' > ~/.proxy_us && chmod 600 ~/.proxy_us
+(. ~/.proxy_fr; curl -s https://1.1.1.1/cdn-cgi/trace | grep loc=)    # doit afficher loc=FR
+(. ~/.proxy_us; curl -s https://1.1.1.1/cdn-cgi/trace | grep loc=)    # doit afficher loc=US
+```
+Puis deux sessions qui tournent toutes seules, une passe toutes les 12 h, en mode léger :
+```bash
+tmux new -s t1fr    # puis :  . ~/.proxy_fr && python3 contenus.py --corpus corpus.csv --vantage fr_resid --leger --interval 43200   (Ctrl+B puis D)
+tmux new -s t1us    # puis :  . ~/.proxy_us && python3 contenus.py --corpus corpus.csv --vantage us_resid --leger --interval 43200   (Ctrl+B puis D)
+```
+Analyse : `--france fr_resid --etranger us_resid`. Volume estimé : environ 10 Mo par passage, soit environ 0,6 Go en deux semaines pour les deux sorties. Vérifie que ton forfait Webshare le permet.
+
+**T1, version manuelle (si le proxy France ne marche pas) : passages appariés sur le Mac**
 ```bash
 python3 contenus.py --corpus contenus/corpus.csv --vantage fixe --une-fois
 export HTTPS_PROXY="http://IDENTIFIANT:MOTDEPASSE@HOTE:PORT"   # proxy Webshare US, jamais dans un fichier
@@ -70,9 +83,9 @@ python3 contenus.py --corpus contenus/corpus.csv --vantage etranger --leger --un
 unset HTTPS_PROXY
 ```
 
-**Importer de nouveaux exports Zeeschuimer** (toujours avec **tous** les exports)
+**Importer** (toujours avec **tous** les exports : Zeeschuimer et collecteur)
 ```bash
-python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson
+python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson
 ```
 
 **Mettre à jour le VPS après un import**
@@ -85,7 +98,7 @@ scp contenus.py contenus/corpus.csv smeshr-deploy@IP_DU_VPS:~/
 ```bash
 python3 analyse.py "mesures_*.csv" --evenements evenements.csv                                   # forme 1
 python3 analyse_contenus.py "contenus_*.csv" --corpus contenus/corpus.csv --france fixe --etranger etranger   # T1, T2, tableau final
-python3 comptes.py session_comptes_*.ndjson                                                      # T6, T7
+python3 comptes.py exports/collecteur-t6-*.ndjson                                                # T6, T7
 python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv                  # T8, T9
 ```
 
@@ -106,7 +119,7 @@ python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv 
 
 | test | question | outil | où | état | ce qu'on sait déjà |
 |---|---|---|---|---|---|
-| **T1** | visible depuis l'étranger, retenu en France ? | `contenus.py` | **Mac sans proxy (France) + Mac avec proxy (États-Unis)** | 🕒 à démarrer samedi | Le contrôle RT est vu « retenu » depuis la France : la détection fonctionne. ❓ Il doit être visible depuis les États-Unis. |
+| **T1** | visible depuis l'étranger, retenu en France ? | `contenus.py` | **VPS via proxy résidentiel France + VPS via proxy résidentiel États-Unis** (automatique) | 🕒 à démarrer (5 min, §5) | Le contrôle RT est vu « retenu » depuis la France : la détection fonctionne. ❓ Il doit être visible depuis les États-Unis. |
 | **T2** | un post disparaît-il, avec quel motif, plus souvent que les témoins ? | `contenus.py` | VPS (en continu) + Mac | 🔄 | Premier passage : mouvement, 2 posts indisponibles et 1 supprimé par son auteur ; témoins, 2 comptes suspendus. Rien d'anormal. ✅ Tweet de test supprimé : le prochain passage doit le voir disparaître. |
 | **T3** | décisions de modération déclarées (base DSA) | à écrire | — | 🧑‍💻 | — |
 
@@ -115,8 +128,8 @@ python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv 
 | test | question | outil | état | ce qu'on sait déjà |
 |---|---|---|---|---|
 | **T4** | déclassements déclarés (base DSA) | à écrire | 🧑‍💻 après le week-end | — |
-| **T5** | une recherche est vide en France seulement ? | à la main + proxy US dans Firefox | 🕒 samedi 13 h, 16 h et 19 h | — |
-| **T6** | des comptes sont absents de la recherche (search ban) ? | Zeeschuimer + `comptes.py` | 🕒 samedi 15 h – 17 h | 40 comptes prêts dans `contenus/comptes_t6.csv` (15 revendication, 15 mouvement, 10 témoins). Avant de commencer, désactive les 2 filtres de recherche de X. |
+| **T5** | une recherche est vide en France seulement ? | à la main + proxy US dans Firefox | ⛔ abandonné le 07/11 (fragile, couvert en partie par T6) | — |
+| **T6** | des comptes sont absents de la recherche (search ban) ? | `collecteur.py --plan t6` + `comptes.py` | 🕒 samedi 15 h – 17 h (automatique) | 40 comptes prêts dans `contenus/comptes_t6.csv` (15 revendication, 15 mouvement, 10 témoins). Avant de commencer, désactive les 2 filtres de recherche de X. |
 | **T7** | posts sur le mouvement moins vus que les autres posts du même compte ? | même session que T6 | 🕒 samedi | — |
 | **T8** | indicateurs internes TikTok qui changent ? | `contenus.py` (VPS) + `analyse_tiktok.py` | 🔄 (≥ 2 passages nécessaires) | Photo du 06/11 : à popularité égale, les vidéos du mouvement sont **plus souvent marquées `reviewed`** que les témoins (39 % contre 19 % au-dessus d'un million de vues). C'est significatif, mais le champ n'est pas documenté et ce n'est **pas une preuve** (voir §7). |
 | **T9** | vues qui stagnent, à popularité et âge égaux ? | idem | 🔄 (≥ 24 h nécessaires) | — |

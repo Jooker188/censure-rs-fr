@@ -208,7 +208,7 @@ def case_t2(r):
 
 def case_t5(r):
     if r is None:
-        return "À VENIR (relevé manuel)"
+        return "NON RÉALISÉ (test manuel abandonné le 07/11, voir TABLEAU_DE_BORD.md)"
     if r["paires"] == 0:
         return "NON TESTABLE (aucune recherche faite à la même heure en France et à l'étranger)"
     if r["cas"]:
