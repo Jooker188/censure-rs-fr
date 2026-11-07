@@ -97,7 +97,7 @@ Puis deux sessions qui tournent toutes seules, une passe toutes les 12 h, en mod
 tmux new -s t1fr    # puis :  . ~/.proxy_fr && python3 contenus.py --corpus corpus.csv --vantage fr_resid --leger --interval 43200   (Ctrl+B puis D)
 tmux new -s t1us    # puis :  . ~/.proxy_us && python3 contenus.py --corpus corpus.csv --vantage us_resid --leger --interval 43200   (Ctrl+B puis D)
 ```
-Analyse : `--france fr_resid --etranger us_resid`. Volume estimé : environ 10 Mo par passage, soit environ 0,6 Go en deux semaines pour les deux sorties. Vérifie que ton forfait Webshare le permet.
+Analyse : `--france fr_resid --etranger us_resid`. Volume estimé : environ 15 Mo par passage et par pays (2 requêtes par tweet, 1 par vidéo TikTok, dont environ 6 Ko pour établir chaque connexion chiffrée), soit environ 60 Mo par jour et **environ 0,9 Go en deux semaines** (entre 0,5 et 1,3 Go). À vérifier dans le tableau de bord Webshare après le premier passage. Pour diviser par deux : `--interval 86400` (un passage par jour, suffisant pour T1).
 
 **T1, version manuelle (si le proxy France ne marche pas) : passages appariés sur le Mac**
 ```bash
