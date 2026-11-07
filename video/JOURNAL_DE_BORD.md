@@ -56,6 +56,8 @@
 
 ## Samedi 7 novembre 2026 (acte IV)
 
+- **Nuit, vers 3 h : session T6/T7 n°1 (« avant »)**, lancée avec le collecteur automatique. La connexion dans le navigateur piloté échoue : X et TikTok repèrent l'automatisation au moment du login. Solution : reprendre la session du Firefox habituel. **X l'accepte** (20 à 40 posts par page). **TikTok la refuse** : le profil s'affiche, mais la liste des vidéos ne se charge pas (« Une erreur est survenue »). Ce n'est pas un blocage des comptes, c'est le navigateur automatisé qui est refusé. → T7 TikTok à faire à la main, ou non réalisé. → anecdote possible sur la difficulté de mesurer les plateformes de l'extérieur.
+
 - 🕒 Tests OONI sur l'iPhone, avec les deux SIM, vers 10 h, 13 h 30, 15 h 30, 17 h 30 et 20 h. Noter ici les heures réelles et les anomalies éventuelles (avec les liens OONI Explorer).
 - 🕒 Noter ici tout événement marquant : une annonce, une panne, un post viral sur la censure.
 

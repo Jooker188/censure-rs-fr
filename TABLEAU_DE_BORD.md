@@ -60,7 +60,8 @@ ps -eo args | grep -E "[m]oniteur_reseaux.py|[c]ontenus.py"
 | ✅ nuit | **OONI, référence** | iPhone, 2 SIM, 4G | fait |
 | matin | **mettre le dépôt à jour, puis analyser la session 1** | `git pull`, puis `python3 comptes.py exports/collecteur-t6-DATE.ndjson` | 2 min |
 | 13 h 30, 15 h 30, 17 h 30, 20 h | **OONI** | iPhone, 2 SIM, 4G : carte Sites web (17 adresses) puis carte Messageries instantanées | 5 min chaque fois |
-| vers 15 h | **T6/T7, session 2 (« pendant »)** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox` (environ 1 h, Mac branché) | 1 min |
+| vers 15 h | **T6/T7, session 2 (« pendant »)**, X seulement | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x` (environ 50 min, Mac branché) | 1 min |
+| facultatif | **T7 TikTok à la main** : les profils TikTok refusent le navigateur piloté (« Une erreur est survenue »). Avec Zeeschuimer dans ton Firefox habituel, ouvre les 25 profils TikTok de `contenus/comptes_t6.csv`, fais défiler 15 à 20 s chacun, puis exporte. Analyse : `python3 comptes.py` avec ce fichier en plus | Zeeschuimer | 15 min |
 | soir, après les rassemblements | **collecte de l'acte IV** | `caffeinate -i python3 collecteur.py --plan acte4 --cookies-firefox` (environ 40 min) | 1 min |
 | soir, ensuite | **import, puis mise à jour du VPS** | `python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson`, puis `scp contenus/corpus.csv …` et relance des 3 sessions (§5) | 5 min |
 
