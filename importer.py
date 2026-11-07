@@ -56,7 +56,14 @@ APPEL = re.compile(r"\bdemain\b|\bsamedi\b|rdv|rendez[- ]vous|\brejoign|\bon se 
 REVENDICATION_TXT = re.compile(r"censur|shadow ?ban|suspendu|supprim|\bbloqu[ée]e?s?\b|invisibilis|d[ée]class", re.I)
 DEBUT_ACTE_IV = dt.datetime(2026, 11, 5)
 DEBUT_MOUVEMENT = dt.datetime(2026, 9, 1)
-GENERIQUES = r"#?\b(manif|manifestation|revolution|révolution)\b"
+GENERIQUES = {"manif", "manifestation", "revolution", "révolution"}
+
+
+def est_generique(q):
+    """Vrai si la recherche n'est faite QUE de termes génériques (ex. « #manif », « (#manif OR #manifestation) lang:fr »)."""
+    q = re.sub(r"\b(?:lang|since|until):\S+", " ", q or "")
+    termes = [t.lstrip("#").lower() for t in re.findall(r"#?[\wÀ-ÿ]+", q) if t != "OR"]
+    return bool(termes) and all(t in GENERIQUES for t in termes)
 MARQUEUR_MOUVEMENT = re.compile(
     r"gilets? ?jaunes?|giletsjaunes|acte ?(?:4|iv|3|iii|2|ii)\b|acte4|17 ?octobre|24 ?octobre|31 ?octobre|"
     r"[567] ?novembre|vie ?ch[èe]re|carburant|essence|gazole|bloquons|tout ?bloquer|toutbloquer|"
@@ -244,7 +251,7 @@ def importer(fichiers, cle, publics):
                 hors_sujet = tag not in p["hashtags"].split() and tag not in (p["texte"] or "").lower().replace(" ", "")
             # Hashtags génériques (#manif, #manifestation, #revolution) : on ne garde un post que s'il porte
             # aussi un marqueur du mouvement, sinon il parle d'autre chose (autres causes, autres pays).
-            if not hors_sujet and re.search(GENERIQUES, q or "", re.I) and not MARQUEUR_MOUVEMENT.search(
+            if not hors_sujet and est_generique(q) and not MARQUEUR_MOUVEMENT.search(
                     (p["texte"] or "") + " " + p["hashtags"]):
                 ecartes["generique_sans_marqueur"][(p["plateforme"], q)] += 1
                 continue
