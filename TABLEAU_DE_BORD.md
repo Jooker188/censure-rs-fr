@@ -182,5 +182,6 @@ python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv 
 | protocole T5 | `contenus/PROTOCOLE_T5.md` |
 | protocole T6/T7 | `contenus/PROTOCOLE_T6_T7.md` |
 | plan et script de la vidéo | `video/FEUILLE_DE_ROUTE.md`, `video/SCRIPT.md` |
+| **récit chronologique des coulisses** (matière du script) | `video/JOURNAL_DE_BORD.md` |
 | événements de la frise | `evenements.csv` |
 | résultats OONI d'octobre | `ooni/rapport_ooni.md` |
