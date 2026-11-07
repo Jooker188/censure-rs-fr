@@ -21,7 +21,7 @@
 🎙️
 > Depuis, une question tourne en boucle : est-ce que le gouvernement bride le mouvement social sur les réseaux ?
 > Et franchement, en lisant ça, je me suis dit qu'on pouvait le vérifier. Pas le deviner, pas le ressentir : le **mesurer**.
-> Alors pendant l'acte IV, j'ai installé des sondes chez moi, sur un serveur en Allemagne et sur mon téléphone, et j'ai regardé.
+> Alors pendant l'acte IV, j'ai installé des sondes chez moi, sur un serveur chez un hébergeur, hors de chez moi, et sur mon téléphone, et j'ai regardé.
 
 🎥 Plan bref sur un terminal : la ligne `sputnikglobe.com … NXDOMAIN` surlignée. Ne pas l'expliquer.
 
@@ -165,11 +165,13 @@
 
 ## Séquence 5 : Mon dispositif, et le mystère résolu (10:30 – 13:00)
 
-🎥 Schéma : la maison (box Bouygues), un serveur avec un drapeau allemand (VPS à Francfort), un iPhone avec deux SIM, et le logo OONI.
+🎥 Schéma : la maison (box Bouygues), un serveur chez un hébergeur (adresse française, hors des fournisseurs d'accès grand public), un point hors de France, un iPhone avec deux SIM, et le logo OONI.
 
 🎙️
 > Voilà mon dispositif. Chez moi, sur ma box, une sonde que j'ai écrite tourne en continu. Toutes les cinq minutes, elle visite X, TikTok, Instagram, Snapchat et une quinzaine d'autres réseaux, et elle note **où** ça coince : à l'annuaire, à la connexion, au chiffrement, ou à la page elle-même.
-> La même sonde tourne sur un serveur à Francfort, en Allemagne. Lui ne passe par aucun opérateur français. Si un site tombe aussi depuis l'Allemagne, ce n'est pas un blocage français, c'est une panne de la plateforme.
+> La même sonde tourne sur un serveur loué chez un hébergeur. Son adresse est française, mais il ne passe par aucun fournisseur d'accès grand public. Si un site tombe aussi depuis ce serveur, ce n'est pas un blocage de mon opérateur, c'est une panne de la plateforme.
+> [À COMPLÉTER : le point hors de France (VPN ou second serveur), qui sert à comparer ce qu'on voit en France et ailleurs.]
+> Petite anecdote honnête : au début, je croyais ce serveur en Allemagne. En vérifiant, il était vu comme français par les plateformes. C'est exactement le genre de détail qu'il faut vérifier avant de conclure.
 > Et sur mon téléphone, j'ai deux cartes SIM, RED et Cdiscount Mobile. [À COMPLÉTER : réseaux confirmés par l'ASN, a priori SFR et Bouygues.] Avec elles, j'ai lancé OONI Probe, une application libre utilisée par des chercheurs du monde entier pour documenter la censure. Ses mesures sont publiques.
 
 🎥 Retour du plan mystère de la séquence 0 : `sputnikglobe.com → NXDOMAIN`.
@@ -181,7 +183,7 @@
 🎥 Captures d'OONI Explorer : sputnikglobe en anomalie sur les deux SIM, ASN visible. [À COMPLÉTER : liens OONI]
 
 🎙️
-> Même chose sur mes deux lignes mobiles avec OONI. Alors que depuis l'Allemagne, aucun blocage. Voilà à quoi ressemble un vrai blocage réseau en France aujourd'hui. Gardez cette image en tête.
+> Même chose sur mes deux lignes mobiles avec OONI. Alors que depuis mon serveur chez un hébergeur, qui n'utilise pas l'annuaire d'un fournisseur d'accès grand public, aucun blocage. Voilà à quoi ressemble un vrai blocage réseau en France aujourd'hui. Gardez cette image en tête.
 > J'ai aussi des **témoins négatifs** : Wikipédia, Le Monde, des sites ordinaires. S'ils tombent en même temps que TikTok, ce n'est pas TikTok qui est visé, c'est ma connexion qui a un problème.
 
 📝 Le témoin positif est le pivot de la vidéo, prends ton temps. Si un point de mesure ne voit pas sputnikglobe bloqué alors qu'il devrait, dis-le ici et explique ce que ça change.
@@ -199,7 +201,7 @@
 > Sauf que dans le même temps, Wikipédia et Le Monde étaient tombés aussi. Ce n'était pas les réseaux sociaux qui étaient visés : c'était [À COMPLÉTER : la cause probable, par exemple ma 4G saturée par la foule]. C'est moi qui vous l'ai raconté avec les mots qui font peur.
 
 🎙️
-> Autre exemple : depuis Paris, mon annuaire me donne pour Instagram une adresse différente de celle qu'il donne en Allemagne. Suspect ? Non. Les gros sites ont des serveurs partout, et chacun est orienté vers le plus proche. Et depuis mon serveur allemand, Reddit me répond « interdit », simplement parce que Reddit n'aime pas les robots dans les centres de données.
+> Autre exemple : depuis Paris, mon annuaire me donne pour Instagram une adresse différente de celle que donne un annuaire neutre. Suspect ? Non. Les gros sites ont des serveurs partout, et chacun est orienté vers le plus proche. Et depuis mon serveur allemand, Reddit me répond « interdit », simplement parce que Reddit n'aime pas les robots dans les centres de données.
 > Une anomalie, ce n'est pas un blocage. C'est pour ça qu'il faut des règles, et qu'il faut les annoncer **avant** de regarder les résultats.
 
 🎥 La « VAR » : quatre critères qui s'affichent un par un.
@@ -209,7 +211,7 @@
 > **Un.** Une signature typique : l'annuaire de l'opérateur ment alors qu'un annuaire neutre et chiffré dit la vérité, ou la connexion est brutalement coupée, ou le certificat de sécurité est faux.
 > **Deux.** Que ça se répète, au moins trois mesures d'affilée, donc un quart d'heure.
 > **Trois.** Que les témoins, eux, marchent pendant ce temps.
-> **Quatre.** Que ça ne se voie pas depuis l'Allemagne, et idéalement que d'autres mesures, OONI ou une autre ligne, montrent la même chose.
+> **Quatre.** Que ça ne se voie pas depuis l'étranger ni depuis un serveur hors des fournisseurs d'accès grand public, et idéalement que d'autres mesures, OONI ou une autre ligne, montrent la même chose.
 > Si les quatre sont réunis, je parlerai de « blocage observé ». Même là, je ne vous dirai pas qui l'a décidé.
 
 📝 Mécaniques empruntées : le retournement sur le vocabulaire (Cyrus North) et la VAR avec critères annoncés (Seb). **Le retournement doit se faire en moins d'une minute et être explicite** : on ne laisse jamais le spectateur sur une fausse impression.
@@ -254,7 +256,7 @@
 > Comment lire cette frise : chaque ligne est un réseau social, chaque couleur un état. Vert, ça marche. Rouge, signature de blocage. Gris, c'est ma connexion qui avait un problème. Blanc, pas de mesure.
 
 **Variante A : aucun signal** (à garder si c'est le résultat)
-> Et vous le voyez : c'est vert. Partout, tout le week-end, sur ma box Bouygues, sur mes deux lignes mobiles et depuis l'Allemagne. Le témoin positif, lui, est bloqué en permanence, donc l'outil voyait bien.
+> Et vous le voyez : c'est vert. Partout, tout le week-end, sur ma box Bouygues, sur mes deux lignes mobiles et depuis mon serveur. Le témoin positif, lui, est bloqué en permanence, donc l'outil voyait bien.
 
 **Variante B : signaux isolés**
 > Il y a des petites taches. [RÉSULTAT : lesquelles, quand.] On les passe à la VAR. [RÉSULTAT : critère par critère.] Aucune ne remplit les quatre critères.
@@ -332,7 +334,7 @@
 
 ```
 Pendant l'acte IV, j'ai mesuré si l'accès aux réseaux sociaux était bloqué en France :
-sondes réseau (box Bouygues, serveur en Allemagne), OONI Probe sur deux réseaux mobiles,
+sondes réseau (box Bouygues, serveur chez un hébergeur), OONI Probe sur deux réseaux mobiles,
 et les données publiques OONI des 24 et 31 octobre.
 
 Code et données : [lien GitHub]

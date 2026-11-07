@@ -4,7 +4,7 @@ contenus.py — suivi de l'accessibilité d'une liste de posts publics (X,
 TikTok, Instagram, YouTube), depuis plusieurs points de mesure.
 
 Sert deux tests :
-  T1  « retenu en France » : un post visible depuis l'étranger (VPS) mais pas
+  T1  « retenu en France » : un post visible depuis l'étranger (point hors de France) mais pas
       depuis la France, ou affiché avec une mention de demande légale.
   T2  « disparitions » : un post visible au début qui ne l'est plus, avec le
       motif affiché par la plateforme (supprimé par l'auteur, retiré pour

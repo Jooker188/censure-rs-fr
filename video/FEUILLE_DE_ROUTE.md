@@ -78,7 +78,7 @@ Légende des statuts : ✅ prêt · ✏️ texte à relire ou tester · ⏳ dép
 
 | donnée | outil | quand | utilisée en |
 |---|---|---|---|
-| CSV de la box (Bbox) et du VPS (Francfort) | `analyse.py "mesures_*.csv"` | dimanche | séquences 8 et 10 |
+| CSV de la box (Bbox) et du VPS (hébergeur, adresse française) | `analyse.py "mesures_*.csv"` | dimanche | séquences 8 et 10 |
 | Mesures OONI publiques des 6 et 7 novembre | `ooni_verif.py --since 2026-11-05 --until 2026-11-08 --focus 2026-11-06,2026-11-07 --mobile` | dimanche ou lundi (délai de publication) | séquences 8 et 10 |
 | Tes tests OONI sur iPhone (RED / SFR et Cdiscount / Bouygues ?) | liens OONI Explorer et ASN relevés | au fil du week-end | séquences 5 et 8 |
 | Le témoin positif sur chaque point de mesure | `rapport/analyse.md`, section 1 | dimanche | séquence 5 |
@@ -96,7 +96,7 @@ Légende des statuts : ✅ prêt · ✏️ texte à relire ou tester · ⏳ dép
 - [ ] Captures des articles : Clubic, Public Sénat, Maire-info, L'Informé, Sortiraparis
 - [ ] Schéma « trois formes de censure »
 - [ ] Animation « le DNS comme annuaire » : annuaire honnête, puis annuaire qui ment
-- [ ] Schéma du dispositif : box, VPS à Francfort, iPhone avec deux SIM, OONI
+- [ ] Schéma du dispositif : box, serveur chez un hébergeur (adresse française), point hors de France (VPN ou second serveur), iPhone avec deux SIM, OONI
 - [ ] Frise (`rapport/frise.html`), capturée en haute définition
 - [ ] Tableau des verdicts
 - [ ] Extraits de `ooni/rapport_ooni.md` (couverture horaire du 24 et du 31 octobre)

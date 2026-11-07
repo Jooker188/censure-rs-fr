@@ -129,7 +129,7 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 
 **But.** Collecter les posts qui **affirment** une censure : « mes tweets sont censurés », « mon compte a été suspendu », « TikTok est coupé ». Ces posts servent deux fois :
 1. **Documenter la rumeur** : ce qui est affirmé, par qui (type de compte), à quel moment.
-2. **Vérifier les affirmations précises.** Quand un post désigne un compte ou un post précis (« ma vidéo a été supprimée »), on l'ajoute dans `ajouts_manuels.txt` avec la note `a_verifier`. `contenus.py` vérifie alors s'il est vraiment indisponible, depuis la France et depuis l'Allemagne, et avec quel motif.
+2. **Vérifier les affirmations précises.** Quand un post désigne un compte ou un post précis (« ma vidéo a été supprimée »), on l'ajoute dans `ajouts_manuels.txt` avec la note `a_verifier`. `contenus.py` vérifie alors s'il est vraiment indisponible, depuis la France et depuis l'étranger, et avec quel motif.
 
 **À ne pas mélanger.** Ces posts sont exportés **à part** (`revendication_x.ndjson`, etc.), et ne vont ni dans « mouvement » ni dans « témoin ». Leur taux de retrait n'est pas comparable à celui des autres posts.
 
@@ -216,7 +216,7 @@ Les posts repérés à la main, par exemple un post qui annonce de la censure ou
 
 **Contrôles positifs** (comme `sputnikglobe.com` pour le moniteur réseau) : ils vérifient que l'outil **voit** une suppression ou une rétention. Ils sont traités à part et n'entrent pas dans les statistiques.
 - `https://x.com/TONCOMPTE/status/… controle_suppression` : un tweet de test publié par toi, **supprimé après le premier passage** de `contenus.py`. Attendu : `visible`, puis `supprime_auteur` ou `indisponible`.
-- `https://x.com/RT_com/status/… controle_retenu` : un tweet d'un compte retenu dans l'UE (à ma connaissance, RT et Sputnik depuis 2022). Attendu : `retenu_pays` avec mention légale, depuis la France **et** depuis l'Allemagne (les deux sont dans l'UE).
+- `https://x.com/RT_com/status/… controle_retenu` : un tweet d'un compte retenu dans l'UE (à ma connaissance, RT et Sputnik depuis 2022). Attendu : `retenu_pays` avec mention légale, depuis la France, et aussi depuis un point dans l'UE. Depuis un point **hors UE**, le tweet devrait être visible : c'est ce qui distingue une rétention « UE » d'une rétention « France seulement ».
 
 **Limite de méthode à dire dans la vidéo.** Si le mouvement passe à un vocabulaire codé (morse, hashtags détournés), une collecte par mots-clés en rate une partie. Ce n'est pas de la censure, c'est une limite de la collecte.
 

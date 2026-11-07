@@ -83,7 +83,7 @@ Le script recalcule tout à partir des colonnes brutes.
 
 ### 3.3 Retrait de contenus et visibilité (`contenus.py`, `analyse_contenus.py`)
 
-Une liste de posts publics (`contenus/corpus.csv`, non publiée) est constituée à la main. Elle comprend des posts sur le mouvement et des **posts témoins** sans lien avec la politique, idéalement publiés par les mêmes comptes. `contenus.py` vérifie chaque post toutes les 6 heures, **depuis la France (box) et depuis l'Allemagne (VPS)**, uniquement par des accès publics et sans connexion à un compte :
+Une liste de posts publics (`contenus/corpus.csv`, non publiée) est constituée à la main. Elle comprend des posts sur le mouvement et des **posts témoins** sans lien avec la politique, idéalement publiés par les mêmes comptes. `contenus.py` vérifie chaque post toutes les 6 heures, **depuis la France (VPS en continu, et la box ou le Mac ponctuellement) et depuis un point hors de France, de préférence hors UE (VPN ou second VPS)**. ⚠️ Vérifier le pays attribué à chaque point avec `curl -s https://1.1.1.1/cdn-cgi/trace | grep loc=` : un VPS « EU » peut être vu comme français, uniquement par des accès publics et sans connexion à un compte :
 
 - **X** : oEmbed, plus le widget d'intégration, qui donne le motif quand un post n'est plus visible ;
 - **TikTok** : oEmbed, plus la page publique ;
@@ -96,7 +96,7 @@ Les cinq tests :
 
 | test | forme | question | ce qui établit l'origine |
 |---|---|---|---|
-| **T1** | 2 | Le post est-il visible depuis l'Allemagne mais pas depuis la France, ou affiché avec une mention de demande légale ? | la mention légale affichée par la plateforme ; les demandes publiées sur Lumen |
+| **T1** | 2 | Le post est-il visible depuis l'étranger mais pas depuis la France, ou affiché avec une mention de demande légale ? | la mention légale affichée par la plateforme ; les demandes publiées sur Lumen |
 | **T2** | 2 | Le post était-il visible, puis ne l'est plus ? Avec quel motif ? Le taux est-il plus élevé que pour les témoins ? | rien de plus que le motif affiché |
 | **T3** | 2 | Combien de décisions de modération concernant la France les plateformes ont-elles déclarées dans la base DSA pendant le mouvement, par rapport aux semaines précédentes ? | déclaration de la plateforme (motif légal ou règles internes) |
 | **T4** | 3 | Même chose pour les décisions de **déclassement** (`DECISION_VISIBILITY_CONTENT_DEMOTED`) | déclaration de la plateforme |
