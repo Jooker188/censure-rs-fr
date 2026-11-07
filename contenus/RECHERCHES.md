@@ -208,6 +208,8 @@ Hors Zeeschuimer. Plus tard, éventuellement, via l'API officielle avec une clé
 |---|---|---|---|
 | 2026-11-06 | X (X7) | `#RadioLondres since:2026-11-01` → `https://x.com/search?q=%23RadioLondres%20since%3A2026-11-01&f=live` | Vu dans un post qui appelle à détourner ce hashtag pour parler des cortèges et « éviter d'être shadowbanned ». ⚠️ Hashtag ancien, utilisé depuis des années pour d'autres choses (par exemple les soirs d'élection) : beaucoup de bruit. |
 | 2026-11-06 | TikTok, Instagram | `#radiolondres` → `https://www.tiktok.com/tag/radiolondres` ; `https://www.instagram.com/explore/search/keyword/?q=%23radiolondres` | Même raison. |
+| 2026-11-07 | TikTok | `#manif`, `#manifestation`, `#revolution`, `#5novembre`, `#6novembre` | Repérés en naviguant sur TikTok : très fréquents sur les vidéos du mouvement. **Hashtags génériques** (`#manif`, `#manifestation`, `#revolution`) : l'import ne garde que les posts qui portent aussi un marqueur du mouvement (date d'acte, gilets jaunes, vie chère, carburant, bloquons…). Ajoutés à `collecteur.py --plan acte4`. `#31octobre` est exclu (Halloween). |
+| 2026-11-07 | X | `(#manif OR #manifestation) lang:fr since:2026-11-07` | Même raison, même filtre à l'import. |
 | 2026-11-06 | (constat) | `#acte4`, `#7novembre` | Leur usage est confirmé par un post réel (X4 n'est plus une supposition). |
 
 ## Ajouts manuels

@@ -59,11 +59,19 @@ PLAN_ACTE4 = [
     # X, témoins datés du 7
     x_recherche('météo lang:fr since:2026-11-07 until:2026-11-08'),
     x_recherche('"ligue 1" lang:fr since:2026-11-07 until:2026-11-08'),
+    # X, hashtags génériques (filtrés à l'import : marqueur du mouvement exigé)
+    x_recherche('(#manif OR #manifestation) lang:fr since:2026-11-07'),
     # TikTok, pages de hashtag
     "https://www.tiktok.com/tag/acte4",
     "https://www.tiktok.com/tag/7novembre",
+    "https://www.tiktok.com/tag/6novembre",
+    "https://www.tiktok.com/tag/5novembre",
     "https://www.tiktok.com/tag/giletsjaunes",
     "https://www.tiktok.com/tag/toutbloquer",
+    # TikTok, hashtags génériques repérés en naviguant (filtrés à l'import)
+    "https://www.tiktok.com/tag/manif",
+    "https://www.tiktok.com/tag/manifestation",
+    "https://www.tiktok.com/tag/revolution",
     # TikTok, témoins
     "https://www.tiktok.com/tag/meteo",
     "https://www.tiktok.com/tag/ligue1",
