@@ -57,6 +57,10 @@
 ## Samedi 7 novembre 2026 (acte IV)
 
 - **Nuit, vers 3 h : session T6/T7 n°1 (« avant »)**, lancée avec le collecteur automatique. La connexion dans le navigateur piloté échoue : X et TikTok repèrent l'automatisation au moment du login. Solution : reprendre la session du Firefox habituel. **X l'accepte** (20 à 40 posts par page). **TikTok la refuse** : le profil s'affiche, mais la liste des vidéos ne se charge pas (« Une erreur est survenue »). Ce n'est pas un blocage des comptes, c'est le navigateur automatisé qui est refusé. → T7 TikTok à faire à la main, ou non réalisé. → anecdote possible sur la difficulté de mesurer les plateformes de l'extérieur.
+- **Résultats de la session n°1 (« avant »), avec T7 TikTok fait à la main avec Zeeschuimer :**
+  - **T6 : rien détecté.** 34 comptes X vérifiés, tous présents dans la recherche `from:`, y compris ceux qui disent être censurés. 6 comptes n'ont pas pu être vérifiés.
+  - **T7 : non testable pour l'instant**, sur X comme sur TikTok : 7 comptes comparables au lieu des 8 minimum. Beaucoup de comptes militants ne parlent que du mouvement, et la règle des 48 heures écarte les posts récents.
+  - **Décision : on ne modifie pas les seuils après avoir vu le résultat** (principe de la VAR). À la place, une session lundi soir : les posts des 5 au 7 novembre auront plus de 48 heures, et on fera défiler davantage les profils (`--defilements 12`). → séquence 6 ou 9 : bon exemple de rigueur, « je n'ai pas changé les règles quand le résultat ne m'arrangeait pas ».
 
 - 🕒 Tests OONI sur l'iPhone, avec les deux SIM, vers 10 h, 13 h 30, 15 h 30, 17 h 30 et 20 h. Noter ici les heures réelles et les anomalies éventuelles (avec les liens OONI Explorer).
 - 🕒 Noter ici tout événement marquant : une annonce, une panne, un post viral sur la censure.

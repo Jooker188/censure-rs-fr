@@ -56,7 +56,7 @@ ps -eo args | grep -E "[m]oniteur_reseaux.py|[c]ontenus.py"
 
 | quand | quoi | commande ou geste | durée de ta part |
 |---|---|---|---|
-| ✅ nuit | **T6/T7, session 1 (« avant »)** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox` | lancée |
+| ✅ nuit | **T6/T7, session 1 (« avant »)** | collecteur pour X, Zeeschuimer à la main pour TikTok | **T6 : rien détecté (34 comptes X, tous présents). T7 : non testable (7 comptes comparables sur 8 requis)** |
 | ✅ nuit | **OONI, référence** | iPhone, 2 SIM, 4G | fait |
 | matin | **mettre le dépôt à jour, puis analyser la session 1** | `git pull`, puis `python3 comptes.py exports/collecteur-t6-DATE.ndjson` | 2 min |
 | 13 h 30, 15 h 30, 17 h 30, 20 h | **OONI** | iPhone, 2 SIM, 4G : carte Sites web (17 adresses) puis carte Messageries instantanées | 5 min chaque fois |
@@ -72,7 +72,7 @@ ps -eo args | grep -E "[m]oniteur_reseaux.py|[c]ontenus.py"
 | quand | quoi | qui |
 |---|---|---|
 | dimanche | importer la collecte de l'acte IV, copier le nouveau corpus sur le VPS, relancer `contenus.py` | toi (§6) |
-| dimanche | 2e session **T6/T7** (pour voir si quelque chose a changé) | toi |
+| **lundi soir** | **T6/T7, session 3 (« après »)** : `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x --defilements 12`, et Zeeschuimer sur les 25 profils TikTok (30 s chacun). Les posts des 5 au 7 novembre auront alors plus de 48 h, ce qui donnera plus de comptes comparables pour T7, sans changer les seuils | toi |
 | dimanche | m'envoyer les `mesures_*.csv` (moniteur réseau), puis lancer `analyse.py` | toi → 🧑‍💻 |
 | dimanche ou lundi | `ooni_verif.py` sur les 6 et 7 novembre (données publiques OONI) | 🧑‍💻 |
 | après le week-end | **T3/T4** : base européenne DSA | 🧑‍💻 |
