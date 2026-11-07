@@ -52,19 +52,19 @@ ps -eo args | grep -E "[m]oniteur_reseaux.py|[c]ontenus.py"
 
 ---
 
-## 3. Samedi 7 novembre (acte IV) : la journée, automatisée
+## 3. Samedi 7 novembre (acte IV) : le programme
 
-| quand | quoi | ce que tu fais | durée de ta part |
+| quand | quoi | commande ou geste | durée de ta part |
 |---|---|---|---|
-| **maintenant** | **T1 automatique** sur le VPS (proxy résidentiel France et États-Unis) | les commandes du §5, une seule fois | 5 min |
-| **maintenant** | **installer le collecteur** sur le Mac et te connecter une fois | `pip install playwright`, puis `python3 -m playwright install chromium`, puis `python3 collecteur.py --connexion` | 5 min |
-| **15 h – 17 h** | **T6/T7** : le collecteur visite les 40 comptes tout seul | `python3 collecteur.py --plan t6`, Mac allumé, environ 40 min sans rien faire | 1 min |
-| **soir** | **collecte de l'acte IV** (X et TikTok) | `python3 collecteur.py --plan acte4`, environ 30 min sans rien faire | 1 min |
-| **soir** | **import et mise à jour du VPS** | §5 « Importer » puis « Mettre à jour le VPS » | 5 min |
-| toute la journée | **OONI** sur l'iPhone | laisse les tests automatiques activés ; un test manuel à 16 h si tu y penses | 0 à 5 min |
-| — | **T5** (recherches à la main) | **abandonné** : le plus fragile des tests, et T6 mesure la visibilité dans la recherche de façon plus solide | 0 |
+| ✅ nuit | **T6/T7, session 1 (« avant »)** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox` | lancée |
+| ✅ nuit | **OONI, référence** | iPhone, 2 SIM, 4G | fait |
+| matin | **mettre le dépôt à jour, puis analyser la session 1** | `git pull`, puis `python3 comptes.py exports/collecteur-t6-DATE.ndjson` | 2 min |
+| 13 h 30, 15 h 30, 17 h 30, 20 h | **OONI** | iPhone, 2 SIM, 4G : carte Sites web (17 adresses) puis carte Messageries instantanées | 5 min chaque fois |
+| vers 15 h | **T6/T7, session 2 (« pendant »)** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox` (environ 1 h, Mac branché) | 1 min |
+| soir, après les rassemblements | **collecte de l'acte IV** | `caffeinate -i python3 collecteur.py --plan acte4 --cookies-firefox` (environ 40 min) | 1 min |
+| soir, ensuite | **import, puis mise à jour du VPS** | `python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson`, puis `scp contenus/corpus.csv …` et relance des 3 sessions (§5) | 5 min |
 
-Si le collecteur affiche une vérification (captcha) ou s'arrête sur une erreur, reprends la version manuelle avec Zeeschuimer (`contenus/PROTOCOLE_T6_T7.md`, `contenus/RECHERCHES.md`).
+**Règles :** ne pas relancer l'import entre les sessions T6/T7. La liste des comptes est de toute façon figée, il faut `--nouvelle-liste-comptes` pour la refaire. Les recherches `from:` des sessions T6/T7 n'entrent pas dans le corpus.
 
 ## 4. Dimanche et les jours suivants
 
