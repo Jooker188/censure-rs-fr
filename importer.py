@@ -242,6 +242,10 @@ def importer(fichiers, cle, publics):
             captures.append((ctx, cible, q, p))
             if ctx != "recherche":
                 continue
+            # Recherches par auteur (« from:compte ») de la session T6/T7 : ce ne sont pas des
+            # recherches par mot-clé, elles n'entrent pas dans le corpus.
+            if re.search(r"(?:^|\s)from:", q or "", re.I):
+                continue
             cat = categorie_recherche(q)
             # TikTok/Instagram ajoutent des vidéos « proches » sur les pages de hashtag :
             # on ne garde que celles qui portent réellement le hashtag recherché.
