@@ -9,24 +9,31 @@
 
 > Avant chaque lancement du collecteur : **Firefox habituel fermé**, Mac branché, capot ouvert. Toutes les commandes se lancent dans le dossier du dépôt, après `git pull`.
 
-### Samedi 7 (acte IV)
+### Samedi 7 (acte IV), état à 20 h
 
-| heure | quoi | comment | durée |
-|---|---|---|---|
-| 13 h 30, 15 h 30, 17 h 30, 20 h | **OONI** (forme 1, mobile) | iPhone en 4G, Wi-Fi coupé, sur **les 2 SIM** : carte « Sites web » (17 adresses) puis carte « Messageries instantanées ». Noter les heures dans `video/JOURNAL_DE_BORD.md` | 5 min chaque fois |
-| vers 15 h | **T6, session 2 (« pendant »)** sur X | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x` | 1 min, puis environ 50 min tout seul |
-| soir, après les rassemblements | **collecte de l'acte IV, X** | `caffeinate -i python3 collecteur.py --plan acte4 --cookies-firefox --plateformes x` | 1 min, puis environ 15 min tout seul |
-| soir | **collecte de l'acte IV, TikTok** (recommandé) | Zeeschuimer dans ton Firefox, pages `/tag/` : acte4, 7novembre, 6novembre, 5novembre, giletsjaunes, toutbloquer, manif, manifestation, revolution, puis les témoins meteo, ligue1, recette, foot (environ 1 min chacune). Export en `.ndjson` | 15 min |
-| soir, ensuite | **import** (et ajout des 15 créateurs TikTok, **une seule fois**) | `python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson --ajouter-tiktok 15` | 1 min |
-| soir, ensuite | **mise à jour du VPS** | `scp contenus/corpus.csv smeshr-deploy@IP_DU_VPS:~/`, puis sur le VPS, pour `contenus`, `t1fr` et `t1us` : `tmux attach -t NOM`, Ctrl+C, flèche du haut, Entrée, Ctrl+B puis D | 5 min |
+| quand | quoi | état |
+|---|---|---|
+| nuit | T6/T7 session 1 (avant) | ✅ T6 : rien détecté (34 comptes) ; T7 : non testable (7 comptes comparables sur 8) |
+| 19 h 30 | collecte de l'acte IV sur X (911 posts, après correction du défilement) et sur TikTok, import avec `--ajouter-tiktok 15`, corpus de 2 378 posts, VPS mis à jour | ✅ |
+| 20 h | **T6 session 2 (pendant)** : `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x` | 🕒 |
+| vers 23 h | **2e collecte X** : `caffeinate -i python3 collecteur.py --plan acte4 --cookies-firefox --plateformes x` ; **TikTok** avec Zeeschuimer (#acte4, #7novembre, #giletsjaunes, #meteo, #foot) | 🕒 |
+| avant de dormir | **import** (`python3 importer.py ~/Downloads/zeeschuimer-export-*.ndjson exports/*.ndjson`, **sans** `--ajouter-tiktok`), puis **VPS** : `scp` du corpus, `pkill -f contenus.py`, et les 3 `tmux send-keys` (voir ci-dessous) | 🕒 |
 
-### Dimanche 8
+Relancer les 3 suivis sur le VPS sans entrer dans tmux :
+```bash
+pkill -f contenus.py
+tmux send-keys -t contenus 'python3 contenus.py --corpus corpus.csv --vantage vps --interval 10800' Enter
+tmux send-keys -t t1fr '. ~/.proxy_fr && python3 contenus.py --corpus corpus.csv --vantage fr_resid --leger --interval 86400' Enter
+tmux send-keys -t t1us '. ~/.proxy_us && python3 contenus.py --corpus corpus.csv --vantage us_resid --leger --interval 86400' Enter
+```
 
-| quand | quoi | comment | durée |
-|---|---|---|---|
-| quand tu veux | **analyse de T6, session 2** | `python3 comptes.py exports/collecteur-t6-DATE_SAMEDI.ndjson`, puis m'envoyer les lignes T6 et T7 | 2 min |
-| quand tu veux | **vérifier que le VPS tourne** | `ps -eo args \| grep -E "[m]oniteur_reseaux.py\|[c]ontenus.py"` : 4 lignes attendues | 1 min |
-| soir | **arrêter la tour Windows** | m'envoyer d'abord ses fichiers `mesures_*.csv`, puis fermer la fenêtre et éteindre | 5 min |
+### Dimanche 8 (à partir de 20 h, environ 10 min)
+
+| quoi | comment |
+|---|---|
+| analyse de T6 session 2 | `python3 comptes.py exports/collecteur-t6-DATE_SAMEDI.ndjson`, puis m'envoyer les lignes T6 et T7 |
+| vérifier le VPS | `ps -eo args \| grep -E "[m]oniteur_reseaux.py\|[c]ontenus.py"` : 4 lignes attendues |
+| tour Windows | m'envoyer ses `mesures_*.csv`, puis l'éteindre |
 
 ### Lundi 9
 
