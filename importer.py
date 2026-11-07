@@ -466,6 +466,8 @@ def main():
     ap.add_argument("--comptes-temoin", type=int, default=10)
     ap.add_argument("--comptes-tiktok-mouvement", type=int, default=15)
     ap.add_argument("--comptes-tiktok-temoin", type=int, default=10)
+    ap.add_argument("--nouvelle-liste-comptes", action="store_true",
+                    help="régénère contenus/comptes_t6.csv (sinon la liste existante est conservée, pour comparer les sessions)")
     a = ap.parse_args()
     fichiers = sorted({f for m in a.ndjson for f in (glob.glob(m) or [m])})
     cle = cle_pseudo()
@@ -473,7 +475,14 @@ def main():
     if not posts:
         sys.exit("Aucun post issu d'une recherche dans ces fichiers.")
     corpus = ecrire(posts, lire_manuels(a.manuels), a)
-    comptes = comptes_t6(posts, a)
+    chemin_comptes = os.path.join(DOSSIER, "comptes_t6.csv")
+    if os.path.exists(chemin_comptes) and not a.nouvelle_liste_comptes:
+        # Liste figée : les sessions T6/T7 successives (avant, pendant, après) doivent porter sur les mêmes comptes.
+        comptes = list(csv.DictReader(open(chemin_comptes, newline="", encoding="utf-8")))
+        print(f"Liste des comptes T6/T7 conservée ({len(comptes)} comptes). "
+              "Pour la refaire : --nouvelle-liste-comptes", file=sys.stderr)
+    else:
+        comptes = comptes_t6(posts, a)
     rapport(posts, corpus, comptes, erreurs, a)
     c = collections.Counter(p["categorie"] for p in posts.values())
     print(f"{len(posts)} posts uniques ({dict(c)}), corpus : {len(corpus)}, comptes T6/T7 : {len(comptes)}.\n"
