@@ -252,25 +252,25 @@
 
 🎙️
 > Et maintenant, mes propres mesures, pendant l'acte IV.
-> [RÉSULTAT : nombre de mesures, période couverte par chaque point, trous éventuels. Exemple : « Ma box a mesuré de vendredi 5 h à dimanche 1 h, soit environ 300 tours de mesure de 40 sites. »]
+> Ma box Bouygues a mesuré de vendredi 5 h à samedi midi : 369 tours de mesure, un toutes les cinq minutes, sans un seul trou. Mon serveur, lui, a tourné tout le week-end et continue encore : près de mille tours. Et sur mon téléphone, avec mes deux lignes, j'ai lancé OONI plusieurs fois samedi.
 > Comment lire cette frise : chaque ligne est un réseau social, chaque couleur un état. Vert, ça marche. Rouge, signature de blocage. Gris, c'est ma connexion qui avait un problème. Blanc, pas de mesure.
 
-**Variante A : aucun signal** (à garder si c'est le résultat)
-> Et vous le voyez : c'est vert. Partout, tout le week-end, sur ma box Bouygues, sur mes deux lignes mobiles et depuis mon serveur. Le témoin positif, lui, est bloqué en permanence, donc l'outil voyait bien.
+**Variante retenue : signaux isolés (B)**
+> Et c'est vert. Sur ma box, le témoin positif, `sputnikglobe.com`, a été vu bloqué 738 fois sur 738 : l'outil voyait parfaitement un blocage. Les réseaux sociaux, eux, n'ont jamais été bloqués.
+> Il y a quand même quelques petites taches. Six, sur ma box : un serveur d'Instagram ou de YouTube qui met trop de temps à répondre, une seule fois, et plus rien au tour suivant. On les passe à la VAR : ça ne se répète pas, ça ne touche pas une plateforme plus qu'une autre. Ce n'est pas un motif.
 
-**Variante B : signaux isolés**
-> Il y a des petites taches. [RÉSULTAT : lesquelles, quand.] On les passe à la VAR. [RÉSULTAT : critère par critère.] Aucune ne remplit les quatre critères.
+🎥 Sur la frise du VPS, zoom sur vendredi 18 h 30 – 20 h 10 : une bande rouge sur Instagram.
 
-**Variante C : motif répété**
-> Là, il se passe quelque chose. [RÉSULTAT : plateforme, opérateur, heures, signature exacte.] Passons-le à la VAR. [RÉSULTAT : les quatre critères.] [RÉSULTAT : recoupement avec le VPS, OONI et la presse.]
-> Je peux vous dire **ce qui** s'est passé, et **quand**. Je ne peux pas vous dire **qui** l'a décidé, ni pourquoi. [À COMPLÉTER : ce que disent les opérateurs ou le gouvernement, si une source existe.]
+> Et puis il y a celle-ci, sur mon serveur. Vendredi soir, pendant une heure et demie, Instagram « n'existe plus », selon un des quatre résolveurs que j'interroge. Ça ressemble à un blocage DNS. Sauf que les trois autres résolveurs répondent normalement, et que la connexion à Instagram marche pendant tout ce temps. Et surtout, le même signal touche un site témoin, `www.akamai.com`, le lendemain et le surlendemain. C'est ce résolveur qui a eu un raté, pas Instagram qui a été bloqué.
+> Si je n'avais regardé que cette ligne, je pouvais faire une vidéo « Instagram bloqué le soir de l'acte IV ». C'est exactement à ça que servent les témoins.
 
-🎙️ (dans tous les cas)
-> Et OONI pour le même week-end ? [RÉSULTAT : `ooni_verif.py` sur les 6 et 7 novembre : couverture horaire par opérateur, part du mobile, anomalies.]
+🎙️
+> Limite : ma box s'est arrêtée samedi midi, donc avant les cortèges de l'après-midi. Pour l'après-midi, j'ai mon serveur, qui est chez un hébergeur et pas chez un opérateur grand public, et les tests OONI de mon téléphone. Ni l'un ni l'autre n'a vu de blocage. [À CONFIRMER : résultats OONI de samedi sur l'iPhone, à regarder dans l'appli.]
+> **Verdict pour l'acte IV : aucune coupure observée.**
 
 🎥 Récapitulatif d'étape.
 
-📝 Garde une seule variante. Si tu hésites entre B et C, c'est B. Ne réécris pas les critères de la séquence 6 pour qu'ils collent aux résultats.
+📝 Ne réécris pas les critères de la séquence 6 pour qu'ils collent aux résultats. Les captures OONI de samedi sont à ajouter ici si l'une d'elles montre autre chose que `sputnikglobe.com`.
 
 ---
 
@@ -281,7 +281,13 @@
 **9a. Supprimer des contenus (forme 2), en bref**
 
 🎙️
-> Supprimer des contenus, d'abord. J'ai suivi [RÉSULTAT : nombre] posts sur le mouvement, et autant de posts sans rapport, pendant [RÉSULTAT : durée]. [RÉSULTAT : T2, disparitions, motifs, comparaison avec les témoins.] [RÉSULTAT : T1, retenus en France seulement, ou pas.]
+> Supprimer des contenus, d'abord. J'ai suivi environ 1 800 posts et vidéos sur le mouvement, et 1 100 posts sans rapport, sur X et TikTok. Mon outil passait toutes les trois heures, depuis la France et depuis les États-Unis.
+> Est-ce que ça marche ? J'ai publié un tweet puis je l'ai supprimé : l'outil l'a vu « supprimé » au passage suivant. Et un tweet de RT, la chaîne russe interdite dans l'UE : l'outil le voit « retenu » depuis la France, visible depuis les États-Unis. Le détecteur détecte.
+> Résultat. Sur X, 26 posts du mouvement ont disparu sur 1 137, soit 2,3 %. Côté témoins, 2,4 %. Pareil. Et la plupart du temps, c'est l'auteur qui a supprimé son post. Si on ne garde que les disparitions où l'auteur n'y est pour rien, c'est 8 côté mouvement, contre 12 côté témoins, qui sont surtout des comptes de spam suspendus. Sur TikTok, 4 vidéos disparues, supprimées par leurs auteurs.
+> Et un post, un seul, retenu en France mais visible aux États-Unis. Je me suis dit : ça y est. Je vais voir… c'est un tweet de RT en français, qui parlait de l'acte IV. Retenu « au Royaume-Uni et dans l'Union européenne », comme tous les tweets de RT depuis les sanctions de 2022. Ce n'est pas le mouvement qui est visé, c'est RT.
+
+🎥 Le tombstone « This Post from @RTenfrancais has been withheld in United Kingdom, European Union… » à côté de la même URL vue depuis les États-Unis.
+
 > Et côté textes : l'amendement voté au Sénat organise le retrait sans juge. Voté en première lecture, pas encore en vigueur. [À COMPLÉTER : T3, ce que déclarent les plateformes dans la base européenne.]
 
 **9b. Le shadowban (forme 3)**
@@ -306,20 +312,33 @@
 > Une différence réelle, ce n'est pas une preuve de censure. C'est exactement là qu'il faut s'arrêter.
 
 🎙️ **Expérience 2 : est-ce que ça change pendant l'acte IV ? (T8)**
-> J'ai ensuite surveillé ces indicateurs sur [RÉSULTAT : nombre] vidéos, toutes les trois heures, pendant et après l'acte IV. [RÉSULTAT : T8, changements mouvement contre témoins.]
+> J'ai ensuite surveillé ces indicateurs sur près de 1 000 vidéos, toutes les trois heures, pendant et après l'acte IV. Si TikTok avait serré la vis pendant la manif, on verrait les indicateurs changer sur les vidéos du mouvement.
+> Résultat : ils changent pour 5 vidéos du mouvement sur 699, et 2 témoins sur 284. Moins de 1 % des deux côtés. Pas de différence.
 
 🎙️ **Expérience 3 : les courbes de vues (T9)**
 🎥 Graphique : croissance des vues, mouvement contre témoins de même popularité et de même âge.
-> Si une vidéo est mise de côté, elle reste en ligne mais cesse de gagner des vues. J'ai comparé les courbes à popularité et âge égaux. [RÉSULTAT : T9.]
+> Si une vidéo est mise de côté, elle reste en ligne mais cesse de gagner des vues. J'ai comparé les courbes à popularité et âge égaux.
+> Et c'est même l'inverse de ce qu'on pourrait croire : les vidéos du mouvement stagnent plutôt **moins** que les recettes et le foot de même popularité. Au total, 188 vidéos du mouvement ont stagné, alors qu'on en attendait 192 si elles étaient traitées comme les autres. Pas de différence.
+
+🎙️ **Expérience 4 : les comptes cachés dans la recherche (T6), et mon erreur**
+🎥 Le tableau de la session de samedi soir : « 12 comptes absents de la recherche » en rouge.
+> Sur X, j'ai vérifié une quarantaine de comptes : ceux qui disent être censurés, des comptes du mouvement, et des témoins. Pour chacun, je regarde son profil, puis je cherche ses posts dans la recherche de X. Si les posts existent mais n'apparaissent pas dans la recherche, c'est le fameux « search ban ».
+> Samedi soir, mon outil me sort ça : 12 comptes absents. Dont 7 de ceux qui disent être censurés. Ça y est, je le tiens ?
+> Non. Je regarde les deux autres sessions du même jour, celle de la nuit et celle de l'après-midi : ces mêmes comptes étaient tous là. Et parmi les « absents », il y a un compte de foot. Deux erreurs de ma part : X renvoie parfois une recherche vide, au milieu de recherches qui marchent, et en faisant défiler plus loin, je comparais des posts vieux de plusieurs semaines, que la recherche de X ne retrouve plus pour personne.
+> Alors j'ai corrigé la règle : on compare les trois derniers jours, et un compte n'est « absent » que s'il l'est dans deux sessions. Je vous le dis franchement : cette règle, je l'ai écrite après avoir vu le résultat. C'est pour ça que j'ai refait une session le lundi, pour vérifier avec la nouvelle règle. [RÉSULTAT : session du lundi.]
+> Résultat : 36 comptes vérifiés, aucun absent de façon répétée.
+
+🎙️ **Expérience 5 : les vues des posts sur la manif (T7)**
+> Dernière idée : comparer un compte à lui-même. Si vos posts sur la manif sont bridés, ils devraient faire moins de vues que vos autres posts. Sur 11 comptes du mouvement : leurs posts sur la manif font en médiane **1,8 fois plus** de vues que leurs autres posts. Pour ceux qui disent être censurés : 2,5 fois plus. [RÉSULTAT : session du lundi, et TikTok.]
 
 🎙️ **Ce que déclarent les plateformes (T4)**
 > Depuis le règlement européen DSA, les plateformes doivent déclarer leurs décisions de « contenu déclassé » dans une base publique. [À COMPLÉTER : T4, nombre de décisions pour la France pendant le mouvement, comparé aux semaines d'avant.] Limite : ce sont leurs propres déclarations.
 
 🎙️ **Ce que je n'ai pas pu tester**
-> Je n'ai pas testé si des comptes X étaient cachés dans la recherche, faute de temps ce week-end [ou RÉSULTAT T6/T7 si fait dimanche]. Je n'ai pas mesuré la portée réelle avec des comptes tests, je me l'étais interdit. Et surtout, aucune de ces expériences ne dit **qui** décide.
+> Je n'ai pas testé si les recherches par hashtag renvoyaient moins de résultats en France qu'à l'étranger, faute de temps. Je n'ai pas mesuré la portée réelle avec des comptes tests, je me l'étais interdit. Instagram et YouTube, je ne les ai pas suivis. Et surtout, aucune de ces expériences ne dit **qui** décide.
 
 🎙️ **Le verdict**
-> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. [RÉSULTAT : ce qui a été observé ou non avec T8, T9 et T4.] Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
+> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. Mais ces vidéos ne perdent pas de vues, leurs indicateurs ne bougent pas pendant l'acte IV, les comptes ne disparaissent pas de la recherche, et les posts sur la manif font plus de vues, pas moins. [RÉSULTAT : T4.] Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
 
 🎥 Changement de ton. Images d'archives de la Nouvelle-Calédonie en 2024 (droits à vérifier).
 
@@ -341,10 +360,11 @@
 | si votre question est… | la réponse | pourquoi |
 |---|---|---|
 | Est-ce que l'accès a été coupé le 24 ou le 31 octobre ? | **Non prouvé** sur le fixe, **non testable** sur le mobile | données OONI publiques |
-| Est-ce que l'accès a été coupé pendant l'acte IV ? | [RÉSULTAT] | mes sondes et OONI |
+| Est-ce que l'accès a été coupé pendant l'acte IV ? | **Non prouvé** : aucune coupure observée (box Bouygues jusqu'à samedi midi, serveur, OONI sur deux lignes mobiles [à confirmer]) | mes sondes et OONI |
 | Est-ce qu'une coupure a été envisagée ? | **Documenté** | lettre du 22 octobre, selon la presse |
 | Est-ce que des contenus peuvent être retirés sans juge ? | **Documenté dans un texte voté au Sénat**, pas encore en vigueur | amendement n°94 |
-| Est-ce qu'il y a un shadowban d'État ? | **Non testable** de l'extérieur | séquence 9 |
+| Est-ce que des posts du mouvement ont été retirés ? | **Non prouvé** : pas plus de disparitions que chez les témoins ; le seul post retenu en France est un tweet de RT | séquence 9 |
+| Est-ce qu'il y a un shadowban d'État ? | **Non testable** de l'extérieur. Ce qui se mesure (recherche, vues, indicateurs) ne montre pas de bridage | séquence 9 |
 
 🎙️
 > Et je vous dois les limites. Un week-end, trois points de mesure, deux opérateurs mobiles : c'est mince. Je ne vois pas ce qui se passe chez Orange ou Free en 4G, ni dans une autre ville, ni pendant les heures où mes sondes ne tournaient pas. Je ne peux pas mesurer un ralentissement volontaire, parce qu'une 4G saturée par une foule ressemble exactement à ça.
