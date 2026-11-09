@@ -65,6 +65,13 @@
 - 🕒 Tests OONI sur l'iPhone, avec les deux SIM, vers 10 h, 13 h 30, 15 h 30, 17 h 30 et 20 h. Noter ici les heures réelles et les anomalies éventuelles (avec les liens OONI Explorer).
 - 🕒 Noter ici tout événement marquant : une annonce, une panne, un post viral sur la censure.
 
+## Lundi 9 novembre : premiers résultats
+
+- **Forme 1, box Bouygues (tour Windows), du vendredi 6 à 5 h 11 au samedi 7 à 11 h 52** : 369 tours de mesure toutes les 5 minutes, **sans trou**, toujours sur le réseau Bouygues (AS5410), sans aucun tour invalide. Le **témoin positif** est bloqué par le DNS de Bouygues dans **738 vérifications sur 738** : l'outil voyait parfaitement un blocage DNS. 1.1.1.1 n'a jamais été intercepté. Le certificat d'aucun réseau social n'a changé.
+  - **Résultat : aucun motif de blocage.** Seulement 6 signaux isolés, chacun sur un seul tour : un délai de connexion vers un serveur précis d'un CDN (Instagram, Snapchat, Messenger, YouTube), et une fois une lenteur du DNS. Rien qui se répète, rien qui touche une plateforme plus qu'une autre.
+  - **Limite** : la tour a été éteinte samedi à 11 h 52, donc **avant les manifestations de l'après-midi**. Pour samedi après-midi : le moniteur du VPS et les données OONI publiques.
+  - → séquence 8 : « Vendredi et samedi matin, chez moi, sur Bouygues : rien. Le témoin bloqué l'a été 738 fois sur 738, donc mon outil voyait. »
+
 ## Dimanche 8 novembre et après
 
 - 🕒 Résultats du moniteur réseau (`analyse.py`) et des données OONI publiques du week-end.
