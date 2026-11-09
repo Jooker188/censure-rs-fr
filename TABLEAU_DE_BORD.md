@@ -222,7 +222,7 @@ python3 analyse_tiktok.py "tiktok_metriques_*.csv" --corpus contenus/corpus.csv 
 | **T5** | une recherche est vide en France seulement ? | à la main + proxy US dans Firefox | ⛔ abandonné le 07/11 (fragile, couvert en partie par T6) | — |
 | **T6** | des comptes sont absents de la recherche (search ban) ? | `collecteur.py --plan t6` + `comptes.py` | 🕒 samedi 15 h – 17 h (automatique) | 40 comptes prêts dans `contenus/comptes_t6.csv` (15 revendication, 15 mouvement, 10 témoins). Avant de commencer, désactive les 2 filtres de recherche de X. |
 | **T7** | posts sur le mouvement moins vus que les autres posts du même compte ? (**X et TikTok**) | même session que T6 (40 comptes X + 25 créateurs TikTok) | 🕒 samedi | — |
-| **T8** | indicateurs internes TikTok qui changent ? | `contenus.py` (VPS) + `analyse_tiktok.py` | 🔄 (≥ 2 passages nécessaires) | Photo du 06/11 : à popularité égale, les vidéos du mouvement sont **plus souvent marquées `reviewed`** que les témoins (39 % contre 19 % au-dessus d'un million de vues). C'est significatif, mais le champ n'est pas documenté et ce n'est **pas une preuve** (voir §7). |
+| **T8** | indicateurs internes TikTok qui changent ? | `contenus.py` (VPS) + `analyse_tiktok.py` | ✅ rien détecté (5/699 contre 2/284) | Le marquage `reviewed` : la photo du 06/11 (39 % contre 19 % au-dessus d'un million de vues, avec seulement 43 témoins) **ne tient plus** sur tout le corpus. À popularité égale, la différence n'est pas significative (p = 0,13). |
 | **T9** | vues qui stagnent, à popularité et âge égaux ? | idem | 🔄 (≥ 24 h nécessaires) | — |
 
 ---

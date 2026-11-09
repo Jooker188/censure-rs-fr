@@ -108,7 +108,7 @@
 | code | type | quoi | comment |
 |---|---|---|---|
 | S06_F | F | toute la séquence, ton de confidence | |
-| S06_G01 | G | l'incident raconté « avec les mots qui font peur », puis démonté | Claude, selon l'incident choisi (voir « script à compléter » en bas) |
+| S06_G01 | G | la fausse alerte : « Instagram n'existe plus », vendredi 18 h 30 – 20 h 10, puis les quatre annuaires (3 verts, 1 rouge), puis le même raté sur `akamai.com` | Claude, à partir des mesures du VPS |
 | S06_G02 | G | Instagram : deux annuaires, deux adresses différentes, deux serveurs proches | Claude |
 | S06_G03 | G | Reddit « 403 interdit » depuis le serveur | Claude, à partir des mesures du VPS |
 | S06_G04 | G | **la VAR** : les quatre critères qui s'affichent un par un | Claude |
@@ -131,7 +131,7 @@
 | S08_G01 | G | la frise de la box, en plein écran, puis un zoom | Claude, à partir de `rapport/frise.html` |
 | S08_G02 | G | compteur « 738 / 738 » pour le témoin positif | Claude |
 | S08_G03 | G | les 6 taches isolées, passées à la VAR | Claude |
-| S08_G04 | G | **la fausse alerte du VPS** : bande rouge sur Instagram vendredi 18 h 30 – 20 h 10, puis les 3 autres résolveurs au vert, puis le même signal sur `www.akamai.com` | Claude |
+| S08_G04 | G | le week-end du VPS : la fausse alerte Instagram de vendredi (rappel), et les ratés isolés sur `x.com` samedi après-midi | Claude |
 | S08_T01 | T | OONI de samedi sur l'iPhone : l'historique des tests de la journée | enregistrement d'écran iOS |
 | S08_G05 | G | verdict : aucune coupure observée | Claude |
 
@@ -148,7 +148,7 @@
 | S09_E03 | E | le tweet « stats anormalement basses… », **pseudo flouté** | capture dans le navigateur |
 | S09_G05 | G | la liste des questions (traitée à part ? ça change ? moins diffusée ? cachée dans la recherche ? que déclarent les plateformes ?) | Claude |
 | S09_E04 | E | **le champ `reviewed`** : une vidéo TikTok de **recette** d'un grand compte (pas un particulier), F12 → onglet Réseau, puis la réponse qui contient `reviewed`, surlignée avec Ctrl+F | navigateur ; bien choisir une vidéo témoin |
-| S09_G06 | G | tableau `reviewed` : chiffre brut (1,6 M contre 43 000), puis à popularité égale (39 % contre 19 %) | Claude |
+| S09_G06 | G | `reviewed` en 3 temps : chiffre brut (3 M contre 20 000 vues), puis photo de vendredi (39 % contre 19 %, 43 témoins), puis avec 141 témoins (34 % contre 30 %) | Claude |
 | S09_G07 | G | T8 : 5/699 contre 2/284 | Claude |
 | S09_G08 | G | T9 : courbes de vues, mouvement contre témoins de même popularité | Claude |
 | S09_G09 | G | T6 : « 12 comptes absents » en rouge, puis la comparaison des 3 sessions, puis « 0 absent de façon répétée » | Claude (codes `u_…` seulement) |
@@ -197,7 +197,6 @@ Environ 40 images et animations, listées ci-dessus avec le code `G`. Format : P
 | 0 | citation exacte de la lettre (Blast) | à vérifier |
 | 3 | ce que dit vraiment l'amendement n°94 (blocage d'un site, délai) | à vérifier dans le texte officiel |
 | 5 | les réseaux de tes deux SIM, d'après l'ASN affiché dans OONI | toi (plan S05_T01) |
-| 6 | **l'incident à raconter**. Proposition : déplacer ici la fausse alerte Instagram du VPS (vendredi soir) et ne la rappeler qu'en une phrase en séquence 8 | à décider |
 | 8 | résultats OONI de samedi sur l'iPhone | toi |
 | 9 | T6 et T7 de la session de lundi | après ta session T7 TikTok |
 | 9 | date de la décision du Conseil d'État | à vérifier |

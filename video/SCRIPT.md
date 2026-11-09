@@ -196,9 +196,12 @@
 
 🎙️
 > Avant de vous montrer les résultats, je vais vous raconter un petit truc.
-> [À COMPLÉTER : un vrai incident tiré de tes données, raconté avec le vocabulaire de la rumeur. Exemple à adapter : « Samedi à 14 h 35, en pleine manifestation, ma sonde 4G perd X, TikTok, Instagram, tout. Pendant 25 minutes, plus rien. »]
-> Ça fait peur, non ? « Pendant la manif, tout a été coupé. »
-> Sauf que dans le même temps, Wikipédia et Le Monde étaient tombés aussi. Ce n'était pas les réseaux sociaux qui étaient visés : c'était [À COMPLÉTER : la cause probable, par exemple ma 4G saturée par la foule]. C'est moi qui vous l'ai raconté avec les mots qui font peur.
+> Vendredi 6 novembre, 18 h 30. La veille de l'acte IV. Mon serveur me signale qu'Instagram n'existe plus : l'annuaire répond « ce site n'existe pas ». Et ça dure une heure quarante. C'est exactement la signature d'un filtrage DNS, celle que demandait la lettre.
+> Ça fait peur, non ? « La veille de la manif, Instagram bloqué. »
+> Sauf que mon outil n'interroge pas un annuaire, mais quatre. Un seul répondait « n'existe pas » : 1.1.1.1, interrogé en clair. Les trois autres donnaient la bonne adresse, et la connexion à Instagram a marché pendant tout ce temps. Et surtout, le même raté a touché un site témoin, `akamai.com`, qui n'a rien à voir avec les réseaux sociaux, le lendemain et le surlendemain.
+> Ce n'était pas Instagram qui était visé. C'était un annuaire qui avait des ratés. C'est moi qui vous l'ai raconté avec les mots qui font peur.
+
+🎥 Les quatre annuaires côte à côte : trois au vert, un au rouge, puis la même bande rouge sur `akamai.com`.
 
 🎙️
 > Autre exemple : depuis Paris, mon annuaire me donne pour Instagram une adresse différente de celle que donne un annuaire neutre. Suspect ? Non. Les gros sites ont des serveurs partout, et chacun est orienté vers le plus proche. Et depuis mon serveur chez un hébergeur, Reddit me répond « interdit », simplement parce que Reddit n'aime pas les robots dans les centres de données.
@@ -259,10 +262,9 @@
 > Et c'est vert. Sur ma box, le témoin positif, `sputnikglobe.com`, a été vu bloqué 738 fois sur 738 : l'outil voyait parfaitement un blocage. Les réseaux sociaux, eux, n'ont jamais été bloqués.
 > Il y a quand même quelques petites taches. Six, sur ma box : un serveur d'Instagram ou de YouTube qui met trop de temps à répondre, une seule fois, et plus rien au tour suivant. On les passe à la VAR : ça ne se répète pas, ça ne touche pas une plateforme plus qu'une autre. Ce n'est pas un motif.
 
-🎥 Sur la frise du VPS, zoom sur vendredi 18 h 30 – 20 h 10 : une bande rouge sur Instagram.
+🎥 Sur la frise du VPS : la bande rouge d'Instagram vendredi soir, et les petites taches sur `x.com` samedi après-midi.
 
-> Et puis il y a celle-ci, sur mon serveur. Vendredi soir, pendant une heure et demie, Instagram « n'existe plus », selon un des quatre résolveurs que j'interroge. Ça ressemble à un blocage DNS. Sauf que les trois autres résolveurs répondent normalement, et que la connexion à Instagram marche pendant tout ce temps. Et surtout, le même signal touche un site témoin, `www.akamai.com`, le lendemain et le surlendemain. C'est ce résolveur qui a eu un raté, pas Instagram qui a été bloqué.
-> Si je n'avais regardé que cette ligne, je pouvais faire une vidéo « Instagram bloqué le soir de l'acte IV ». C'est exactement à ça que servent les témoins.
+> Sur mon serveur, vous reconnaissez la fausse alerte Instagram de vendredi soir. Le même annuaire a eu deux ou trois autres ratés pendant le week-end, dont un sur `x.com` samedi après-midi, en pleine manifestation, pendant un ou deux tours de mesure seulement. Même signature, même annuaire, et les trois autres répondaient normalement. On les passe à la VAR : ce ne sont pas des motifs.
 
 🎙️
 > Limite : ma box s'est arrêtée samedi midi, donc avant les cortèges de l'après-midi. Pour l'après-midi, j'ai mon serveur, qui est chez un hébergeur et pas chez un opérateur grand public, et les tests OONI de mon téléphone. Ni l'un ni l'autre n'a vu de blocage. [À CONFIRMER : résultats OONI de samedi sur l'iPhone, à regarder dans l'appli.]
@@ -306,11 +308,12 @@
 
 🎥 Capture des données reçues par le navigateur, avec le champ `reviewed` surligné. Puis le tableau.
 
-> Premier chiffre : les vidéos marquées « examinées » ont en médiane 1,6 million de vues, contre 43 000 pour les autres. Suspect ?
+> Premier chiffre : les vidéos marquées « examinées » ont en médiane 3 millions de vues, contre 20 000 pour les autres. Suspect ?
 > Non, c'est le piège : plus une vidéo est vue, plus elle a de chances d'être examinée. Alors comparons à popularité égale, avec des vidéos de recettes et de foot aussi populaires.
-> Et là, il reste une vraie différence. Au-dessus d'un million de vues, 39 % des vidéos du mouvement sont marquées, contre 19 % pour les autres. Ce n'est pas du hasard.
-> Mais voilà ce que ça ne prouve pas. Un : personne ne sait ce que veut dire « examiné », TikTok ne le documente pas. Deux : la modération ordinaire suffit à l'expliquer, parce que les vidéos d'actualité et de manifestation, avec parfois des images violentes, sont plus signalées et plus vérifiées que des recettes. Trois : rien n'indique qui a demandé quoi.
-> Une différence réelle, ce n'est pas une preuve de censure. C'est exactement là qu'il faut s'arrêter.
+> Et là, le vendredi soir, je croyais tenir quelque chose. Au-dessus d'un million de vues, 39 % des vidéos du mouvement étaient marquées, contre 19 % pour les autres. Le genre de chiffre qui fait une miniature.
+> Sauf que je n'avais que 43 vidéos témoins dans cette tranche. Alors j'en ai ajouté, jusqu'à 141. Et l'écart a fondu : 34 % contre 30 %. Il reste une différence entre 100 000 et un million de vues, 14 % contre 3 %, mais c'est une tranche sur trois. Sur l'ensemble, à popularité égale, la différence n'est plus significative.
+> Leçon : avec trop peu de témoins, on voit des écarts qui n'existent pas.
+> Et même s'il en restait un, voilà ce qu'il ne prouverait pas. Un : personne ne sait ce que veut dire « examiné », TikTok ne le documente pas. Deux : la modération ordinaire suffirait à l'expliquer, parce que les vidéos de manifestation, avec parfois des images violentes, sont plus signalées que des recettes. Trois : rien n'indique qui a demandé quoi.
 
 🎙️ **Expérience 2 : est-ce que ça change pendant l'acte IV ? (T8)**
 > J'ai ensuite surveillé ces indicateurs sur près de 1 000 vidéos, toutes les trois heures, pendant et après l'acte IV. Si TikTok avait serré la vis pendant la manif, on verrait les indicateurs changer sur les vidéos du mouvement.
@@ -341,7 +344,7 @@
 > Je n'ai pas testé si les recherches par hashtag renvoyaient moins de résultats en France qu'à l'étranger, faute de temps. Je n'ai pas mesuré la portée réelle avec des comptes tests, je me l'étais interdit. Instagram et YouTube, je ne les ai pas suivis. Et surtout, aucune de ces expériences ne dit **qui** décide.
 
 🎙️ **Le verdict**
-> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. Mais ces vidéos ne perdent pas de vues, leurs indicateurs ne bougent pas pendant l'acte IV, les comptes ne disparaissent pas de la recherche, et les posts sur la manif font plus de vues, pas moins. Aucune de mes vidéos n'est déclarée déclassée dans la base européenne. Reste le pic d'Instagram, qu'on ne peut pas relier à la France. Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
+> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Une première mesure semblait montrer que TikTok examine plus souvent les vidéos du mouvement ; avec plus de témoins, l'écart a presque disparu. Les vidéos du mouvement ne perdent pas de vues, leurs indicateurs ne bougent pas pendant l'acte IV, les comptes ne disparaissent pas de la recherche, et les posts sur la manif font plus de vues, pas moins. Aucune de mes vidéos n'est déclarée déclassée dans la base européenne. Reste le pic d'Instagram, qu'on ne peut pas relier à la France. Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
 
 🎥 Changement de ton. Images d'archives de la Nouvelle-Calédonie en 2024 (droits à vérifier).
 
@@ -349,7 +352,7 @@
 > Et si vous vous demandez pourquoi je me suis donné autant de mal pour mesurer un truc qui, peut-être, ne s'est pas produit : parce que ça s'est déjà produit. En mai 2024, en Nouvelle-Calédonie, pendant les émeutes, le gouvernement a coupé TikTok. Et le Conseil d'État a jugé cette coupure illégale [À COMPLÉTER : date exacte de la décision].
 > Couper un réseau, ce n'est pas un scénario de science-fiction. C'est un outil qui existe, qui a déjà servi, et qui a été préparé le mois dernier. Alors savoir le voir, ça me semble utile, que vous soyez pour ou contre le mouvement.
 
-📝 Le passage sur `reviewed` est le moment « VAR » de la forme 3 : le chiffre brut, puis le piège, puis la vraie différence, puis ses limites. Garde le rythme en trois temps. Les pseudos sont toujours floutés, et aucun compte de particulier n'est montré.
+📝 Le passage sur `reviewed` est le moment « VAR » de la forme 3 : le chiffre brut, puis le piège de la popularité, puis le faux écart dû au manque de témoins, puis les limites. Garde ce rythme. Les pseudos sont toujours floutés, et aucun compte de particulier n'est montré.
 
 ---
 
