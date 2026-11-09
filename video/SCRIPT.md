@@ -170,7 +170,7 @@
 🎙️
 > Voilà mon dispositif. Chez moi, sur ma box, une sonde que j'ai écrite tourne en continu. Toutes les cinq minutes, elle visite X, TikTok, Instagram, Snapchat et une quinzaine d'autres réseaux, et elle note **où** ça coince : à l'annuaire, à la connexion, au chiffrement, ou à la page elle-même.
 > La même sonde tourne sur un serveur loué chez un hébergeur. Son adresse est française, mais il ne passe par aucun fournisseur d'accès grand public. Si un site tombe aussi depuis ce serveur, ce n'est pas un blocage de mon opérateur, c'est une panne de la plateforme.
-> [À COMPLÉTER : le point hors de France (VPN ou second serveur), qui sert à comparer ce qu'on voit en France et ailleurs.]
+> Et pour les contenus, mon outil vérifie aussi chaque post depuis une connexion résidentielle aux États-Unis, en plus de la France. On verra plus loin à quoi ça sert.
 > Petite anecdote honnête : au début, je croyais ce serveur en Allemagne. En vérifiant, il était vu comme français par les plateformes. C'est exactement le genre de détail qu'il faut vérifier avant de conclure.
 > Et sur mon téléphone, j'ai deux cartes SIM, RED et Cdiscount Mobile. [À COMPLÉTER : réseaux confirmés par l'ASN, a priori SFR et Bouygues.] Avec elles, j'ai lancé OONI Probe, une application libre utilisée par des chercheurs du monde entier pour documenter la censure. Ses mesures sont publiques.
 
@@ -201,7 +201,7 @@
 > Sauf que dans le même temps, Wikipédia et Le Monde étaient tombés aussi. Ce n'était pas les réseaux sociaux qui étaient visés : c'était [À COMPLÉTER : la cause probable, par exemple ma 4G saturée par la foule]. C'est moi qui vous l'ai raconté avec les mots qui font peur.
 
 🎙️
-> Autre exemple : depuis Paris, mon annuaire me donne pour Instagram une adresse différente de celle que donne un annuaire neutre. Suspect ? Non. Les gros sites ont des serveurs partout, et chacun est orienté vers le plus proche. Et depuis mon serveur allemand, Reddit me répond « interdit », simplement parce que Reddit n'aime pas les robots dans les centres de données.
+> Autre exemple : depuis Paris, mon annuaire me donne pour Instagram une adresse différente de celle que donne un annuaire neutre. Suspect ? Non. Les gros sites ont des serveurs partout, et chacun est orienté vers le plus proche. Et depuis mon serveur chez un hébergeur, Reddit me répond « interdit », simplement parce que Reddit n'aime pas les robots dans les centres de données.
 > Une anomalie, ce n'est pas un blocage. C'est pour ça qu'il faut des règles, et qu'il faut les annoncer **avant** de regarder les résultats.
 
 🎥 La « VAR » : quatre critères qui s'affichent un par un.

@@ -1,7 +1,7 @@
 # Feuille de route de la vidéo
 
 > Document de pilotage. Il fixe **ce que la vidéo doit faire**, **les règles d'écriture** et **l'état d'avancement** de chaque séquence.
-> Le script (`SCRIPT.md`) suit cette feuille de route séquence par séquence. Les coulisses de l'enquête (découvertes, erreurs corrigées, anecdotes) sont dans `JOURNAL_DE_BORD.md`. Quand tu modifies l'une, mets l'autre à jour.
+> Le script (`SCRIPT.md`) suit cette feuille de route séquence par séquence. Les coulisses de l'enquête (découvertes, erreurs corrigées, anecdotes) sont dans `JOURNAL_DE_BORD.md`, et la liste des plans à filmer dans `PLANS.md`. Quand tu modifies l'une, mets l'autre à jour.
 
 ---
 
