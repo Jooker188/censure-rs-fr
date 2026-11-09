@@ -42,7 +42,7 @@ tmux send-keys -t t1us '. ~/.proxy_us && python3 contenus.py --corpus corpus.csv
 | soir | **T6/T7, session 3 (« après »), X** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x --defilements 12` | 1 min, puis environ 1 h tout seul |
 | soir | **T7 TikTok** | page de liens (30 créateurs du mouvement, commande dans la conversation), Zeeschuimer, 30 s par profil, export en `exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 15 min |
 | soir | **analyse de T6/T7, session 3** | `python3 comptes.py exports/collecteur-t6-DATE_LUNDI.ndjson exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 2 min |
-| soir | **récupérer les données du VPS et me les envoyer** | `scp smeshr-deploy@IP_DU_VPS:'~/contenus_*.csv ~/tiktok_metriques_vps.csv ~/mesures_vps.csv' .` | 2 min |
+| soir | **récupérer les données du VPS et me les envoyer** | `scp 'smeshr-deploy@IP_DU_VPS:~/mesures_vps.csv' 'smeshr-deploy@IP_DU_VPS:~/contenus_*.csv' 'smeshr-deploy@IP_DU_VPS:~/tiktok_metriques_*.csv' donnees_vps/` (un argument par fichier : le `scp` récent de macOS refuse plusieurs fichiers entre les mêmes guillemets) | 2 min |
 | — | **laisser le VPS tourner** encore environ 2 semaines (T1, T2, T8, T9) | rien à faire | 0 |
 
 ### Ce que Claude fait de son côté (dimanche et lundi)
