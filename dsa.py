@@ -182,6 +182,7 @@ def main():
     ap.add_argument("--plateformes", nargs="+", default=list(PLATEFORMES))
     ap.add_argument("--corpus", default="contenus/corpus.csv")
     ap.add_argument("--reprendre", action="store_true", help="ne retélécharge pas les jours déjà dans dsa_jours.csv")
+    ap.add_argument("--hors-ligne", action="store_true", help="refait seulement le rapport à partir de dsa_jours.csv")
     a = ap.parse_args()
     du, au = dt.date.fromisoformat(a.du), dt.date.fromisoformat(a.au)
     ids, info = charger_corpus(a.corpus)
@@ -189,7 +190,7 @@ def main():
     deja = set()
     jours = []
     corresp = []
-    if a.reprendre and os.path.exists("dsa_jours.csv"):
+    if (a.reprendre or a.hors_ligne) and os.path.exists("dsa_jours.csv"):
         for r in csv.DictReader(open("dsa_jours.csv", newline="", encoding="utf-8")):
             jours.append({**{k: int(r[k]) for k in COLONNES[2:]}, "date": dt.date.fromisoformat(r["date"]),
                           "plateforme": r["plateforme"]})
@@ -198,7 +199,7 @@ def main():
             corresp = list(csv.DictReader(open("dsa_correspondances.csv", newline="", encoding="utf-8")))
     uid_ex = {}
     with tempfile.TemporaryDirectory() as tmp:
-        for plat in a.plateformes:
+        for plat in ([] if a.hors_ligne else a.plateformes):
             liste = lister(PLATEFORMES[plat], du, au)
             print(f"{NOMS[plat]} : {len(liste)} jour(s) disponibles entre {du} et {au}", file=sys.stderr)
             for jour in sorted(liste):
@@ -251,7 +252,9 @@ def rapport(jours, corresp, ids, info, plateformes, uid_ex):
         o.append(f"{len(js)} jours lus, du {dmin:%d/%m} au {dmax:%d/%m}.\n")
         o.append("| décisions par jour (périmètre incluant la France) | référence | mouvement | rapport |")
         o.append("|---|---|---|---|")
-        tend = {}
+        tend = {"total": tendance(jours, plat, "total")}
+        n_fr = sum(j["fr"] for j in js)
+        part_fr_seul = sum(j["fr_seul"] for j in js) / n_fr if n_fr else 0
         for champ, lib in (("fr", "toutes"), ("fr_retrait", "retraits, blocages, suspensions"),
                            ("fr_declasse", "déclassements"), ("fr_illegal", "motif : contenu illégal"),
                            ("fr_civique", "catégorie « discours civique »"), ("fr_securite", "catégorie « sécurité publique »"),
@@ -263,7 +266,8 @@ def rapport(jours, corresp, ids, info, plateformes, uid_ex):
                 if champ == "fr":
                     o.append(f"| (jours lus) | {nr} | {nm} | |")
                 o.append(f"| {lib} | {mr:,.0f} | {mm:,.0f} | {'—' if rap is None else f'{rap:.2f}'} |".replace(",", " "))
-        o.append("")
+        o.append(f"\nPart des décisions « France » dont le périmètre est la France seule : {part_fr_seul:.1%} "
+                 "(le reste vaut pour toute l'UE ou plusieurs pays).\n")
         # Correspondances avec nos posts
         cs = [c for c in corresp if c["id"].startswith(plat + "_")]
         n_corpus = len(ids.get(plat, {}))
@@ -310,6 +314,15 @@ def rapport(jours, corresp, ids, info, plateformes, uid_ex):
             hausse = t and t[2] and t[2] >= 1.5
             txt_t = (f"tendance France : {t[0]:,.0f} → {t[1]:,.0f} par jour (×{t[2]:.2f})".replace(",", " ")
                      if t and t[2] else "tendance non mesurable")
+            # Une hausse qui touche toutes les décisions, tous pays, n'est pas propre à la France
+            tt_ = tend.get("total")
+            if t and t[2] and tt_ and tt_[2]:
+                txt_t += f" ; toutes décisions, tous pays : ×{tt_[2]:.2f}"
+                if t[2] >= 1.5 and tt_[2] >= 1.5:
+                    txt_t += " → hausse générale de ce que déclare la plateforme, pas propre à la France"
+            if hausse and part_fr_seul < 0.05:
+                txt_t += (" → périmètre déclaré « toute l'UE » et langue non déclarée : impossible de dire "
+                          "si cette hausse concerne la France")
             if correspondance_possible and n_corpus:
                 a_, c_ = len(mv[cle]), len(tm[cle])
                 p = fisher_bilateral(a_, mv["n"] - a_, c_, tm["n"] - c_) if mv["n"] and tm["n"] else 1.0
@@ -324,7 +337,7 @@ def rapport(jours, corresp, ids, info, plateformes, uid_ex):
                 if not t:
                     v = "NON TESTABLE (pas assez de jours avant et pendant)"
                 elif hausse:
-                    v = f"**HAUSSE** des {lib}s déclarés en France pendant le mouvement ({txt_t}) ; posts non identifiables"
+                    v = f"**HAUSSE** des {lib}s déclarés (périmètre incluant la France) pendant le mouvement ({txt_t}) ; posts non identifiables"
                 else:
                     v = f"RIEN DÉTECTÉ (pas de hausse : {txt_t}) ; posts non identifiables"
             return v

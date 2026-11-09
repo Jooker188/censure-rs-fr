@@ -12,7 +12,8 @@
 | 1. couper l'accès | moniteur réseau (box Bouygues, VPS) + OONI | **aucune coupure observée** (témoin bloqué vu 738/738 fois) | idem |
 | 2. retirer | **T1** retenu en France | 1 seul post, et c'est **RT** (sanctions UE depuis 2022), pas le mouvement | rien (982 vidéos) |
 | 2. retirer | **T2** disparitions | pas plus que les témoins (sans action de l'auteur : 8/1 137 contre 12/798) | 4 vidéos, toutes supprimées par leur auteur |
-| 2/3 | **T3/T4** base DSA | 🧑‍💻 en cours | 🧑‍💻 en cours (on peut y retrouver nos vidéos) |
+| 2/3 | **T3/T4** base DSA (1er oct. – 8 nov.) | rien : décisions « France » en baisse (×0,7) ; posts non identifiables | rien : **aucune de nos 987 vidéos** n'a de retrait ni de déclassement déclaré ; la hausse du 29 oct. (×7) touche toute l'Europe |
+| 2/3 | T3/T4, Instagram et YouTube | Instagram : pic de déclassements « discours civique » du 20 au 27 oct. (×3), décidés par Instagram lui-même, sur toute l'UE, langue non déclarée → impossible à relier à la France | YouTube : rien |
 | 3. visibilité | **T6** absent de la recherche | rien de répété sur 3 sessions (9 absences isolées, témoins compris) | non testable |
 | 3. visibilité | **T7** portée comparée | rien : les posts sur le mouvement sont **plus** vus (×1,76) | non testable (7 comptes sur 8) → ce soir |
 | 3. visibilité | **T8** indicateurs internes | — | rien (5/699 contre 2/284) |
@@ -65,7 +66,7 @@ tmux send-keys -t t1us '. ~/.proxy_us && python3 contenus.py --corpus corpus.csv
 
 ### Ce que Claude fait de son côté (dimanche et lundi)
 
-OONI public des 6 et 7 novembre ; base DSA (T3, T4) ; analyse du moniteur réseau et frise (`analyse.py`) ; T1, T2, T8 et T9 avec les données du VPS ; tableau final des verdicts ; mise à jour des séquences 7 à 10 du script.
+OONI public des 6 et 7 novembre ; ✅ base DSA (T3, T4, `dsa.py`) ; analyse du moniteur réseau et frise (`analyse.py`) ; T1, T2, T8 et T9 avec les données du VPS ; tableau final des verdicts ; mise à jour des séquences 7 à 10 du script.
 
 ---
 

@@ -91,6 +91,12 @@
   - **Honnêteté** : cette règle a été écrite après avoir vu le résultat. On le dit, on montre les deux versions, et la session de lundi soir servira de vérification indépendante. → séquence 9 : « mon outil a cru voir un shadowban, voilà pourquoi ce n'en était pas un »
 - **T7, X** : avec la session du soir, 11 comptes du mouvement deviennent comparables. Leurs posts sur le mouvement sont en fait **plus** vus que leurs autres posts (rapport médian 1,76, p = 0,55 ; pour les comptes qui se disent censurés, 2,46). **Rien détecté.** T7 TikTok : toujours 7 comptes, non testable avant la session de lundi soir.
 - **T8, TikTok** : les indicateurs internes changent pour 5 vidéos du mouvement sur 699 et 2 témoins sur 284. Pas d'écart (p = 1).
+- **T3/T4, base DSA de la Commission** (`dsa.py`, exports publics du 1er octobre au 8 novembre, 4 plateformes, environ 150 jours lus) :
+  - **Découverte** : chez TikTok, l'identifiant déclaré est celui de la vidéo. On a donc cherché nos 987 vidéos suivies parmi des dizaines de millions de décisions déclarées. **Aucune** n'a de retrait ni de déclassement déclaré.
+  - **Fausse piste à raconter** : le nombre de décisions déclarées par TikTok est multiplié par 7 d'un coup le 29 octobre. Ce n'est pas la France : la hausse touche toutes les décisions, dans toute l'Europe. TikTok a changé sa façon de déclarer.
+  - **Instagram** : pic de déclassements dans la catégorie « discours civique » entre le 20 et le 27 octobre (500 à 740 par jour, contre ~100 avant et après). Ces décisions sont prises par Instagram lui-même, sans signalement, et valent pour toute l'UE. La langue des contenus n'est pas déclarée. Le calendrier coïncide avec le mouvement, mais **rien ne permet de le relier à la France**. On le montre comme une question ouverte.
+  - **X et YouTube** : pas de hausse. Chez X, les décisions concernant la France baissent même (×0,7). L'identifiant de X est opaque, donc pas de correspondance possible avec nos posts.
+  - Limite : la base contient ce que les plateformes déclarent elles-mêmes, et ne dit jamais qui a demandé une décision.
 - **T9, TikTok** : à popularité et âge égaux, les vidéos du mouvement **ne stagnent pas plus** que les témoins (188 observées contre 192 attendues, p = 0,38). Dans les deux tranches où l'écart est net, ce sont les témoins qui stagnent le plus.
 
 ## Dimanche 8 novembre et après

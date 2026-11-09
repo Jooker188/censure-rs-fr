@@ -288,7 +288,8 @@
 
 🎥 Le tombstone « This Post from @RTenfrancais has been withheld in United Kingdom, European Union… » à côté de la même URL vue depuis les États-Unis.
 
-> Et côté textes : l'amendement voté au Sénat organise le retrait sans juge. Voté en première lecture, pas encore en vigueur. [À COMPLÉTER : T3, ce que déclarent les plateformes dans la base européenne.]
+> Et côté textes : l'amendement voté au Sénat organise le retrait sans juge. Voté en première lecture, pas encore en vigueur.
+> Dernière vérification : depuis le règlement européen DSA, les plateformes doivent déclarer chacune de leurs décisions de modération dans une base publique. J'ai téléchargé cinq semaines de cette base. Et chez TikTok, j'ai eu une bonne surprise : l'identifiant déclaré, c'est celui de la vidéo. J'ai donc pu chercher mes 987 vidéos parmi des dizaines de millions de décisions. Résultat : aucune n'a été retirée ni déclassée.
 
 **9b. Le shadowban (forme 3)**
 
@@ -332,13 +333,15 @@
 > Dernière idée : comparer un compte à lui-même. Si vos posts sur la manif sont bridés, ils devraient faire moins de vues que vos autres posts. Sur 11 comptes du mouvement : leurs posts sur la manif font en médiane **1,8 fois plus** de vues que leurs autres posts. Pour ceux qui disent être censurés : 2,5 fois plus. [RÉSULTAT : session du lundi, et TikTok.]
 
 🎙️ **Ce que déclarent les plateformes (T4)**
-> Depuis le règlement européen DSA, les plateformes doivent déclarer leurs décisions de « contenu déclassé » dans une base publique. [À COMPLÉTER : T4, nombre de décisions pour la France pendant le mouvement, comparé aux semaines d'avant.] Limite : ce sont leurs propres déclarations.
+> Retour dans la base européenne, pour les déclassements cette fois. Chez TikTok, le 29 octobre, le nombre de décisions est multiplié par sept d'un coup. Ça ressemble à une preuve… sauf que ça touche toute l'Europe, toutes les décisions : TikTok a simplement changé sa façon de déclarer.
+> Et chez Instagram, il y a un vrai pic : du 20 au 27 octobre, trois fois plus de contenus déclassés dans la catégorie « discours civique ». Pile pendant le mouvement. Mais ces décisions valent pour toute l'Union européenne, Instagram ne dit pas dans quelle langue étaient les contenus, et c'est Instagram qui les a prises de lui-même, sans signalement. Je ne peux pas vous dire si ça concerne la France. C'est une question ouverte, et je la laisse ouverte.
+> Limite : ce sont leurs propres déclarations, et la base ne dit jamais qui a demandé quoi.
 
 🎙️ **Ce que je n'ai pas pu tester**
 > Je n'ai pas testé si les recherches par hashtag renvoyaient moins de résultats en France qu'à l'étranger, faute de temps. Je n'ai pas mesuré la portée réelle avec des comptes tests, je me l'étais interdit. Instagram et YouTube, je ne les ai pas suivis. Et surtout, aucune de ces expériences ne dit **qui** décide.
 
 🎙️ **Le verdict**
-> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. Mais ces vidéos ne perdent pas de vues, leurs indicateurs ne bougent pas pendant l'acte IV, les comptes ne disparaissent pas de la recherche, et les posts sur la manif font plus de vues, pas moins. [RÉSULTAT : T4.] Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
+> Donc, le shadowban décidé par l'État, ça ne se prouve pas de l'extérieur : non testable. Ce que j'ai observé, c'est que TikTok examine plus souvent les vidéos du mouvement que d'autres vidéos aussi populaires. Mais ces vidéos ne perdent pas de vues, leurs indicateurs ne bougent pas pendant l'acte IV, les comptes ne disparaissent pas de la recherche, et les posts sur la manif font plus de vues, pas moins. Aucune de mes vidéos n'est déclarée déclassée dans la base européenne. Reste le pic d'Instagram, qu'on ne peut pas relier à la France. Pour aller plus loin, il faudrait les données internes des plateformes. Le règlement européen prévoit justement un accès pour les chercheurs.
 
 🎥 Changement de ton. Images d'archives de la Nouvelle-Calédonie en 2024 (droits à vérifier).
 
