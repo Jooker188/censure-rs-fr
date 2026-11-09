@@ -196,9 +196,9 @@
 
 🎙️
 > Avant de vous montrer les résultats, je vais vous raconter un petit truc.
-> Vendredi 6 novembre, 18 h 30. La veille de l'acte IV. Mon serveur me signale qu'Instagram n'existe plus : l'annuaire répond « ce site n'existe pas ». Et ça dure une heure quarante. C'est exactement la signature d'un filtrage DNS, celle que demandait la lettre.
+> Vendredi 6 novembre, 18 h 30. La veille de l'acte IV. Mon serveur me signale qu'Instagram n'a plus d'adresse : l'annuaire répond qu'il n'a rien pour ce nom. Et ça dure une heure quarante. C'est exactement la signature d'un filtrage DNS, celle que demandait la lettre.
 > Ça fait peur, non ? « La veille de la manif, Instagram bloqué. »
-> Sauf que mon outil n'interroge pas un annuaire, mais quatre. Un seul répondait « n'existe pas » : 1.1.1.1, interrogé en clair. Les trois autres donnaient la bonne adresse, et la connexion à Instagram a marché pendant tout ce temps. Et surtout, le même raté a touché un site témoin, `akamai.com`, qui n'a rien à voir avec les réseaux sociaux, le lendemain et le surlendemain.
+> Sauf que mon outil n'interroge pas un annuaire, mais quatre. Un seul ne donnait plus d'adresse : 1.1.1.1, interrogé en clair. Les trois autres donnaient la bonne adresse, et la connexion à Instagram a marché pendant tout ce temps. Et surtout, le même raté a touché un site témoin, `akamai.com`, qui n'a rien à voir avec les réseaux sociaux, le lendemain et le surlendemain.
 > Ce n'était pas Instagram qui était visé. C'était un annuaire qui avait des ratés. C'est moi qui vous l'ai raconté avec les mots qui font peur.
 
 🎥 Les quatre annuaires côte à côte : trois au vert, un au rouge, puis la même bande rouge sur `akamai.com`.
@@ -322,7 +322,7 @@
 🎙️ **Expérience 3 : les courbes de vues (T9)**
 🎥 Graphique : croissance des vues, mouvement contre témoins de même popularité et de même âge.
 > Si une vidéo est mise de côté, elle reste en ligne mais cesse de gagner des vues. J'ai comparé les courbes à popularité et âge égaux.
-> Et c'est même l'inverse de ce qu'on pourrait croire : les vidéos du mouvement stagnent plutôt **moins** que les recettes et le foot de même popularité. Au total, 188 vidéos du mouvement ont stagné, alors qu'on en attendait 192 si elles étaient traitées comme les autres. Pas de différence.
+> Résultat : selon les tranches, ce sont tantôt les vidéos du mouvement qui stagnent un peu plus, tantôt les recettes et le foot. Et les deux seuls écarts nets vont dans le sens inverse de la rumeur : ce sont les témoins qui stagnent le plus. Au total, 188 vidéos du mouvement ont stagné, alors qu'on en attendait 192 si elles étaient traitées comme les autres. Pas de différence.
 
 🎙️ **Expérience 4 : les comptes cachés dans la recherche (T6), et mon erreur**
 🎥 Le tableau de la session de samedi soir : « 12 comptes absents de la recherche » en rouge.

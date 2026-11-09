@@ -128,7 +128,7 @@
 
 | code | type | quoi | comment |
 |---|---|---|---|
-| S08_G01 | G | la frise de la box, en plein écran, puis un zoom | Claude, à partir de `rapport/frise.html` |
+| S08_G01 | G | la frise de la box, en plein écran (zoom au montage) | Claude |
 | S08_G02 | G | compteur « 738 / 738 » pour le témoin positif | Claude |
 | S08_G03 | G | les 6 taches isolées, passées à la VAR | Claude |
 | S08_G04 | G | le week-end du VPS : la fausse alerte Instagram de vendredi (rappel), et les ratés isolés sur `x.com` samedi après-midi | Claude |
@@ -188,7 +188,11 @@
 
 ## Ce que Claude fabrique (G)
 
-Environ 40 images et animations, listées ci-dessus avec le code `G`. Format : PNG ou MP4 en 1920×1080, fond sombre, mêmes couleurs partout (vert = marche, rouge = blocage, gris = problème de connexion, blanc = pas de mesure). Elles seront dans `video/graphiques/`.
+✅ **54 images PNG en 1920×1080**, dans `video/graphiques/`, nommées par leur code (`S05_G01.png`…). Fond sombre, mêmes couleurs partout : vert = ça marche, jaune = signal isolé, rouge = bloqué, bleu = mouvement, orange = témoins.
+
+- Quand un code a des lettres (`S03_G01a` à `S03_G01f`, `S06_G04a` à `d`…), ce sont les **étapes d'une animation** : pose-les à la suite dans Resolve, avec un fondu enchaîné court (6 images) entre chaque.
+- Pour les refaire après de nouvelles données (session T6 de lundi, par exemple) : `python3 video/graphiques/fabriquer.py --help` (options : mesures, épisodes, base DSA, sessions T6).
+- **Il reste à mettre à jour** `S09_G09b` et `S09_G09c` avec la session de lundi, ainsi que `S09_G10` si T7 change.
 
 ## Ce qui manque encore dans le script avant de tourner
 
