@@ -1,7 +1,25 @@
 # Tableau de bord : où on en est
 
 > **Document de pilotage, à lire en premier.** Les autres fichiers donnent le détail ; celui-ci dit quoi faire, où et quand.
-> Mis à jour le samedi 7 novembre 2026 (acte IV). Légende : ✅ fait · 🔄 tourne tout seul · 🕒 à faire · ❓ à confirmer · ⛔ non testable · 🧑‍💻 à faire par Claude.
+> Mis à jour le lundi 9 novembre 2026. Légende : ✅ fait · 🔄 tourne tout seul · 🕒 à faire · ❓ à confirmer · ⛔ non testable · 🧑‍💻 à faire par Claude.
+
+---
+
+## ★ RÉSULTATS au lundi 9 novembre (après-midi)
+
+| forme | test | X | TikTok |
+|---|---|---|---|
+| 1. couper l'accès | moniteur réseau (box Bouygues, VPS) + OONI | **aucune coupure observée** (témoin bloqué vu 738/738 fois) | idem |
+| 2. retirer | **T1** retenu en France | 1 seul post, et c'est **RT** (sanctions UE depuis 2022), pas le mouvement | rien (982 vidéos) |
+| 2. retirer | **T2** disparitions | pas plus que les témoins (sans action de l'auteur : 8/1 137 contre 12/798) | 4 vidéos, toutes supprimées par leur auteur |
+| 2/3 | **T3/T4** base DSA | 🧑‍💻 en cours | 🧑‍💻 en cours (on peut y retrouver nos vidéos) |
+| 3. visibilité | **T6** absent de la recherche | rien de répété sur 3 sessions (9 absences isolées, témoins compris) | non testable |
+| 3. visibilité | **T7** portée comparée | rien : les posts sur le mouvement sont **plus** vus (×1,76) | non testable (7 comptes sur 8) → ce soir |
+| 3. visibilité | **T8** indicateurs internes | — | rien (5/699 contre 2/284) |
+| 3. visibilité | **T9** vues qui stagnent | — | rien (p = 0,38) |
+| 3. visibilité | **T5** recherches | non réalisé | non réalisé |
+
+⚠️ **T6 a été corrigé** : la session de samedi soir annonçait 12 comptes absents, à cause d'erreurs de mesure (recherches vides par intermittence, posts trop anciens). La règle est maintenant : comparaison sur 72 h, et « absent » seulement si c'est le cas dans au moins 2 sessions. Détail dans `video/JOURNAL_DE_BORD.md`. La session de ce soir sert de vérification.
 
 ---
 
@@ -41,7 +59,7 @@ tmux send-keys -t t1us '. ~/.proxy_us && python3 contenus.py --corpus corpus.csv
 |---|---|---|---|
 | soir | **T6/T7, session 3 (« après »), X** | `caffeinate -i python3 collecteur.py --plan t6 --cookies-firefox --plateformes x --defilements 12` | 1 min, puis environ 1 h tout seul |
 | soir | **T7 TikTok** | page de liens (30 créateurs du mouvement, commande dans la conversation), Zeeschuimer, 30 s par profil, export en `exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 15 min |
-| soir | **analyse de T6/T7, session 3** | `python3 comptes.py exports/collecteur-t6-DATE_LUNDI.ndjson exports/zeeschuimer-t7-tiktok-lundi.ndjson` | 2 min |
+| soir | **analyse de T6/T7, toutes sessions** | `git pull`, puis `python3 comptes.py exports/collecteur-t6-*.ndjson exports/zeeschuimer-t7-tiktok*.ndjson` (toutes les sessions d'un coup : T6 compare maintenant les sessions entre elles) | 2 min |
 | soir | **récupérer les données du VPS et me les envoyer** | `scp 'smeshr-deploy@IP_DU_VPS:~/mesures_vps.csv' 'smeshr-deploy@IP_DU_VPS:~/contenus_*.csv' 'smeshr-deploy@IP_DU_VPS:~/tiktok_metriques_*.csv' donnees_vps/` (un argument par fichier : le `scp` récent de macOS refuse plusieurs fichiers entre les mêmes guillemets) | 2 min |
 | — | **laisser le VPS tourner** encore environ 2 semaines (T1, T2, T8, T9) | rien à faire | 0 |
 

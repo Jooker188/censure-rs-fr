@@ -71,6 +71,27 @@
   - **Résultat : aucun motif de blocage.** Seulement 6 signaux isolés, chacun sur un seul tour : un délai de connexion vers un serveur précis d'un CDN (Instagram, Snapchat, Messenger, YouTube), et une fois une lenteur du DNS. Rien qui se répète, rien qui touche une plateforme plus qu'une autre.
   - **Limite** : la tour a été éteinte samedi à 11 h 52, donc **avant les manifestations de l'après-midi**. Pour samedi après-midi : le moniteur du VPS et les données OONI publiques.
   - → séquence 8 : « Vendredi et samedi matin, chez moi, sur Bouygues : rien. Le témoin bloqué l'a été 738 fois sur 738, donc mon outil voyait. »
+- **Forme 1, VPS (987 tours jusqu'au 9 novembre)** : aucune coupure. Une **fausse alerte** est intéressante à raconter : vendredi entre 18 h 30 et 20 h 10, Instagram « n'existe plus » pour 1.1.1.1 interrogé en clair, alors que le résolveur du VPS et le DNS chiffré répondent normalement et que la connexion marche. Le même signal touche `www.akamai.com`, un témoin, les 7 et 8 novembre. C'est donc un raté du résolveur, pas un blocage. → séquence 8, « un signal isolé n'est pas un motif »
+- **Décision : on arrête de creuser la forme 1.** Le verdict est « aucune coupure observée », avec ses limites (pas de mobile en continu, pas de tour samedi après-midi).
+
+### Forme 2 : retraits de contenus
+
+- **Les contrôles positifs marchent** : le tweet de test est vu « supprimé par l'auteur » partout dès le passage suivant, et le tweet de RT est vu « retenu » depuis la France et visible depuis les États-Unis à chaque passage.
+- **T1, X : un seul post « retenu en France ».** Vérification : c'est un tweet de **RT en français**, retenu « au Royaume-Uni et dans l'Union européenne en réponse à une demande légale ». Il s'agit des sanctions européennes contre les médias d'État russes, en vigueur depuis 2022, comme `sputnikglobe.com` dans la forme 1. Il est entré dans le corpus parce qu'il parlait de l'acte IV. Ce n'est pas une mesure contre le mouvement. Le rapport l'annote maintenant automatiquement (« retenu dans toute l'UE »). → séquence 8 ou 9 : « mon seul post censuré… c'était RT »
+- **T1, TikTok** : rien, sur 982 vidéos et 3 258 comparaisons France / États-Unis.
+- **T2, X** : 26 posts du mouvement disparus sur 1 137, contre 19 témoins sur 798, soit 2,3 % des deux côtés. Côté mouvement, il s'agit surtout de suppressions par l'auteur (17). Les disparitions sans action de l'auteur sont **8 sur 1 137 contre 12 sur 798 témoins** (p = 0,11), donc pas plus que chez les témoins. Les 8 retraits par la plateforme côté témoins sont des comptes suspendus (spam probable).
+- **T2, TikTok** : 4 vidéos du mouvement disparues sur 703, toutes supprimées par leur auteur ; aucune côté témoins.
+
+### Forme 3 : visibilité
+
+- **T6 : une erreur de mesure, et je la raconte.** La session de samedi soir annonçait 12 comptes « absents de la recherche ». Avant d'y croire, on a comparé avec les deux autres sessions du même jour. **Tous les comptes qu'on avait pu y vérifier étaient présents** (2 n'avaient pas pu être vérifiés plus tôt), et deux témoins (un compte foot et un compte sans rapport avec le mouvement) étaient touchés autant que les comptes militants. Deux causes :
+  1. certaines recherches revenaient vides par intermittence, au milieu de recherches réussies, ce qui ressemble à une limitation passagère de X ;
+  2. avec plus de défilement, on comparait des posts vieux de plusieurs semaines, que la recherche « Récent » de X ne retrouve plus pour personne (vérifié : la couverture est presque complète sur 3 jours, puis chute pour tous les comptes).
+  - Correction : on compare sur 72 h, et un compte n'est « absent » que s'il l'est dans au moins 2 sessions. **Résultat : 36 comptes vérifiés sur 3 sessions, aucun absent de façon répétée, 9 absences isolées** (mouvement 3, revendication 4, témoins 2), dont 2 à confirmer lundi soir parce qu'elles n'ont été vérifiées qu'une fois.
+  - **Honnêteté** : cette règle a été écrite après avoir vu le résultat. On le dit, on montre les deux versions, et la session de lundi soir servira de vérification indépendante. → séquence 9 : « mon outil a cru voir un shadowban, voilà pourquoi ce n'en était pas un »
+- **T7, X** : avec la session du soir, 11 comptes du mouvement deviennent comparables. Leurs posts sur le mouvement sont en fait **plus** vus que leurs autres posts (rapport médian 1,76, p = 0,55 ; pour les comptes qui se disent censurés, 2,46). **Rien détecté.** T7 TikTok : toujours 7 comptes, non testable avant la session de lundi soir.
+- **T8, TikTok** : les indicateurs internes changent pour 5 vidéos du mouvement sur 699 et 2 témoins sur 284. Pas d'écart (p = 1).
+- **T9, TikTok** : à popularité et âge égaux, les vidéos du mouvement **ne stagnent pas plus** que les témoins (188 observées contre 192 attendues, p = 0,38). Dans les deux tranches où l'écart est net, ce sont les témoins qui stagnent le plus.
 
 ## Dimanche 8 novembre et après
 
