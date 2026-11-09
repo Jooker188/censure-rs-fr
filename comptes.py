@@ -38,6 +38,9 @@ MOUVEMENT = re.compile(r"manif|gilets? jaunes?|#?acte ?(?:4|iv)\b|17 ?octobre|24
                        r"bloquons|tout bloquer|gr[èe]ve|cort[èe]ge|vie ch[èe]re|carburant|lecornu|nu[ñn]ez|"
                        r"rassemblement|mobilisation|crs|lacrymo", re.I)
 FENETRE_JOURS = 14
+FENETRE_T6_H = 72   # T6 : on ne compare que les posts des 72 dernières heures. Au-delà, la recherche
+                    # « Récent » de X est incomplète pour tout le monde (vérifié sur les témoins le 07/11).
+MIN_SESSIONS = 2    # T6 : un compte n'est « absent » que s'il l'est dans au moins 2 sessions distinctes
 AGE_MIN_H = 48      # T7 : un post plus jeune n'a pas fini d'accumuler ses vues
 MIN_COMPTES = 8     # T7 : en dessous, pas de conclusion
 
@@ -108,10 +111,9 @@ def t6(handle, prof, rech, visitee=None, derniere=None):
             return "non_verifie", "recherche jamais ouverte (session interrompue)", 0, 0
         if visitee is None and derniere is not None and capt >= derniere - dt.timedelta(seconds=90):
             return "non_verifie", "dernier compte de la session : recherche peut-être jamais ouverte", 0, 0
+    borne = capt - dt.timedelta(hours=FENETRE_T6_H)
     if rech:
-        borne = min(p["date"] for p in rech.values() if p["date"])
-    else:
-        borne = capt - dt.timedelta(days=FENETRE_JOURS)
+        borne = max(borne, min(p["date"] for p in rech.values() if p["date"]))
     fenetre = [p for p in originaux if p["date"] >= borne and p["date"] <= capt - dt.timedelta(minutes=30)]
     if not fenetre:
         return "non_verifie", "aucun post original dans la fenêtre comparée", 0, 0
@@ -145,48 +147,78 @@ def main():
     liste = list(csv.DictReader(open(a.comptes, newline="", encoding="utf-8")))
     groupes = {(l.get("plateforme") or "x", l["handle"]): l for l in liste}
 
+    # T6 : chaque fichier contenant des recherches « from: » est une session, évaluée séparément.
+    sessions = []
+    for f in fichiers:
+        s_ = charger([f])
+        if any(k[0] == "x" for k in s_[1]):
+            sessions.append((os.path.basename(f), s_))
+
     res = []
     for (plat, handle), l in groupes.items():
-        prof, rech = profils.get((plat, handle), {}), recherches.get((plat, handle), {})
+        prof = profils.get((plat, handle), {})
+        par_session = []
         if plat == "x":
-            visitee = None if visitees is None else (plat, handle) in visitees
-            etat, detail, n_fen, n_abs = t6(handle, prof, rech, visitee, derniere) if (prof or rech) \
-                else ("non_verifie", "compte non visité", 0, 0)
+            for nom, (pr, re_, _, _, vis, der) in sessions:
+                p_, r_ = pr.get((plat, handle), {}), re_.get((plat, handle), {})
+                visitee = None if vis is None else (plat, handle) in vis
+                e_ = t6(handle, p_, r_, visitee, der) if (p_ or r_) else ("non_verifie", "compte non visité", 0, 0)
+                par_session.append((nom, e_[0], e_[1]))
+            verif = [x for x in par_session if x[1] != "non_verifie"]
+            manque = [x for x in verif if x[1] in ("absent", "partiel")]
+            if not verif:
+                etat, detail = "non_verifie", (par_session[0][2] if par_session else "compte non visité")
+            elif len(manque) >= MIN_SESSIONS:
+                etat, detail = "absent_repete", f"absent ou partiel dans {len(manque)}/{len(verif)} sessions"
+            elif manque and len(verif) >= MIN_SESSIONS:
+                etat, detail = "isole", f"absent dans 1 session sur {len(verif)} ({manque[0][2]}), présent dans les autres"
+            elif manque:
+                etat, detail = "a_confirmer", f"{manque[0][2]} (une seule session vérifiée)"
+            else:
+                etat, detail = "present", f"présent dans {len(verif)} session(s)"
         else:
             etat, detail = "sans_objet", "T6 non testable sur TikTok"
         r, n_mv, n_aut = t7(prof)
         res.append({"plateforme": plat, "groupe": l["groupe"], "auteur": l["auteur"], "t6": etat, "t6_detail": detail,
-                    "t7_ratio": r, "t7_n_mouvement": n_mv, "t7_n_autres": n_aut})
+                    "t6_sessions": par_session, "t7_ratio": r, "t7_n_mouvement": n_mv, "t7_n_autres": n_aut})
 
     o = ["# Visibilité des comptes (T6 et T7) : résultats agrégés\n",
          f"Généré le {dt.datetime.now(dt.timezone.utc):%Y-%m-%d %H:%M} UTC. Comptes désignés par un code ; "
          "aucun nom n'est publié.\n",
          "## T6 : présence dans la recherche « from:compte » (onglet Récent)\n",
-         "| groupe | comptes vérifiés | présents | absents de la recherche | partiellement absents | non vérifiés |",
-         "|---|---|---|---|---|---|"]
+         f"Sessions : {', '.join(n for n, _ in sessions) or 'aucune'}. On compare les posts originaux des "
+         f"{FENETRE_T6_H} dernières heures du profil à la recherche. Un compte n'est compté « absent » que s'il "
+         f"l'est dans au moins {MIN_SESSIONS} sessions : une recherche vide une seule fois est le plus souvent "
+         "une erreur passagère de X (vu sur des témoins).\n",
+         "| groupe | comptes vérifiés | présents | absents (répété) | absents une seule fois | à confirmer | non vérifiés |",
+         "|---|---|---|---|---|---|---|"]
     verdicts = []
     res_x = [x for x in res if x["plateforme"] == "x"]
     par_g = collections.defaultdict(collections.Counter)
     for x in res_x:
         par_g[x["groupe"]][x["t6"]] += 1
+    cles = ("present", "absent_repete", "isole", "a_confirmer")
     for g, c in sorted(par_g.items()):
-        verif = c["present"] + c["absent"] + c["partiel"]
-        o.append(f"| {g} | {verif} | {c['present']} | {c['absent']} | {c['partiel']} | {c['non_verifie']} |")
-    tot = {g: (c["present"] + c["absent"] + c["partiel"], c["absent"] + c["partiel"]) for g, c in par_g.items()}
-    n_verif = sum(v for v, _ in tot.values())
-    n_abs = sum(a_ for _, a_ in tot.values())
+        o.append(f"| {g} | {sum(c[k] for k in cles)} | {c['present']} | {c['absent_repete']} | {c['isole']} | "
+                 f"{c['a_confirmer']} | {c['non_verifie']} |")
+    n_verif = sum(c[k] for c in par_g.values() for k in cles)
+    n_abs = sum(c["absent_repete"] for c in par_g.values())
+    n_iso = sum(c["isole"] + c["a_confirmer"] for c in par_g.values())
+    iso_g = " ; ".join(f"{g} {c['isole'] + c['a_confirmer']}" for g, c in sorted(par_g.items()) if c["isole"] + c["a_confirmer"])
     if n_verif == 0:
         v6 = "NON TESTABLE (aucun compte vérifié : profil et recherche « from: » à capturer)"
     elif n_abs == 0:
-        v6 = f"RIEN DÉTECTÉ ({n_verif} comptes vérifiés, tous présents dans la recherche)"
+        v6 = (f"RIEN DÉTECTÉ ({n_verif} comptes vérifiés sur {len(sessions)} session(s), aucun absent de façon répétée"
+              + (f" ; {n_iso} absence(s) isolée(s) : {iso_g})" if n_iso else ")"))
     else:
-        detail = " ; ".join(f"{g} : {a_}/{v}" for g, (v, a_) in sorted(tot.items()))
-        v6 = f"**DÉTECTÉ ({n_abs} compte(s) absents ou partiellement absents de la recherche)** — {detail}"
+        detail = " ; ".join(f"{g} : {c['absent_repete']}/{sum(c[k] for k in cles)}" for g, c in sorted(par_g.items()))
+        v6 = f"**DÉTECTÉ ({n_abs} compte(s) absents de la recherche dans plusieurs sessions)** — {detail}"
     verdicts.append({"test": "T6", "plateforme": "x", "verdict": v6})
     o.append(f"\n**Verdict T6 (X)** : {v6}\n")
     o.append("Détail par compte :\n")
     for x in sorted(res_x, key=lambda x: (x["groupe"], x["t6"])):
-        o.append(f"- `{x['auteur']}` ({x['groupe']}) : {x['t6']} — {x['t6_detail']}")
+        o.append(f"- `{x['auteur']}` ({x['groupe']}) : {x['t6']} — {x['t6_detail']}"
+                 + ("" if len(x["t6_sessions"]) < 2 else " [" + ", ".join(e for _, e, _ in x["t6_sessions"]) + "]"))
     o.append("\nT6 n'est pas testable sur TikTok : sa recherche ne permet pas de lister les vidéos d'un compte, "
              "et ses pages de hashtag sont triées par popularité.\n")
 

@@ -25,6 +25,7 @@ import collections
 import csv
 import datetime as dt
 import glob
+import math
 import os
 import sys
 
@@ -39,8 +40,18 @@ LIB = {"retenu_pays": "retenu dans le pays", "compte_suspendu": "compte suspendu
        "prive": "passé en privé", "indisponible": "indisponible sans motif"}
 
 
+UE_NOTE = (" ; **retenu dans toute l'UE** selon la plateforme : c'est le périmètre des sanctions européennes "
+           "contre certains médias d'État russes (RT, Sputnik…), pas une mesure propre à la France ni au mouvement. "
+           "Lire le texte affiché pour savoir de quel compte il s'agit")
+
+
 def ts(s):
     return dt.datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ")
+
+
+def portee_ue(lignes):
+    """Vrai si la plateforme dit retenir le post dans toute l'Union européenne (pas seulement en France)."""
+    return any("european union" in (l.get("raison_brute") or "").lower() for l in lignes)
 
 
 def etat_combine(lignes):
@@ -110,8 +121,9 @@ def test1(passages, info, fr, etr):
                     res[plat]["paires"] += 1
                     res[plat]["posts"].add(pid)
                     if (e != "visible" and x[1] == "visible") or e == "retenu_pays" or legal:
+                        ls = next((p[4] for p in pv[vf] if p[0] == t), [])
                         res[plat]["cas"].append({"id": pid, "categorie": cat, "url": url, "t": t, "fr": e,
-                                                 "etranger": f"{ve}={x[1]}", "legal": legal})
+                                                 "etranger": f"{ve}={x[1]}", "legal": legal, "ue": portee_ue(ls)})
     return res
 
 
@@ -142,7 +154,8 @@ def test2(passages, info, fr, vus=None):
         res[plat][cat][0] += 1
         fin = next((p for p in serie[1:] if p[1] in NON_VISIBLE), None)
         if fin:
-            res[plat][cat][1].append({"id": pid, "url": url, "t": fin[0], "motif": fin[1], "legal": fin[2]})
+            res[plat][cat][1].append({"id": pid, "url": url, "t": fin[0], "motif": fin[1], "legal": fin[2],
+                                      "ue": portee_ue(fin[4])})
     return res
 
 
@@ -167,6 +180,15 @@ def test5(path):
     return res
 
 
+def fisher_bilateral(a, b, c, d):
+    """Test exact de Fisher, tableau [[a, b], [c, d]]."""
+    n1, n2, k = a + b, c + d, a + c
+    def p(x):
+        return math.comb(n1, x) * math.comb(n2, k - x) / math.comb(n1 + n2, k)
+    p0 = p(a)
+    return min(1.0, sum(p(x) for x in range(max(0, k - n2), min(k, n1) + 1) if p(x) <= p0 * (1 + 1e-9)))
+
+
 def case_t1(r):
     if not r.get("n_posts"):
         return "NON TESTABLE (aucun post de cette plateforme dans le corpus)"
@@ -181,8 +203,10 @@ def case_t1(r):
                 posts[c["id"]] = {**posts[c["id"]], "legal": True}
         mv = sum(1 for c in posts.values() if not c["categorie"].startswith("temoin"))
         lg = sum(1 for c in posts.values() if c["legal"])
+        ue = sum(1 for pid in posts if any(c["ue"] for c in r["cas"] if c["id"] == pid))
         return (f"**DÉTECTÉ ({len(posts)} post(s))** : {mv} du mouvement, {len(posts) - mv} témoin(s) ; "
-                f"{lg} avec mention légale")
+                f"{lg} avec mention légale" + (f", dont {ue} retenu(s) dans toute l'UE, pas en France seulement"
+                                               " (voir le détail)" if ue else ""))
     return f"RIEN DÉTECTÉ ({len(r['posts'])} posts, {r['paires']} comparaisons)"
 
 
@@ -202,8 +226,24 @@ def case_t2(r):
         return f"RIEN DÉTECTÉ ({r['suivis']} posts suivis)"
     plat_mv = sum(1 for x in mv if x["motif"] in PAR_PLATEFORME)
     plat_tm = sum(1 for x in tm if x["motif"] in PAR_PLATEFORME)
+    # Disparitions qui ne viennent pas de l'auteur (retrait par la plateforme ou sans motif), hors UE entière
+    def hors_auteur(lst):
+        return sum(1 for x in lst if x["motif"] not in ("supprime_auteur", "prive") and not x.get("ue"))
+    a_, c_ = hors_auteur(mv), hors_auteur(tm)
+    n_mv, n_tm = r["mouvement"][0], r["temoin"][0]
+    p = fisher_bilateral(a_, n_mv - a_, c_, n_tm - c_) if n_mv and n_tm else 1.0
+    if n_mv and n_tm and p < 0.05 and a_ / n_mv > c_ / n_tm:
+        comp = (f" → **le mouvement perd plus de posts sans que l'auteur les supprime** : "
+                f"{a_}/{n_mv} contre {c_}/{n_tm} témoins, p = {p:.3f}")
+    else:
+        comp = (f" → **pas plus que les témoins** : disparitions sans action de l'auteur {a_}/{n_mv} "
+                f"contre {c_}/{n_tm}, p = {p:.2f}")
+
+    def ue(lst):
+        n = sum(1 for x in lst if x.get("ue"))
+        return f" (dont {n} retenu(s) dans toute l'UE)" if n else ""
     return (f"**DÉTECTÉ** mouvement {detail('mouvement')} ; témoins {detail('temoin')}. "
-            f"Retraits par la plateforme : mouvement {plat_mv}, témoins {plat_tm}")
+            f"Retraits par la plateforme : mouvement {plat_mv}{ue(mv)}, témoins {plat_tm}{ue(tm)}{comp}")
 
 
 def case_t5(r):
@@ -294,14 +334,15 @@ def main():
                 continue
             vus.add(c["id"])
             o.append(f"- {NOMS[p]} `{c['id']}` ({c['categorie']}) {c['t']:%d/%m %H:%M} UTC : France = {c['fr']}"
-                     f"{' (mention légale)' if c['legal'] else ''}, {c['etranger']} — {c['url']}")
+                     f"{' (mention légale)' if c['legal'] else ''}, {c['etranger']}"
+                     f"{UE_NOTE if c['ue'] else ''} — {c['url']}")
     o.append("")
     o.append("## Détail T2 : disparitions\n")
     for p in PLATEFORMES:
         for cat in ("mouvement", "temoin"):
             for c in t2[p][cat][1]:
                 o.append(f"- {NOMS[p]} `{c['id']}` ({cat}) {c['t']:%d/%m %H:%M} UTC : {LIB[c['motif']]}"
-                         f"{' (mention légale)' if c['legal'] else ''} — {c['url']}")
+                         f"{' (mention légale)' if c['legal'] else ''}{UE_NOTE if c.get('ue') else ''} — {c['url']}")
         if t2[p]["deja"]:
             o.append(f"- {NOMS[p]} : {t2[p]['deja']} post(s) déjà non visibles au premier passage (exclus).")
     o.append("")

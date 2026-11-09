@@ -44,8 +44,10 @@
 
 ## Comment `comptes.py` décide
 
-- **T6** : on compare les posts originaux du profil (hors réponses et reposts) aux posts trouvés par `from:compte`, sur la même période.
-  - **absent** : aucun post dans la recherche alors que le profil en a ;
-  - **partiellement absent** : au moins la moitié des posts du profil manquent dans la recherche (à partir de 3 posts) ;
-  - **présent** : sinon.
+- **T6** : on compare les posts originaux du profil (hors réponses et reposts) des **72 dernières heures** aux posts trouvés par `from:compte`, sur la même période.
+  - dans une session, un compte est **absent** (aucun post dans la recherche alors que le profil en a) ou **partiellement absent** (au moins la moitié des posts du profil manquent, à partir de 3 posts), sinon **présent** ;
+  - sur l'ensemble des sessions, un compte ne compte comme absent que s'il l'est dans **au moins 2 sessions**. Une absence dans une seule session est notée « isolée ».
+  - Ces deux règles ont été ajoutées le 9 novembre, après la session du samedi soir (voir `video/JOURNAL_DE_BORD.md`). Sans elles, cette session aurait annoncé 12 comptes absents. Or ces comptes étaient tous présents dans les deux sessions précédentes du même jour, et les témoins étaient touchés autant que les autres. Deux erreurs de mesure expliquaient ces absences :
+    - certaines recherches revenaient vides par intermittence, au milieu de recherches réussies ;
+    - en faisant défiler plus loin, on comparait des posts vieux de plusieurs semaines, que la recherche « Récent » de X ne retrouve plus pour personne.
 - **T7** : pour chaque compte, on calcule la médiane des vues de ses posts sur le mouvement divisée par la médiane des vues de ses autres posts. Seuls comptent les posts de plus de 48 h et de moins de 30 jours, avec au moins 2 posts de chaque sorte. On fait ensuite un test du signe sur tous les comptes. Le résultat est **DÉTECTÉ** seulement avec au moins 8 comptes comparables, une p-valeur inférieure à 0,05 et une majorité de rapports inférieurs à 1.
