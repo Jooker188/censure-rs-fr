@@ -1,0 +1,153 @@
+{
+  "version": 2,
+  "date": "2026-11-02",
+  "viewBox": [
+    0,
+    0,
+    260,
+    300
+  ],
+  "ancrage": [
+    120,
+    300
+  ],
+  "zone_visage": [
+    72,
+    66,
+    100,
+    108
+  ],
+  "calques": [
+    "contour",
+    "bras-arriere",
+    "corps",
+    "bras",
+    "tete",
+    "visage",
+    "lunettes",
+    "avant"
+  ],
+  "lunettes_par_defaut": true,
+  "poses": {
+    "neutre": {
+      "id": "A1",
+      "fichier": "pose-neutre.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ouverts.svg",
+        "sourcils": "sourcils-neutres.svg",
+        "bouche": "bouche-X.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "explique": {
+      "id": "A2",
+      "fichier": "pose-explique.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ouverts.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-C.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "pointe": {
+      "id": "A3",
+      "fichier": "pose-pointe.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-regard-droite.svg",
+        "sourcils": "sourcils-un-leve.svg",
+        "bouche": "bouche-sourire-coin.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "pointe-haut": {
+      "id": "A4",
+      "fichier": "pose-pointe-haut.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-regard-haut.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-sourire-coin.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "presente": {
+      "id": "A5",
+      "fichier": "pose-presente.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ouverts.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-sourire.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "reflechit": {
+      "id": "A6",
+      "fichier": "pose-reflechit.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-regard-haut.svg",
+        "sourcils": "sourcils-un-leve.svg",
+        "bouche": "bouche-X.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "choc": {
+      "id": "A7",
+      "fichier": "pose-choc.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ecarquilles.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-bee.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "sceptique": {
+      "id": "A8",
+      "fichier": "pose-sceptique.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-plisses.svg",
+        "sourcils": "sourcils-un-leve.svg",
+        "bouche": "bouche-A.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "inquiete": {
+      "id": "A9",
+      "fichier": "pose-inquiete.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-regard-bas.svg",
+        "sourcils": "sourcils-inquiets.svg",
+        "bouche": "bouche-moue.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "salue": {
+      "id": "A10",
+      "fichier": "pose-salue.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ouverts.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-sourire.svg"
+      },
+      "lunettes_position": "yeux"
+    },
+    "lunettes-relevees": {
+      "id": "A11",
+      "fichier": "pose-lunettes-relevees.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ecarquilles.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-moue.svg"
+      },
+      "lunettes_position": "front"
+    },
+    "lunettes-front": {
+      "id": "A12",
+      "fichier": "pose-lunettes-front.svg",
+      "visage_par_defaut": {
+        "yeux": "yeux-ecarquilles.svg",
+        "sourcils": "sourcils-leves.svg",
+        "bouche": "bouche-moue.svg"
+      },
+      "lunettes_position": "front"
+    }
+  }
+}

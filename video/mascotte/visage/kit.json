@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "date": "2026-11-02",
+  "viewBox": [
+    72,
+    66,
+    100,
+    108
+  ],
+  "repere": "viewBox 0 0 260 300 de la tête du brouillon géométrique ; centres des yeux (102,112) et (142,112)",
+  "ordre_empilement": [
+    "yeux",
+    "sourcils",
+    "bouche"
+  ],
+  "elements": {
+    "yeux": {
+      "ouverts": "yeux-ouverts.svg",
+      "mi-clos": "yeux-mi-clos.svg",
+      "fermes": "yeux-fermes.svg",
+      "ecarquilles": "yeux-ecarquilles.svg",
+      "plisses": "yeux-plisses.svg",
+      "regard-gauche": "yeux-regard-gauche.svg",
+      "regard-droite": "yeux-regard-droite.svg",
+      "regard-haut": "yeux-regard-haut.svg",
+      "regard-bas": "yeux-regard-bas.svg"
+    },
+    "sourcils": {
+      "neutres": "sourcils-neutres.svg",
+      "leves": "sourcils-leves.svg",
+      "fronces": "sourcils-fronces.svg",
+      "un-leve": "sourcils-un-leve.svg",
+      "inquiets": "sourcils-inquiets.svg"
+    },
+    "bouches_rhubarb": {
+      "A": "bouche-A.svg",
+      "B": "bouche-B.svg",
+      "C": "bouche-C.svg",
+      "D": "bouche-D.svg",
+      "E": "bouche-E.svg",
+      "F": "bouche-F.svg",
+      "G": "bouche-G.svg",
+      "H": "bouche-H.svg",
+      "X": "bouche-X.svg"
+    },
+    "bouches_expression": {
+      "sourire": "bouche-sourire.svg",
+      "sourire-coin": "bouche-sourire-coin.svg",
+      "bouche-bee": "bouche-bee.svg",
+      "moue": "bouche-moue.svg",
+      "grimace": "bouche-grimace.svg"
+    }
+  },
+  "rhubarb": {
+    "A": "bouche-A.svg",
+    "B": "bouche-B.svg",
+    "C": "bouche-C.svg",
+    "D": "bouche-D.svg",
+    "E": "bouche-E.svg",
+    "F": "bouche-F.svg",
+    "G": "bouche-G.svg",
+    "H": "bouche-H.svg",
+    "X": "bouche-X.svg"
+  },
+  "par_defaut": {
+    "yeux": "yeux-ouverts.svg",
+    "sourcils": "sourcils-neutres.svg",
+    "bouche": "bouche-X.svg"
+  }
+}
