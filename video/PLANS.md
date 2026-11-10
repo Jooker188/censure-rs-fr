@@ -192,7 +192,7 @@
 
 - Quand un code a des lettres (`S03_G01a` à `S03_G01f`, `S06_G04a` à `d`…), ce sont les **étapes d'une animation** : pose-les à la suite dans Resolve, avec un fondu enchaîné court (6 images) entre chaque.
 - Pour les refaire après de nouvelles données (session T6 de lundi, par exemple) : `python3 video/graphiques/fabriquer.py --help` (options : mesures, épisodes, base DSA, sessions T6).
-- `S09_G09c` (T6) et `S09_G10` (T7) sont à jour avec la session de lundi. **Il reste** `S09_G09b` (la grille session par session), à refaire quand j'aurai les exports de lundi.
+- `S09_G09c` (T6) et `S09_G10` (T7) sont à jour avec la session de lundi. `S09_G09b` (la grille session par session) est à jour avec les 4 sessions.
 
 ## Ce qui manque encore dans le script avant de tourner
 

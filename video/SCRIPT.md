@@ -332,6 +332,10 @@
 > Alors j'ai corrigé la règle : on compare les trois derniers jours, et un compte n'est « absent » que s'il l'est dans deux sessions. Je vous le dis franchement : cette règle, je l'ai écrite après avoir vu le résultat. C'est pour ça que j'ai refait une session le lundi, pour vérifier avec la nouvelle règle.
 > Et là, surprise : 3 comptes sont absents dans deux sessions. Deux comptes qui disent être censurés… et un de mes témoins, qui n'a rien à voir avec le mouvement.
 > Deux sur quatorze d'un côté, un sur dix de l'autre : c'est le même taux. Sur X, les recherches qui reviennent vides sont si fréquentes qu'en quatre sessions, certains comptes tombent dessus deux fois, par hasard. Mon témoin en est la preuve.
+
+🎥 La grille session par session (`S09_G09b`) : les deux premières colonnes toutes vertes, les deux dernières tachées de rouge.
+
+> Et regardez où tombent les absences : uniquement dans les deux sessions les plus longues, celles où je faisais défiler beaucoup plus loin. Jamais dans les deux premières. Ce n'est pas le compte qui pose problème, c'est la session.
 > Et cette fois, je n'ai pas changé la règle : je vous montre le résultat tel quel, à côté du témoin. Verdict : pas plus d'absents chez ceux qui se disent censurés que chez mes témoins. Et si ces deux comptes sont vraiment filtrés, X le fait avec ses propres filtres automatiques, contre le spam par exemple. Rien n'indique une demande de l'État.
 
 🎙️ **Expérience 5 : les vues des posts sur la manif (T7)**

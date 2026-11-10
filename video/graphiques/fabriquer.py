@@ -696,15 +696,19 @@ def t6_grille(d):
     noms, comptes = sess["sessions"], sess["comptes"]
     sym = {"present": (C["ok"], "présent"), "absent": (C["bloque"], "absent"), "partiel": (C["bloque"], "absent"),
            "non_verifie": (C["vide"], "non vérifié")}
-    entetes = "".join(f"<th style='text-align:center'>{n}</th>" for n in noms)
+    entetes = "".join(f"<th style='text-align:center;padding:6px'>{n}</th>" for n in noms)
     lignes = ""
     for i, c in enumerate(comptes):
-        cells = "".join(f"<td style='text-align:center;padding:10px'><span style='display:inline-block;width:200px;padding:8px 0;border-radius:8px;"
-                        f"background:{sym[e][0]};font-size:26px;font-weight:600'>{sym[e][1]}</span></td>" for e in c["etats"])
+        repete = sum(e in ("absent", "partiel") for e in c["etats"]) >= 2
+        cells = "".join(f"<td style='text-align:center;padding:3px'><span style='display:inline-block;width:190px;padding:1px 0;"
+                        f"border-radius:6px;background:{sym[e][0]};font-size:22px;font-weight:600'>{sym[e][1]}</span></td>" for e in c["etats"])
         g = {'temoin': 'témoin', 'revendication': 'se dit censuré'}.get(c['groupe'], c['groupe'])
-        lignes += f"<tr><td style='padding:10px 22px'>compte {i + 1} <span class='d' style='font-size:26px'>({g})</span></td>{cells}</tr>"
-    corps = f"<table class='t' style='font-size:30px'><tr><th></th>{entetes}</tr>{lignes}</table>"
-    return page(corps, titre="Les mêmes comptes, session par session", sous="Une absence isolée, au milieu de présences, c'est une erreur de mesure.")
+        marque = f" <b style='color:{C['signal']}'>← 2 fois</b>" if repete else ""
+        lignes += (f"<tr><td style='padding:3px 16px;{'font-weight:700' if repete else ''}'>compte {i + 1} "
+                   f"<span class='d' style='font-size:20px'>({g})</span>{marque}</td>{cells}</tr>")
+    corps = f"<table class='t' style='font-size:23px'><tr><th></th>{entetes}</tr>{lignes}</table>"
+    return page(corps, titre="Les comptes « absents », session par session",
+                sous="Seulement ceux qui ont été absents au moins une fois. Lundi, beaucoup de recherches sont revenues vides.")
 
 
 @graphique("S09_G09c")
