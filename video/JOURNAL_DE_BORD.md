@@ -62,7 +62,7 @@
   - **T7 : non testable pour l'instant**, sur X comme sur TikTok : 7 comptes comparables au lieu des 8 minimum. Beaucoup de comptes militants ne parlent que du mouvement, et la règle des 48 heures écarte les posts récents.
   - **Décision : on ne modifie pas les seuils après avoir vu le résultat** (principe de la VAR). À la place, une session lundi soir : les posts des 5 au 7 novembre auront plus de 48 heures, et on fera défiler davantage les profils (`--defilements 12`). → séquence 6 ou 9 : bon exemple de rigueur, « je n'ai pas changé les règles quand le résultat ne m'arrangeait pas ».
 
-- 🕒 Tests OONI sur l'iPhone, avec les deux SIM, vers 10 h, 13 h 30, 15 h 30, 17 h 30 et 20 h. Noter ici les heures réelles et les anomalies éventuelles (avec les liens OONI Explorer).
+- **Tests OONI sur l'iPhone** (retrouvés le 10/11 dans les données publiques d'OONI, détail et liens dans `ooni/rapport_iphone.md`) : vendredi 5 h 24 – 5 h 32, 13 h 02, 18 h 58 – 19 h 00 ; samedi 1 h 48, **13 h 30 – 13 h 32 et 15 h 19**. Sur les deux réseaux mobiles (SFR pour RED, Bouygues pour Cdiscount), **aucun réseau social ni aucune messagerie en anomalie** ; `sputnikglobe.com` bloqué à chaque passage. Les tests de 10 h, 17 h 30 et 20 h n'ont pas eu lieu. Anecdote : je ne retrouvais plus mes résultats, ils étaient en fait publics, et c'est comme ça qu'on les a retrouvés. → séquences 5 et 8
 - 🕒 Noter ici tout événement marquant : une annonce, une panne, un post viral sur la censure.
 
 ## Lundi 9 novembre : premiers résultats

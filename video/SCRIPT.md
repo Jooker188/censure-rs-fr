@@ -172,7 +172,7 @@
 > La même sonde tourne sur un serveur loué chez un hébergeur. Son adresse est française, mais il ne passe par aucun fournisseur d'accès grand public. Si un site tombe aussi depuis ce serveur, ce n'est pas un blocage de mon opérateur, c'est une panne de la plateforme.
 > Et pour les contenus, mon outil vérifie aussi chaque post depuis une connexion résidentielle aux États-Unis, en plus de la France. On verra plus loin à quoi ça sert.
 > Petite anecdote honnête : au début, je croyais ce serveur en Allemagne. En vérifiant, il était vu comme français par les plateformes. C'est exactement le genre de détail qu'il faut vérifier avant de conclure.
-> Et sur mon téléphone, j'ai deux cartes SIM, RED et Cdiscount Mobile. [À COMPLÉTER : réseaux confirmés par l'ASN, a priori SFR et Bouygues.] Avec elles, j'ai lancé OONI Probe, une application libre utilisée par des chercheurs du monde entier pour documenter la censure. Ses mesures sont publiques.
+> Et sur mon téléphone, j'ai deux cartes SIM, RED et Cdiscount Mobile. RED passe par le réseau de SFR, Cdiscount Mobile par celui de Bouygues : l'appli l'indique à chaque test. Avec elles, j'ai lancé OONI Probe, une application libre utilisée par des chercheurs du monde entier pour documenter la censure. Ses mesures sont publiques.
 
 🎥 Retour du plan mystère de la séquence 0 : `sputnikglobe.com → NXDOMAIN`.
 
@@ -180,7 +180,7 @@
 > Et maintenant, le site bloqué du début. sputnikglobe.com, c'est un média d'État russe. Depuis les sanctions européennes, les opérateurs français le bloquent. C'est un blocage parfaitement connu et assumé.
 > Et c'est exactement pour ça que je l'ai mis dans ma sonde. C'est mon **témoin positif**. Si mon outil ne voit pas ce blocage-là, il ne verra pas non plus un blocage de TikTok. Et il le voit : chez Bouygues, l'annuaire répond « n'existe pas ».
 
-🎥 Captures d'OONI Explorer : sputnikglobe en anomalie sur les deux SIM, ASN visible. [À COMPLÉTER : liens OONI]
+🎥 Captures d'OONI Explorer : sputnikglobe en anomalie sur les deux SIM, ASN visible. Liens dans `ooni/rapport_iphone.md`.
 
 🎙️
 > Même chose sur mes deux lignes mobiles avec OONI. Alors que depuis mon serveur chez un hébergeur, qui n'utilise pas l'annuaire d'un fournisseur d'accès grand public, aucun blocage. Voilà à quoi ressemble un vrai blocage réseau en France aujourd'hui. Gardez cette image en tête.
@@ -267,7 +267,7 @@
 > Sur mon serveur, vous reconnaissez la fausse alerte Instagram de vendredi soir. Le même annuaire a eu deux ou trois autres ratés pendant le week-end, dont un sur `x.com` samedi après-midi, en pleine manifestation, pendant un ou deux tours de mesure seulement. Même signature, même annuaire, et les trois autres répondaient normalement. On les passe à la VAR : ce ne sont pas des motifs.
 
 🎙️
-> Limite : ma box s'est arrêtée samedi midi, donc avant les cortèges de l'après-midi. Pour l'après-midi, j'ai mon serveur, qui est chez un hébergeur et pas chez un opérateur grand public, et les tests OONI de mon téléphone. Ni l'un ni l'autre n'a vu de blocage. [À CONFIRMER : résultats OONI de samedi sur l'iPhone, à regarder dans l'appli.]
+> Limite : ma box s'est arrêtée samedi midi, donc avant les cortèges de l'après-midi. Pour l'après-midi, j'ai mon serveur, qui est chez un hébergeur et pas chez un opérateur grand public, et les tests OONI de mon téléphone. Et samedi à 13 h 30 puis à 15 h 20, en pleine manifestation, j'ai lancé OONI sur mes deux lignes mobiles : TikTok, Instagram, X, Snapchat, Facebook, WhatsApp, Telegram, Signal… tout répondait. Et `sputnikglobe.com`, lui, était bloqué à chaque fois. Ces mesures sont publiques : les liens sont en description.
 > **Verdict pour l'acte IV : aucune coupure observée.**
 
 🎥 Récapitulatif d'étape.
@@ -377,7 +377,7 @@
 | si votre question est… | la réponse | pourquoi |
 |---|---|---|
 | Est-ce que l'accès a été coupé le 24 ou le 31 octobre ? | **Non prouvé** sur le fixe, **non testable** sur le mobile | données OONI publiques |
-| Est-ce que l'accès a été coupé pendant l'acte IV ? | **Non prouvé** : aucune coupure observée (box Bouygues jusqu'à samedi midi, serveur, OONI sur deux lignes mobiles [à confirmer]) | mes sondes et OONI |
+| Est-ce que l'accès a été coupé pendant l'acte IV ? | **Non prouvé** : aucune coupure observée (box Bouygues jusqu'à samedi midi, serveur, OONI sur deux lignes mobiles, samedi après-midi compris) | mes sondes et OONI |
 | Est-ce qu'une coupure a été envisagée ? | **Documenté** | lettre du 22 octobre, selon la presse |
 | Est-ce que des contenus peuvent être retirés sans juge ? | **Documenté dans un texte voté au Sénat**, pas encore en vigueur | amendement n°94 |
 | Est-ce que des posts du mouvement ont été retirés ? | **Non prouvé** : pas plus de disparitions que chez les témoins ; le seul post retenu en France est un tweet de RT | séquence 9 |

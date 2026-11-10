@@ -107,7 +107,7 @@ Légende des statuts : ✅ prêt · ✏️ texte à relire ou tester · ⏳ dép
 - [x] **L'amendement n°94 rect. bis** (senat.fr, adopté le 27/10) : retrait demandé par l'administration sous **24 heures** ; contrôle par une « personnalité qualifiée », pas un juge ; non-retrait puni de 6 mois et 150 000 € (jusqu'à 2 % du CA mondial) ; l'objet indique qu'en l'absence de retrait l'administration « pourra solliciter le blocage et le déréférencement des sites ». Texte transmis à l'Assemblée nationale. *(vérifié le 10/11)*
 - [x] **La Nouvelle-Calédonie** : TikTok coupé du 15 au 29 mai 2024 (décision du 14 mai) ; Conseil d'État, décisions n° 494511, 494583 et 495174 du **1er avril 2025** : illégal, car décidé pour une durée indéterminée ; légal possible à trois conditions. *(vérifié le 10/11)*
 - [ ] **Les chiffres du 17 octobre** : 550 000 selon le ministère de l'Intérieur, 800 000 selon les organisateurs. Garder les deux, attribués à chacun.
-- [ ] **Le réseau de Cdiscount Mobile** : Bouygues ? Le confirmer par l'ASN dans OONI.
+- [x] **Les réseaux des SIM** : RED = SFR (AS15557), Cdiscount Mobile = Bouygues (AS5410), d'après les mesures OONI publiques (`ooni/rapport_iphone.md`). *(vérifié le 10/11)*
 - [ ] **Le « Vrai ou fake » de franceinfo** sur les vidéos disparues : le lire avant de le citer.
 - [ ] **Toute nouvelle actualité après le 6 novembre** : relancer une recherche avant le tournage.
 

@@ -9,7 +9,7 @@
 
 | forme | test | X | TikTok |
 |---|---|---|---|
-| 1. couper l'accès | moniteur réseau (box Bouygues, VPS) + OONI | **aucune coupure observée** (témoin bloqué vu 738/738 fois) | idem |
+| 1. couper l'accès | moniteur réseau (box Bouygues, VPS) + OONI (iPhone, 2 réseaux mobiles, samedi après-midi compris) | **aucune coupure observée** (témoin bloqué vu 738/738 fois sur la box, et à chaque test OONI) | idem |
 | 2. retirer | **T1** retenu en France | 1 seul post, et c'est **RT** (sanctions UE depuis 2022), pas le mouvement | rien (982 vidéos) |
 | 2. retirer | **T2** disparitions | pas plus que les témoins (sans action de l'auteur : 8/1 137 contre 12/798) | 4 vidéos, toutes supprimées par leur auteur |
 | 2/3 | **T3/T4** base DSA (1er oct. – 8 nov.) | rien : décisions « France » en baisse (×0,7) ; posts non identifiables | rien : **aucune de nos 987 vidéos** n'a de retrait ni de déclassement déclaré ; la hausse du 29 oct. (×7) touche toute l'Europe |
