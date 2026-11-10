@@ -9,7 +9,8 @@
 
 > « J'ai mesuré, pendant l'acte IV, si l'accès aux réseaux sociaux était coupé en France. Voici ce que je peux prouver, ce que je ne peux pas prouver, et ce que personne ne peut savoir de l'extérieur. »
 
-- **Titre de travail.** « J'ai mesuré si le gouvernement coupe les réseaux sociaux ». Ce titre tient quel que soit le résultat.
+- **Titre (10/11).** « J'ai vérifié si le gouvernement censure les réseaux sociaux pendant les manifestations ». Ce titre tient quel que soit le résultat.
+- **Fil rouge (script v2, 10/11).** On part de l'hypothèse de ceux qui se disent censurés, on la prend au sérieux, et on cherche la preuve chapitre après chapitre : couper l'accès, faire disparaître des posts, le shadowban. **Cinq fausses preuves** jalonnent la vidéo (Instagram vendredi soir, le tweet de RT, `reviewed`, les comptes absents, le saut de TikTok dans la base DSA). Le verdict final donne trois réponses nettes : rien sur vos écrans là où j'ai mesuré ; l'État bloque déjà des sites, et ça se voit ; tout est prêt pour couper. Le plan détaillé est dans `SCRIPT.md` ; les numéros de séquence des sections 5 à 7 ci-dessous sont ceux de la version 1.
 - **Titres à éviter.** Tout titre qui annonce une conclusion avant les données, comme « Le gouvernement censure TikTok » ou « La censure est prouvée ».
 - **Durée cible.** 22 à 26 minutes.
 - **Public.** Des gens curieux, sans bagage technique, venant des deux bords politiques. La vidéo doit rester crédible pour quelqu'un qui croit à la censure comme pour quelqu'un qui n'y croit pas.
