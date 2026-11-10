@@ -45,6 +45,15 @@ AGE_MIN_H = 48      # T7 : un post plus jeune n'a pas fini d'accumuler ses vues
 MIN_COMPTES = 8     # T7 : en dessous, pas de conclusion
 
 
+def fisher_bilateral(a, b, c, d):
+    """Test exact de Fisher, tableau [[a, b], [c, d]]."""
+    n1, n2, k = a + b, c + d, a + c
+    def p(x):
+        return math.comb(n1, x) * math.comb(n2, k - x) / math.comb(n1 + n2, k)
+    p0 = p(a)
+    return min(1.0, sum(p(x) for x in range(max(0, k - n2), min(k, n1) + 1) if p(x) <= p0 * (1 + 1e-9)))
+
+
 def binom_bilateral(k, n):
     """p-valeur bilatérale du test du signe (k succès sur n, p = 0,5)."""
     if n == 0:
@@ -213,6 +222,23 @@ def main():
     else:
         detail = " ; ".join(f"{g} : {c['absent_repete']}/{sum(c[k] for k in cles)}" for g, c in sorted(par_g.items()))
         v6 = f"**DÉTECTÉ ({n_abs} compte(s) absents de la recherche dans plusieurs sessions)** — {detail}"
+        # Comparaison avec les témoins (même principe que T2) : un groupe ne compte que s'il dépasse les témoins
+        tm = par_g.get("temoin")
+        if tm:
+            n_tm, a_tm = sum(tm[k] for k in cles), tm["absent_repete"]
+            comp = []
+            for g, c in sorted(par_g.items()):
+                if g == "temoin":
+                    continue
+                n_g, a_g = sum(c[k] for k in cles), c["absent_repete"]
+                if n_g and n_tm:
+                    p = fisher_bilateral(a_g, n_g - a_g, a_tm, n_tm - a_tm)
+                    plus = a_g / n_g > a_tm / n_tm and p < 0.05
+                    comp.append(f"{g} {a_g}/{n_g} contre témoins {a_tm}/{n_tm}, p = {p:.2f}"
+                                + (" (plus que les témoins)" if plus else ""))
+            if comp:
+                aucun = all("plus que les témoins" not in x for x in comp)
+                v6 += (" → **pas plus que chez les témoins** : " if aucun else " → ") + " ; ".join(comp)
     verdicts.append({"test": "T6", "plateforme": "x", "verdict": v6})
     o.append(f"\n**Verdict T6 (X)** : {v6}\n")
     o.append("Détail par compte :\n")

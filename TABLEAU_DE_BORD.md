@@ -14,8 +14,8 @@
 | 2. retirer | **T2** disparitions | pas plus que les témoins (sans action de l'auteur : 8/1 137 contre 12/798) | 4 vidéos, toutes supprimées par leur auteur |
 | 2/3 | **T3/T4** base DSA (1er oct. – 8 nov.) | rien : décisions « France » en baisse (×0,7) ; posts non identifiables | rien : **aucune de nos 987 vidéos** n'a de retrait ni de déclassement déclaré ; la hausse du 29 oct. (×7) touche toute l'Europe |
 | 2/3 | T3/T4, Instagram et YouTube | Instagram : pic de déclassements « discours civique » du 20 au 27 oct. (×3), décidés par Instagram lui-même, sur toute l'UE, langue non déclarée → impossible à relier à la France | YouTube : rien |
-| 3. visibilité | **T6** absent de la recherche | rien de répété sur 3 sessions (9 absences isolées, témoins compris) | non testable |
-| 3. visibilité | **T7** portée comparée | rien : les posts sur le mouvement sont **plus** vus (×1,76) | non testable (7 comptes sur 8) → ce soir |
+| 3. visibilité | **T6** absent de la recherche | 4 sessions : 3 comptes absents deux fois (2 qui se disent censurés sur 14, **1 témoin** sur 10) → pas plus que chez les témoins | non testable |
+| 3. visibilité | **T7** portée comparée | rien : posts sur la manif **plus** vus (×2,5 mouvement, ×1,2 « censurés ») | rien : ×1,35 sur 25 comptes |
 | 3. visibilité | **T8** indicateurs internes | — | rien (5/699 contre 2/284) |
 | 3. visibilité | **T9** vues qui stagnent | — | rien (p = 0,38) |
 | 3. visibilité | **T5** recherches | non réalisé | non réalisé |

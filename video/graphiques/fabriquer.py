@@ -709,13 +709,14 @@ def t6_grille(d):
 
 @graphique("S09_G09c")
 def t6_verdict(d):
-    sess = d.get("t6_sessions") or {}
-    n, iso, n_sess = sess.get("n_verifies", 36), sess.get("n_isoles", 9), len(sess.get("sessions", [])) or 3
-    corps = (f"<div style='margin:auto;text-align:center'><div style='font-size:44px;color:{C['texte2']}'>Nouvelle règle : sur 72 h, et absent dans au moins 2 sessions</div>"
-             f"<div style='font-size:130px;font-weight:800;margin:40px 0'>0 absent répété</div>"
-             f"<div style='font-size:40px'>{n} comptes vérifiés sur {n_sess} sessions · {iso} absences isolées, témoins compris</div>"
-             f"<div style='font-size:32px;color:{C['discret']};margin-top:30px'>règle écrite après avoir vu le résultat : vérifiée par une session de plus</div></div>")
-    return page(corps)
+    corps = (f"<div style='font-size:36px;color:{C['texte2']}'>4 sessions · absent dans au moins 2 d'entre elles</div>"
+             + barres([("se disent censurés", 2 / 14 * 100, C["mvt"], "2 comptes sur 14"),
+                       ("mouvement", 0.0, C["mvt"], "0 sur 13"),
+                       ("témoins", 1 / 10 * 100, C["tem"], "1 compte sur 10")], 20)
+             + f"<div style='font-size:40px;font-weight:700;margin-top:50px'>Le même taux que chez mes témoins.</div>"
+             f"<div style='font-size:32px;color:{C['texte2']};margin-top:16px'>Sur X, les recherches vides sont fréquentes : un témoin tombe dessus aussi. "
+             f"Règle inchangée depuis samedi.</div>")
+    return page(corps, titre="Session de lundi : 3 comptes absents deux fois")
 
 
 @graphique("S09_G10")
@@ -724,19 +725,20 @@ def t7(d):
     x0, x1 = 600, 1500
     def X(v):
         return x0 + v / max_v * (x1 - x0)
-    lignes = [("comptes du mouvement", 1.76, "11 comptes"), ("comptes qui se disent censurés", 2.46, "9 comptes")]
-    svg = [f"<svg width='1640' height='520'>"]
-    svg.append(f"<line x1='{X(1)}' y1='20' x2='{X(1)}' y2='380' stroke='{C['texte2']}' stroke-width='3' stroke-dasharray='10 8'/>"
-               f"<text x='{X(1)}' y='430' fill='{C['texte2']}' font-size='28' text-anchor='middle' font-family='Inter'>×1 = autant de vues que leurs autres posts</text>")
+    lignes = [("X · comptes du mouvement", 2.50, "12 comptes"), ("X · se disent censurés", 1.18, "13 comptes"),
+              ("TikTok · créateurs du mouvement", 1.35, "25 comptes")]
+    svg = [f"<svg width='1640' height='640'>"]
+    svg.append(f"<line x1='{X(1)}' y1='20' x2='{X(1)}' y2='520' stroke='{C['texte2']}' stroke-width='3' stroke-dasharray='10 8'/>"
+               f"<text x='{X(1)}' y='570' fill='{C['texte2']}' font-size='28' text-anchor='middle' font-family='Inter'>×1 = autant de vues que leurs autres posts</text>")
     for i, (lib, v, n) in enumerate(lignes):
-        y = 70 + i * 160
+        y = 50 + i * 160
         svg.append(f"<text x='0' y='{y + 45}' fill='{C['texte']}' font-size='32' font-family='Inter' font-weight='600'>{lib}</text>"
                    f"<text x='0' y='{y + 85}' fill='{C['discret']}' font-size='26' font-family='Inter'>{n}</text>"
                    f"<rect x='{x0}' y='{y}' width='{X(v) - x0}' height='90' rx='6' fill='{C['mvt']}'/>"
                    f"<text x='{X(v) + 20}' y='{y + 60}' fill='{C['texte']}' font-size='46' font-weight='800' font-family='Inter'>×{nb(v, 2)}</text>")
     svg.append("</svg>")
     return page("".join(svg), titre="Posts sur la manif : plus de vues, pas moins",
-                sous="Vues médianes des posts sur le mouvement, divisées par celles des autres posts du même compte (X).")
+                sous="Vues médianes des posts sur le mouvement, divisées par celles des autres posts du même compte.")
 
 
 def courbe(serie, titre, sous, annot, zone=None, coul=None, source=None, fmt=lambda v: nb(v)):
