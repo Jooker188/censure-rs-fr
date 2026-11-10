@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFilter
-I="/tmp/claude-0/-home-user-censure-rs-fr/bf21838b-4836-500a-b391-76ed6abad234/images/"
-O="/home/user/censure-rs-fr/video/tweets/"
+I="captures/"   # captures d'origine (non publiées), à placer dans video/tweets/captures/
+O="./"
 # (fichier, nom, boîte de découpe, zones à masquer en coordonnées de l'image source)
 T=[("17.png","T_dictature",(48,1300,1244,1500),[(70,1318,170,1408),(170,1322,425,1368)]),
    ("17.png","T_zero_tweets",(48,1082,1244,1298),[(70,1086,170,1176),(170,1088,600,1132)]),
