@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1064" role="img" aria-labelledby="frise-titre" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+<title id="frise-titre">Disponibilité des réseaux sociaux par point de mesure</title>
+<style>
+svg { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#b9b8b0; --grid:#e1e0d9; --axis:#c3c2b7;
+      --ok:#7cc77c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b; --band:rgba(42,120,214,0.08); --ev:#2a78d6; }
+@media (prefers-color-scheme: dark) { svg:where(:not([data-theme="light"] svg)) {
+      --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#4a4a46; --grid:#2c2c2a; --axis:#383835;
+      --ok:#2f7a2f; --band:rgba(57,135,229,0.14); --ev:#3987e5; } }
+[data-theme="dark"] svg { --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#4a4a46; --grid:#2c2c2a;
+      --axis:#383835; --ok:#2f7a2f; --band:rgba(57,135,229,0.14); --ev:#3987e5; }
+.fond { fill: var(--surface); }
+.vide { fill: none; stroke: var(--grid); stroke-width: 1; }
+.grille { stroke: var(--grid); stroke-width: 1; }
+.grille-j { stroke: var(--axis); stroke-width: 1.5; }
+.axe { fill: var(--ink2); font-size: 11px; }
+.rang { fill: var(--ink); font-size: 12px; }
+.vantage { fill: var(--ink); font-size: 14px; font-weight: 600; }
+.leg { fill: var(--ink2); font-size: 12px; }
+.bande { fill: var(--band); }
+.ev { stroke: var(--ev); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.ev-pt { fill: var(--ev); stroke: var(--surface); stroke-width: 2; }
+.ev-lab { fill: var(--ink2); font-size: 11px; }
+.ev-per { fill: none; stroke: var(--ev); stroke-width: 1.5; }
+rect:hover { stroke: var(--ink); stroke-width: 1; }
+</style>
+<rect class="fond" x="0" y="0" width="1400" height="1064"/>
+<rect class="bande" x="230.0" y="112" width="260.6" height="794"><title>Acte IV : grèves et blocages (annoncé (presse))</title></rect>
+<rect class="bande" x="490.9" y="112" width="332.6" height="794"><title>Acte IV : manifestations dans toute la France (annoncé (presse))</title></rect>
+<line class="grille" x1="241.2" x2="241.2" y1="110" y2="904"/>
+<text class="axe" x="241.2" y="106" text-anchor="middle">06h</text>
+<line class="grille" x1="324.5" x2="324.5" y1="110" y2="904"/>
+<text class="axe" x="324.5" y="106" text-anchor="middle">12h</text>
+<line class="grille" x1="407.7" x2="407.7" y1="110" y2="904"/>
+<text class="axe" x="407.7" y="106" text-anchor="middle">18h</text>
+<line class="grille-j" x1="490.9" x2="490.9" y1="110" y2="904"/>
+<text class="axe" x="490.9" y="106" text-anchor="middle">sam. 07/11</text>
+<line class="grille" x1="574.1" x2="574.1" y1="110" y2="904"/>
+<text class="axe" x="574.1" y="106" text-anchor="middle">06h</text>
+<line class="grille" x1="657.3" x2="657.3" y1="110" y2="904"/>
+<text class="axe" x="657.3" y="106" text-anchor="middle">12h</text>
+<line class="grille" x1="740.5" x2="740.5" y1="110" y2="904"/>
+<text class="axe" x="740.5" y="106" text-anchor="middle">18h</text>
+<line class="grille-j" x1="823.7" x2="823.7" y1="110" y2="904"/>
+<text class="axe" x="823.7" y="106" text-anchor="middle">dim. 08/11</text>
+<line class="grille" x1="906.9" x2="906.9" y1="110" y2="904"/>
+<text class="axe" x="906.9" y="106" text-anchor="middle">06h</text>
+<line class="grille" x1="990.1" x2="990.1" y1="110" y2="904"/>
+<text class="axe" x="990.1" y="106" text-anchor="middle">12h</text>
+<line class="grille" x1="1073.3" x2="1073.3" y1="110" y2="904"/>
+<text class="axe" x="1073.3" y="106" text-anchor="middle">18h</text>
+<line class="grille-j" x1="1156.5" x2="1156.5" y1="110" y2="904"/>
+<text class="axe" x="1156.5" y="106" text-anchor="middle">lun. 09/11</text>
+<line class="grille" x1="1239.7" x2="1239.7" y1="110" y2="904"/>
+<text class="axe" x="1239.7" y="106" text-anchor="middle">06h</text>
+<line class="grille" x1="1322.9" x2="1322.9" y1="110" y2="904"/>
+<text class="axe" x="1322.9" y="106" text-anchor="middle">12h</text>
+<path class="ev-per" d="M230.0,27 v-5 H490.6 v5"/>
+<text class="ev-lab" x="238.0" y="19" text-anchor="start">Acte IV : grèves et blocages<title>06/11 00:00 : Acte IV : grèves et blocages (annoncé (presse))</title></text>
+<path class="ev-per" d="M490.9,27 v-5 H823.5 v5"/>
+<text class="ev-lab" x="498.9" y="19" text-anchor="start">Acte IV : manifestations dans toute la France<title>07/11 00:00 : Acte IV : manifestations dans toute la France (annoncé (presse))</title></text>
+<line class="ev" x1="685.0" x2="685.0" y1="42" y2="904"/>
+<circle class="ev-pt" cx="685.0" cy="38" r="5"><title>07/11 14:00 : Paris : rassemblement annoncé place de la Concorde (sous réserve d&#x27;accord de la préfecture) (annoncé (presse))</title></circle>
+<text class="ev-lab" x="693.0" y="42" text-anchor="start">Paris : rassemblement annoncé place de la Concorde (sous réserve d&#x27;ac…<title>07/11 14:00 : Paris : rassemblement annoncé place de la Concorde (sous réserve d&#x27;accord de la préfecture) (annoncé (presse))</title></text>
+<text class="vantage" x="12" y="134">Point « vps » — Contabo VPS</text>
+<text class="rang" x="222" y="154" text-anchor="end">X</text>
+<rect class="vide" x="230" y="142" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="142" width="442.7" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 06/11 05:35 → 07/11 13:33 (383 tours)</title></rect>
+<rect x="678.8" y="142" width="1.8" height="16" style="fill:var(--critical)" rx="2"><title>X : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 07/11 13:33 → 07/11 13:43 (2 tours) — x.com (dns_p53_nx)</title></rect>
+<rect x="681.1" y="142" width="17.2" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 07/11 13:43 → 07/11 14:59 (15 tours)</title></rect>
+<rect x="698.8" y="142" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>X : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 07/11 14:59 → 07/11 15:04 (1 tour) — x.com (dns_p53_nx)</title></rect>
+<rect x="699.9" y="142" width="13.3" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 07/11 15:04 → 07/11 16:03 (12 tours)</title></rect>
+<rect x="713.6" y="142" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>X : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 07/11 16:03 → 07/11 16:08 (1 tour) — x.com (dns_p53_nx)</title></rect>
+<rect x="714.8" y="142" width="335.9" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 07/11 16:08 → 08/11 16:24 (290 tours)</title></rect>
+<rect x="1051.2" y="142" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>X : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 08/11 16:24 → 08/11 16:29 (1 tour) — x.com (dns_p53_nx)</title></rect>
+<rect x="1052.5" y="142" width="222.7" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 08/11 16:29 → 09/11 08:35 (193 tours)</title></rect>
+<rect x="1275.6" y="142" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>X : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 09/11 08:35 → 09/11 08:40 (1 tour) — x.com (dns_p53_nx)</title></rect>
+<rect x="1276.9" y="142" width="101.4" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 09/11 08:40 → 09/11 16:01 (88 tours)</title></rect>
+<text class="rang" x="222" y="173" text-anchor="end">TikTok</text>
+<rect class="vide" x="230" y="161" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="161" width="811.6" height="16" style="fill:var(--ok)" rx="2"><title>TikTok : accessible, 06/11 05:35 → 08/11 16:09 (701 tours)</title></rect>
+<rect x="1047.7" y="161" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>TikTok : échec (timeout, erreur), témoins OK, 08/11 16:09 → 08/11 16:14 (1 tour) — www.tiktok.com (tls_timeout)</title></rect>
+<rect x="1048.8" y="161" width="33.3" height="16" style="fill:var(--ok)" rx="2"><title>TikTok : accessible, 08/11 16:14 → 08/11 18:40 (29 tours)</title></rect>
+<rect x="1082.6" y="161" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>TikTok : échec (timeout, erreur), témoins OK, 08/11 18:40 → 08/11 18:44 (1 tour) — tiktokv.com (tls_timeout)</title></rect>
+<rect x="1083.7" y="161" width="294.7" height="16" style="fill:var(--ok)" rx="2"><title>TikTok : accessible, 08/11 18:44 → 09/11 16:01 (255 tours)</title></rect>
+<text class="rang" x="222" y="192" text-anchor="end">Instagram</text>
+<rect class="vide" x="230" y="180" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="180" width="178.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 05:35 → 06/11 18:30 (154 tours)</title></rect>
+<rect x="414.7" y="180" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 18:30 → 06/11 18:35 (1 tour) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="415.9" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 18:35 → 06/11 18:40 (1 tour)</title></rect>
+<rect x="416.9" y="180" width="1.8" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 18:40 → 06/11 18:49 (2 tours) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="419.2" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 18:49 → 06/11 18:55 (1 tour)</title></rect>
+<rect x="420.5" y="180" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 18:55 → 06/11 19:00 (1 tour) — i.instagram.com (dns_p53_nx)</title></rect>
+<rect x="421.6" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 19:00 → 06/11 19:05 (1 tour)</title></rect>
+<rect x="422.8" y="180" width="1.8" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 19:05 → 06/11 19:15 (2 tours) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="425.0" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 19:15 → 06/11 19:20 (1 tour)</title></rect>
+<rect x="426.2" y="180" width="1.9" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 19:20 → 06/11 19:30 (2 tours) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="428.6" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 19:30 → 06/11 19:35 (1 tour)</title></rect>
+<rect x="429.8" y="180" width="1.7" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 19:35 → 06/11 19:45 (2 tours) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="432.1" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 19:45 → 06/11 19:50 (1 tour)</title></rect>
+<rect x="433.2" y="180" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 19:50 → 06/11 19:55 (1 tour) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="434.4" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 19:55 → 06/11 20:00 (1 tour)</title></rect>
+<rect x="435.5" y="180" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 20:00 → 06/11 20:05 (1 tour) — i.instagram.com (dns_p53_nx); www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="436.7" y="180" width="1.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 20:05 → 06/11 20:10 (1 tour)</title></rect>
+<rect x="437.9" y="180" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 20:10 → 06/11 20:15 (1 tour) — www.instagram.com (dns_p53_nx)</title></rect>
+<rect x="439.1" y="180" width="550.1" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 20:15 → 08/11 11:58 (476 tours)</title></rect>
+<rect x="989.7" y="180" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Instagram : échec (timeout, erreur), témoins OK, 08/11 11:58 → 08/11 12:03 (1 tour) — static.cdninstagram.com (dns_p53_timeout)</title></rect>
+<rect x="990.9" y="180" width="387.5" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 08/11 12:03 → 09/11 16:01 (335 tours)</title></rect>
+<text class="rang" x="222" y="211" text-anchor="end">Snapchat</text>
+<rect class="vide" x="230" y="199" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="199" width="753.5" height="16" style="fill:var(--ok)" rx="2"><title>Snapchat : accessible, 06/11 05:35 → 08/11 11:58 (651 tours)</title></rect>
+<rect x="989.7" y="199" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Snapchat : échec (timeout, erreur), témoins OK, 08/11 11:58 → 08/11 12:03 (1 tour) — www.snapchat.com (dns_p53_timeout)</title></rect>
+<rect x="990.9" y="199" width="387.5" height="16" style="fill:var(--ok)" rx="2"><title>Snapchat : accessible, 08/11 12:03 → 09/11 16:01 (335 tours)</title></rect>
+<text class="rang" x="222" y="230" text-anchor="end">Facebook</text>
+<rect class="vide" x="230" y="218" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="218" width="753.5" height="16" style="fill:var(--ok)" rx="2"><title>Facebook : accessible, 06/11 05:35 → 08/11 11:58 (651 tours)</title></rect>
+<rect x="989.7" y="218" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Facebook : échec (timeout, erreur), témoins OK, 08/11 11:58 → 08/11 12:03 (1 tour) — www.facebook.com (dns_p53_timeout)</title></rect>
+<rect x="990.9" y="218" width="387.5" height="16" style="fill:var(--ok)" rx="2"><title>Facebook : accessible, 08/11 12:03 → 09/11 16:01 (335 tours)</title></rect>
+<text class="rang" x="222" y="249" text-anchor="end">YouTube</text>
+<rect class="vide" x="230" y="237" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="237" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>YouTube : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="268" text-anchor="end">Discord</text>
+<rect class="vide" x="230" y="256" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="256" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Discord : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="287" text-anchor="end">Telegram</text>
+<rect class="vide" x="230" y="275" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="275" width="604.2" height="16" style="fill:var(--ok)" rx="2"><title>Telegram : accessible, 06/11 05:35 → 08/11 01:11 (522 tours)</title></rect>
+<rect x="840.3" y="275" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Telegram : échec (timeout, erreur), témoins OK, 08/11 01:11 → 08/11 01:17 (1 tour) — web.telegram.org (dns_p53_timeout)</title></rect>
+<rect x="841.5" y="275" width="147.6" height="16" style="fill:var(--ok)" rx="2"><title>Telegram : accessible, 08/11 01:17 → 08/11 11:58 (128 tours)</title></rect>
+<rect x="989.7" y="275" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Telegram : échec (timeout, erreur), témoins OK, 08/11 11:58 → 08/11 12:03 (1 tour) — telegram.org (dns_p53_timeout)</title></rect>
+<rect x="990.9" y="275" width="387.5" height="16" style="fill:var(--ok)" rx="2"><title>Telegram : accessible, 08/11 12:03 → 09/11 16:01 (335 tours)</title></rect>
+<text class="rang" x="222" y="306" text-anchor="end">Bluesky</text>
+<rect class="vide" x="230" y="294" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="294" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Bluesky : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="325" text-anchor="end">WhatsApp</text>
+<rect class="vide" x="230" y="313" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="313" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>WhatsApp : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="344" text-anchor="end">Signal</text>
+<rect class="vide" x="230" y="332" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="332" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Signal : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="363" text-anchor="end">Messenger</text>
+<rect class="vide" x="230" y="351" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="351" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Messenger : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="382" text-anchor="end">Threads</text>
+<rect class="vide" x="230" y="370" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="370" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Threads : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="401" text-anchor="end">Reddit</text>
+<rect class="vide" x="230" y="389" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="389" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Reddit : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="420" text-anchor="end">Twitch</text>
+<rect class="vide" x="230" y="408" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="408" width="753.5" height="16" style="fill:var(--ok)" rx="2"><title>Twitch : accessible, 06/11 05:35 → 08/11 11:58 (651 tours)</title></rect>
+<rect x="989.7" y="408" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Twitch : échec (timeout, erreur), témoins OK, 08/11 11:58 → 08/11 12:03 (1 tour) — www.twitch.tv (dns_p53_timeout)</title></rect>
+<rect x="990.9" y="408" width="387.5" height="16" style="fill:var(--ok)" rx="2"><title>Twitch : accessible, 08/11 12:03 → 09/11 16:01 (335 tours)</title></rect>
+<text class="rang" x="222" y="439" text-anchor="end">BeReal</text>
+<rect class="vide" x="230" y="427" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="427" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>BeReal : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="458" text-anchor="end">Mastodon</text>
+<rect class="vide" x="230" y="446" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="446" width="1142.7" height="16" style="fill:var(--ok)" rx="2"><title>Mastodon : accessible, 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="rang" x="222" y="477" text-anchor="end">Témoins (sites ordinaires)</text>
+<rect class="vide" x="230" y="465" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="465" width="538.3" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 06/11 05:35 → 07/11 20:26 (465 tours)</title></rect>
+<rect x="774.4" y="465" width="2.8" height="16" style="fill:var(--serious)" rx="2"><title>Témoins (sites ordinaires) : échec (timeout, erreur), témoins OK, 07/11 20:26 → 07/11 20:41 (3 tours) — www.akamai.com</title></rect>
+<rect x="777.8" y="465" width="284.9" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 07/11 20:41 → 08/11 17:15 (246 tours)</title></rect>
+<rect x="1063.1" y="465" width="8.7" height="16" style="fill:var(--serious)" rx="2"><title>Témoins (sites ordinaires) : échec (timeout, erreur), témoins OK, 08/11 17:15 → 08/11 17:55 (8 tours) — www.akamai.com</title></rect>
+<rect x="1072.3" y="465" width="102.5" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 08/11 17:55 → 09/11 01:21 (89 tours)</title></rect>
+<rect x="1175.3" y="465" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Témoins (sites ordinaires) : échec (timeout, erreur), témoins OK, 09/11 01:21 → 09/11 01:25 (1 tour) — www.akamai.com</title></rect>
+<rect x="1176.4" y="465" width="87.2" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 09/11 01:25 → 09/11 07:45 (76 tours)</title></rect>
+<rect x="1264.1" y="465" width="1.8" height="16" style="fill:var(--serious)" rx="2"><title>Témoins (sites ordinaires) : échec (timeout, erreur), témoins OK, 09/11 07:45 → 09/11 07:55 (2 tours) — www.akamai.com</title></rect>
+<rect x="1266.4" y="465" width="78.7" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 09/11 07:55 → 09/11 13:38 (68 tours)</title></rect>
+<rect x="1345.6" y="465" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Témoins (sites ordinaires) : échec (timeout, erreur), témoins OK, 09/11 13:38 → 09/11 13:42 (1 tour) — www.lemonde.fr; www.akamai.com</title></rect>
+<rect x="1346.7" y="465" width="31.7" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 09/11 13:42 → 09/11 16:01 (28 tours)</title></rect>
+<text class="rang" x="222" y="496" text-anchor="end">Témoin positif (blocage attendu)</text>
+<rect class="vide" x="230" y="484" width="1150" height="16" rx="2"/>
+<rect x="235.6" y="484" width="1142.7" height="16" style="fill:var(--warning)" rx="2"><title>Témoin positif (blocage attendu) : témoin positif : blocage NON détecté (outil aveugle sur ce point), 06/11 05:35 → 09/11 16:01 (987 tours)</title></rect>
+<text class="vantage" x="12" y="531">Point « fixe » — Bbox fibre</text>
+<text class="rang" x="222" y="551" text-anchor="end">X</text>
+<rect class="vide" x="230" y="539" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="539" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>X : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="570" text-anchor="end">TikTok</text>
+<rect class="vide" x="230" y="558" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="558" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>TikTok : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="589" text-anchor="end">Instagram</text>
+<rect class="vide" x="230" y="577" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="577" width="59.3" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 05:11 → 06/11 09:30 (53 tours)</title></rect>
+<rect x="289.8" y="577" width="1.5" height="16" style="fill:var(--serious)" rx="2"><title>Instagram : échec (timeout, erreur), témoins OK, 06/11 09:30 → 06/11 09:35 (1 tour) — static.cdninstagram.com (dns_fai_timeout)</title></rect>
+<rect x="291.0" y="577" width="180.3" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 09:35 → 06/11 22:37 (155 tours)</title></rect>
+<rect x="471.8" y="577" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 22:37 → 06/11 22:41 (1 tour) — i.instagram.com (tcp_timeout_ip_seule)</title></rect>
+<rect x="472.8" y="577" width="15.7" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 22:41 → 06/11 23:51 (14 tours)</title></rect>
+<rect x="489.0" y="577" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Instagram : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 23:51 → 06/11 23:56 (1 tour) — i.instagram.com (tcp_timeout_ip_seule)</title></rect>
+<rect x="490.1" y="577" width="166.2" height="16" style="fill:var(--ok)" rx="2"><title>Instagram : accessible, 06/11 23:56 → 07/11 11:57 (144 tours)</title></rect>
+<text class="rang" x="222" y="608" text-anchor="end">Snapchat</text>
+<rect class="vide" x="230" y="596" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="596" width="196.5" height="16" style="fill:var(--ok)" rx="2"><title>Snapchat : accessible, 06/11 05:11 → 06/11 19:23 (171 tours)</title></rect>
+<rect x="427.0" y="596" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Snapchat : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 19:23 → 06/11 19:29 (1 tour) — www.snapchat.com (tcp_timeout_ip_seule)</title></rect>
+<rect x="428.3" y="596" width="228.0" height="16" style="fill:var(--ok)" rx="2"><title>Snapchat : accessible, 06/11 19:29 → 07/11 11:57 (197 tours)</title></rect>
+<text class="rang" x="222" y="627" text-anchor="end">Facebook</text>
+<rect class="vide" x="230" y="615" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="615" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Facebook : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="646" text-anchor="end">YouTube</text>
+<rect class="vide" x="230" y="634" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="634" width="42.8" height="16" style="fill:var(--ok)" rx="2"><title>YouTube : accessible, 06/11 05:11 → 06/11 08:18 (39 tours)</title></rect>
+<rect x="273.3" y="634" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>YouTube : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 08:18 → 06/11 08:23 (1 tour) — i.ytimg.com (tcp_timeout_ip_seule)</title></rect>
+<rect x="274.4" y="634" width="381.9" height="16" style="fill:var(--ok)" rx="2"><title>YouTube : accessible, 06/11 08:23 → 07/11 11:57 (329 tours)</title></rect>
+<text class="rang" x="222" y="665" text-anchor="end">Discord</text>
+<rect class="vide" x="230" y="653" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="653" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Discord : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="684" text-anchor="end">Telegram</text>
+<rect class="vide" x="230" y="672" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="672" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Telegram : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="703" text-anchor="end">Bluesky</text>
+<rect class="vide" x="230" y="691" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="691" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Bluesky : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="722" text-anchor="end">WhatsApp</text>
+<rect class="vide" x="230" y="710" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="710" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>WhatsApp : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="741" text-anchor="end">Signal</text>
+<rect class="vide" x="230" y="729" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="729" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Signal : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="760" text-anchor="end">Messenger</text>
+<rect class="vide" x="230" y="748" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="748" width="118.8" height="16" style="fill:var(--ok)" rx="2"><title>Messenger : accessible, 06/11 05:11 → 06/11 13:47 (104 tours)</title></rect>
+<rect x="349.3" y="748" width="1.5" height="16" style="fill:var(--critical)" rx="2"><title>Messenger : signature de blocage (DNS menteur, reset, certificat invalide), témoins OK, 06/11 13:47 → 06/11 13:52 (1 tour) — www.messenger.com (tcp_timeout_ip_seule)</title></rect>
+<rect x="350.5" y="748" width="305.8" height="16" style="fill:var(--ok)" rx="2"><title>Messenger : accessible, 06/11 13:52 → 07/11 11:57 (264 tours)</title></rect>
+<text class="rang" x="222" y="779" text-anchor="end">Threads</text>
+<rect class="vide" x="230" y="767" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="767" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Threads : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="798" text-anchor="end">Reddit</text>
+<rect class="vide" x="230" y="786" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="786" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Reddit : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="817" text-anchor="end">Twitch</text>
+<rect class="vide" x="230" y="805" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="805" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Twitch : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="836" text-anchor="end">BeReal</text>
+<rect class="vide" x="230" y="824" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="824" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>BeReal : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="855" text-anchor="end">Mastodon</text>
+<rect class="vide" x="230" y="843" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="843" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Mastodon : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="874" text-anchor="end">Témoins (sites ordinaires)</text>
+<rect class="vide" x="230" y="862" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="862" width="426.3" height="16" style="fill:var(--ok)" rx="2"><title>Témoins (sites ordinaires) : accessible, 06/11 05:11 → 07/11 11:57 (369 tours)</title></rect>
+<text class="rang" x="222" y="893" text-anchor="end">Témoin positif (blocage attendu)</text>
+<rect class="vide" x="230" y="881" width="1150" height="16" rx="2"/>
+<rect x="230.0" y="881" width="426.3" height="16" style="fill:var(--ink2)" rx="2"><title>Témoin positif (blocage attendu) : témoin positif : blocage détecté (attendu), 06/11 05:11 → 07/11 11:57 (369 tours) — ria.ru; sputnikglobe.com</title></rect>
+<text class="vantage" x="12" y="924">Légende</text>
+<rect x="12" y="938" width="22" height="12" rx="2" style="fill:var(--ok)"/>
+<text class="leg" x="42" y="948">accessible</text>
+<rect x="652" y="938" width="22" height="12" rx="2" style="fill:var(--serious)"/>
+<text class="leg" x="682" y="948">échec (timeout, erreur), témoins OK</text>
+<rect x="12" y="960" width="22" height="12" rx="2" style="fill:var(--critical)"/>
+<text class="leg" x="42" y="970">signature de blocage (DNS menteur, reset, certificat invalide), témoins OK</text>
+<rect x="652" y="960" width="22" height="12" rx="2" style="fill:var(--muted)"/>
+<text class="leg" x="682" y="970">connexion de mesure en panne (témoins KO) : tour ignoré</text>
+<rect x="12" y="982" width="22" height="12" rx="2" style="fill:var(--ink2)"/>
+<text class="leg" x="42" y="992">témoin positif : blocage détecté (attendu)</text>
+<rect x="652" y="982" width="22" height="12" rx="2" style="fill:var(--warning)"/>
+<text class="leg" x="682" y="992">témoin positif : blocage NON détecté (outil aveugle sur ce point)</text>
+<rect class="vide" x="12" y="1004" width="22" height="12" rx="2"/><text class="leg" x="42" y="1014">pas de mesure (machine éteinte, en veille, hors ligne)</text>
+<text class="leg" x="672" y="1014">Heures de Paris. Fond bleuté et crochet : période d'événement. Survoler une case pour le détail.</text>
+</svg>

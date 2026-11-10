@@ -1,0 +1,147 @@
+{
+ "sessions": [
+  "sam. 7 · 4 h",
+  "sam. 7 · 16 h",
+  "sam. 7 · 21 h",
+  "lun. 9 · 18 h"
+ ],
+ "comptes": [
+  {
+   "groupe": "revendication",
+   "etats": [
+    "non_verifie",
+    "present",
+    "partiel",
+    "partiel"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "non_verifie",
+    "non_verifie",
+    "absent",
+    "non_verifie"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "present",
+    "present",
+    "partiel",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "present",
+    "present",
+    "absent",
+    "non_verifie"
+   ]
+  },
+  {
+   "groupe": "revendication",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "mouvement",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "mouvement",
+   "etats": [
+    "non_verifie",
+    "non_verifie",
+    "absent",
+    "non_verifie"
+   ]
+  },
+  {
+   "groupe": "mouvement",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "partiel"
+   ]
+  },
+  {
+   "groupe": "mouvement",
+   "etats": [
+    "present",
+    "present",
+    "partiel",
+    "non_verifie"
+   ]
+  },
+  {
+   "groupe": "mouvement",
+   "etats": [
+    "present",
+    "present",
+    "absent",
+    "present"
+   ]
+  },
+  {
+   "groupe": "temoin",
+   "etats": [
+    "present",
+    "present",
+    "present",
+    "absent"
+   ]
+  },
+  {
+   "groupe": "temoin",
+   "etats": [
+    "present",
+    "present",
+    "absent",
+    "present"
+   ]
+  },
+  {
+   "groupe": "temoin",
+   "etats": [
+    "present",
+    "present",
+    "absent",
+    "absent"
+   ]
+  }
+ ],
+ "n_verifies": 37,
+ "n_isoles": 12
+}

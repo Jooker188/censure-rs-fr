@@ -1,4 +1,5 @@
-D="/home/user/censure-rs-fr/video/miniatures"; A="/home/user/censure-rs-fr/video/mascotte/apercus"; T="/home/user/censure-rs-fr/video/tweets"; P=D+"/polices"
+import os
+D=os.path.dirname(os.path.abspath(__file__)); A=os.path.join(D,"..","mascotte","apercus"); T=os.path.join(D,"..","tweets"); P=D+"/polices"
 css=f"""@font-face{{font-family:Anton;src:url('file://{P}/anton.woff2')}} @font-face{{font-family:ArchivoBlack;src:url('file://{P}/archivo-black.woff2')}}
 *{{box-sizing:border-box}} html,body{{margin:0;width:1280px;height:720px;overflow:hidden;background:#0b0d0c;color:#fff;font-family:Inter,sans-serif}}
 .tw{{position:absolute;border-radius:16px;border:3px solid #3a3f44;box-shadow:0 18px 50px rgba(0,0,0,.8);background:#000}}
@@ -22,3 +23,21 @@ V={
  <img src='file://{A}/apercu-sceptique.svg' style='position:absolute;left:50%;bottom:-12px;height:540px;transform:translateX(-50%);filter:drop-shadow(0 0 24px rgba(0,0,0,.7))'>""",
 }
 for n,c in V.items(): open(f"{D}/{n}.html","w",encoding="utf-8").write(page(c))
+
+
+def rendre(noms):
+    """Rend les pages HTML en PNG 1280×720 avec Chromium (Playwright pour Node)."""
+    import json, os, subprocess
+    js = os.path.join(D, ".rendu.js")
+    open(js, "w").write("""const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();
+const p=await b.newPage({viewport:{width:1280,height:720},deviceScaleFactor:1});
+for(const n of %s){await p.goto('file://%s/'+n+'.html');await p.evaluate(()=>document.fonts.ready);
+await p.waitForTimeout(600);await p.screenshot({path:'%s/'+n+'.png'});}await b.close();})();""" % (json.dumps(noms), D, D))
+    subprocess.run(["node", js], check=True)
+    os.remove(js)
+    for n in noms:
+        os.remove(os.path.join(D, n + ".html"))
+    print("Écrits :", ", ".join(n + ".png" for n in noms))
+
+
+rendre(list(V))

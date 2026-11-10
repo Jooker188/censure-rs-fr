@@ -925,11 +925,12 @@ def main():
             continue
         open(os.path.join(tmp, code + ".html"), "w", encoding="utf-8").write(h)
         faits.append(code)
-    js = os.path.join(tmp, "rendu.js")
+    js = os.path.join(ICI, ".rendu.js")  # à côté du dépôt : node y trouve le playwright installé localement
     open(js, "w").write(RENDU_JS)
     os.makedirs(a.out, exist_ok=True)
     subprocess.run(["node", js, tmp, os.path.abspath(a.out)], check=True)
     shutil.rmtree(tmp)
+    os.remove(js)
     print(f"{len(faits)} graphique(s) dans {a.out}" + (f" ; sautés faute de données : {', '.join(sautes)}" if sautes else ""))
 
 

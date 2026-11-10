@@ -1,0 +1,9 @@
+test,plateforme,verdict
+T3,x,"RIEN DÉTECTÉ (pas de hausse : tendance France : 3 454 → 2 357 par jour (×0.68) ; toutes décisions, tous pays : ×0.91) ; posts non identifiables"
+T4,x,RIEN DÉTECTÉ (pas de hausse : tendance non mesurable) ; posts non identifiables
+T3,tiktok,"RIEN DÉTECTÉ (aucun de nos posts n'a de retrait déclaré ; tendance France : 132 937 → 591 745 par jour (×4.45) ; toutes décisions, tous pays : ×3.72 → hausse générale de ce que déclare la plateforme, pas propre à la France → périmètre déclaré « toute l'UE » et langue non déclarée : impossible de dire si cette hausse concerne la France)"
+T4,tiktok,"RIEN DÉTECTÉ (aucun de nos posts n'a de déclassement déclaré ; tendance France : 173 038 → 561 599 par jour (×3.25) ; toutes décisions, tous pays : ×3.72 → hausse générale de ce que déclare la plateforme, pas propre à la France → périmètre déclaré « toute l'UE » et langue non déclarée : impossible de dire si cette hausse concerne la France)"
+T3,instagram,"RIEN DÉTECTÉ (pas de hausse : tendance France : 296 196 → 210 704 par jour (×0.71) ; toutes décisions, tous pays : ×0.71) ; posts non identifiables"
+T4,instagram,"**HAUSSE** des déclassements déclarés (périmètre incluant la France) pendant le mouvement (tendance France : 96 → 296 par jour (×3.10) ; toutes décisions, tous pays : ×0.71 → périmètre déclaré « toute l'UE » et langue non déclarée : impossible de dire si cette hausse concerne la France) ; posts non identifiables"
+T3,youtube,"RIEN DÉTECTÉ (pas de hausse : tendance France : 147 801 → 156 734 par jour (×1.06) ; toutes décisions, tous pays : ×1.05) ; posts non identifiables"
+T4,youtube,RIEN DÉTECTÉ (pas de hausse : tendance non mesurable) ; posts non identifiables
