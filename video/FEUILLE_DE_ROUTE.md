@@ -103,9 +103,9 @@ Légende des statuts : ✅ prêt · ✏️ texte à relire ou tester · ⏳ dép
 
 ## 8. Faits à vérifier avant le tournage
 
-- [ ] **La lettre du 22 octobre** : texte exact, destinataires, plateformes citées (la présence de X fait débat).
-- [ ] **L'amendement n°94** : le texte adopté prévoit-il le **blocage d'un site** en l'absence de retrait ? Quel délai (1 heure ou 24 heures) ? Quelle est la suite à l'Assemblée ?
-- [ ] **La Nouvelle-Calédonie** : date de la coupure de TikTok (mai 2024) et date de la décision du Conseil d'État (2025), dans les textes officiels.
+- [x] **La lettre du 22 octobre** : signée par Sébastien Lecornu, adressée aux PDG d'Orange, Iliad (Free), Bouygues Telecom et Altice (SFR). Citations disponibles via Clubic d'après Blast : « la plus ciblée possible », « caractère exploratoire ». Texte intégral non public. X : ajouté après l'envoi, selon Blast. *(vérifié le 10/11)*
+- [x] **L'amendement n°94 rect. bis** (senat.fr, adopté le 27/10) : retrait demandé par l'administration sous **24 heures** ; contrôle par une « personnalité qualifiée », pas un juge ; non-retrait puni de 6 mois et 150 000 € (jusqu'à 2 % du CA mondial) ; l'objet indique qu'en l'absence de retrait l'administration « pourra solliciter le blocage et le déréférencement des sites ». Texte transmis à l'Assemblée nationale. *(vérifié le 10/11)*
+- [x] **La Nouvelle-Calédonie** : TikTok coupé du 15 au 29 mai 2024 (décision du 14 mai) ; Conseil d'État, décisions n° 494511, 494583 et 495174 du **1er avril 2025** : illégal, car décidé pour une durée indéterminée ; légal possible à trois conditions. *(vérifié le 10/11)*
 - [ ] **Les chiffres du 17 octobre** : 550 000 selon le ministère de l'Intérieur, 800 000 selon les organisateurs. Garder les deux, attribués à chacun.
 - [ ] **Le réseau de Cdiscount Mobile** : Bouygues ? Le confirmer par l'ASN dans OONI.
 - [ ] **Le « Vrai ou fake » de franceinfo** sur les vidéos disparues : le lire avant de le citer.

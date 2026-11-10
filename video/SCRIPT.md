@@ -12,9 +12,8 @@
 🎥 Écran noir, puis la lettre de Matignon en gros plan (capture de la publication de Blast, si elle existe).
 
 🎙️
-> Le 22 octobre, Matignon écrit aux quatre grands opérateurs français : Orange, SFR, Free et Bouygues.
-> [À COMPLÉTER : citation exacte de la lettre, une phrase maximum]
-> Selon le média Blast, qui a révélé le courrier, le gouvernement leur demande de se tenir prêts à suspendre TikTok, Instagram et Snapchat pendant quelques heures, surtout sur le mobile.
+> Le 22 octobre, le Premier ministre écrit aux patrons des quatre grands opérateurs français : Orange, SFR, Free et Bouygues.
+> Selon le média Blast, qui a révélé le courrier, il leur demande de se tenir prêts à suspendre TikTok, Instagram et Snapchat pendant quelques heures, surtout sur le mobile. Une mesure qui doit être « la plus ciblée possible », et qui n'a, écrit-il, qu'un « caractère exploratoire ».
 
 🎥 Coupe. Toi face caméra.
 
@@ -34,7 +33,7 @@
 🎙️
 > Et oui, « non testable », c'est une vraie réponse. On verra pourquoi.
 
-📎 Blast, via [Clubic](https://www.clubic.com/actualite-635851-le-gouvernement-voulait-pouvoir-couper-les-reseaux-sociaux-pendant-la-manifestation-du-24-octobre-une-lettre-le-prouve.html) — *documenté (presse, non démenti)*
+📎 [Blast](https://www.blast-info.fr/articles/2026/information-exclusive-blast-le-premier-ministre-a-prepare-la-coupure-des-reseaux-sociaux-pour-le-24-octobre-9D8cgrU5S5iiW14Sb9nMzQ), [Clubic](https://www.clubic.com/actualite-635851-le-gouvernement-voulait-pouvoir-couper-les-reseaux-sociaux-pendant-la-manifestation-du-24-octobre-une-lettre-le-prouve.html) — *documenté (presse, non démenti)*. Les deux citations entre guillemets viennent de la lettre, telles que rapportées par Clubic d'après Blast ; le texte intégral n'est pas public (article de Blast réservé aux abonnés). Pour X, Blast dit qu'il a été ajouté après l'envoi.
 
 📝 Le plan sur `sputnikglobe.com` est l'objet mystère : il revient en séquence 5. Floute l'adresse IPv6 de ta box.
 
@@ -107,10 +106,11 @@
 **27 octobre**
 > Le Sénat adopte un amendement du gouvernement, le n°94, dans le projet de loi dit « casseurs-payeurs ». Il permet de faire retirer, sans passer par un juge, des contenus qui appellent à la violence ou au pillage.
 > Le ministre de l'Intérieur dit qu'il ne s'agit pas de fermer les réseaux sociaux, mais de retirer des contenus précis. La gauche sénatoriale parle de « dérive autoritaire ».
-> [À COMPLÉTER : ce que dit le texte adopté sur le blocage d'un site qui ne retire pas un contenu, et sur le délai (1 heure ou 24 heures). À vérifier dans le texte officiel, pas seulement dans la presse.]
+> Ce que dit le texte, exactement : l'administration, c'est-à-dire Pharos, pourra demander aux plateformes de retirer **en 24 heures** les contenus qui appellent à des violences, des vols ou des dégradations, quand ils risquent de troubler gravement l'ordre public. La demande est vérifiée par une « personnalité qualifiée », pas par un juge. Une plateforme qui ne retire pas risque 6 mois de prison et 150 000 euros d'amende, et jusqu'à 2 % de son chiffre d'affaires mondial.
+> Et le gouvernement l'écrit noir sur blanc : « En l'absence de retrait, l'autorité administrative pourra solliciter le blocage et le déréférencement des sites. »
 > Et précision importante : c'est une première lecture. Ce n'est pas encore la loi.
 
-📎 [Public Sénat](https://www.publicsenat.fr/actualites/politique/derive-autoritaire-la-gauche-senatoriale-vent-debout-apres-ladoption-dun-amendement-sur-le-blocage-de-certains-contenus-sur-les-reseaux-sociaux), [Maire-info](https://www.maire-info.com/violences-urbaines/le-projet-de-loi-a-casseurs-payeurs-a-nettement-durci-adopta-en-premia-re-lecture-par-le-sa-nata-art26-31227) — *documenté (presse)*, texte officiel à consulter
+📎 [Amendement n°94 rect. bis, adopté le 27 octobre 2026](https://www.senat.fr/amendements/2026-2027/87/Amdt_94.html) — *documenté (texte officiel)* ; [Public Sénat](https://www.publicsenat.fr/actualites/politique/derive-autoritaire-la-gauche-senatoriale-vent-debout-apres-ladoption-dun-amendement-sur-le-blocage-de-certains-contenus-sur-les-reseaux-sociaux), [Maire-info](https://www.maire-info.com/violences-urbaines/le-projet-de-loi-a-casseurs-payeurs-a-nettement-durci-adopta-en-premia-re-lecture-par-le-sa-nata-art26-31227) — *documenté (presse)*. La citation sur le blocage vient de l'objet de l'amendement, rédigé par le gouvernement.
 
 **30 octobre**
 > Matignon réunit un « groupe de contact permanent » avec les plateformes et les opérateurs. Selon L'Informé, c'est la première fois depuis 2022.
@@ -352,7 +352,11 @@
 🎥 Changement de ton. Images d'archives de la Nouvelle-Calédonie en 2024 (droits à vérifier).
 
 🎙️
-> Et si vous vous demandez pourquoi je me suis donné autant de mal pour mesurer un truc qui, peut-être, ne s'est pas produit : parce que ça s'est déjà produit. En mai 2024, en Nouvelle-Calédonie, pendant les émeutes, le gouvernement a coupé TikTok. Et le Conseil d'État a jugé cette coupure illégale [À COMPLÉTER : date exacte de la décision].
+> Et si vous vous demandez pourquoi je me suis donné autant de mal pour mesurer un truc qui, peut-être, ne s'est pas produit : parce que ça s'est déjà produit. En mai 2024, en Nouvelle-Calédonie, pendant les émeutes, le gouvernement a coupé TikTok.
+> Le 1er avril 2025, le Conseil d'État a jugé cette coupure illégale. Mais attention à ce qu'il a dit exactement : couper un réseau social peut être légal, en cas de circonstances exceptionnelles, à trois conditions. Il faut que ce soit indispensable, qu'aucune solution moins radicale ne soit disponible, et que la durée soit limitée et fixée dès le départ. En 2024, TikTok avait été coupé pour une durée indéterminée : c'est pour ça que c'était illégal.
+> Et c'est justement sur cette décision que Matignon s'est appuyé en octobre, selon le compte rendu de la réunion avec les opérateurs révélé par Blast.
+
+📎 [Conseil d'État, décisions n° 494511, 494583 et 495174 du 1er avril 2025, communiqué de presse](https://conseil-etat.fr/content/download/227070/document/Communiqu%C3%A9%20de%20presse%20-%20TikTok%20en%20Nouvelle-Cal%C3%A9donie%20-%20web.pdf) — *documenté (décision de justice)* ; compte rendu de la réunion du 23 octobre : Blast, via Clubic — *documenté (presse)*
 > Couper un réseau, ce n'est pas un scénario de science-fiction. C'est un outil qui existe, qui a déjà servi, et qui a été préparé le mois dernier. Alors savoir le voir, ça me semble utile, que vous soyez pour ou contre le mouvement.
 
 📝 Le passage sur `reviewed` est le moment « VAR » de la forme 3 : le chiffre brut, puis le piège de la popularité, puis le faux écart dû au manque de témoins, puis les limites. Garde ce rythme. Les pseudos sont toujours floutés, et aucun compte de particulier n'est montré.

@@ -900,8 +900,16 @@ def main():
     ap.add_argument("--comptes", default="contenus/comptes_t6.csv")
     ap.add_argument("--out", default=ICI)
     ap.add_argument("--seulement", nargs="*", help="codes à refaire, ex. S09_G09b")
+    ap.add_argument("--exporter-t6", help="calcule seulement la grille T6 (codes et états, sans pseudo) dans ce fichier JSON, sans rien dessiner")
+    ap.add_argument("--donnees-t6", help="grille T6 déjà calculée (fichier JSON produit par --exporter-t6)")
     a = ap.parse_args()
     d = charger(a)
+    if a.exporter_t6:
+        json.dump(d.get("t6_sessions", {}), open(a.exporter_t6, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print(f"Grille T6 écrite dans {a.exporter_t6} : {len(d.get('t6_sessions', {}).get('comptes', []))} compte(s), aucun pseudo.")
+        return
+    if a.donnees_t6:
+        d["t6_sessions"] = json.load(open(a.donnees_t6, encoding="utf-8"))
     tmp = tempfile.mkdtemp()
     faits, sautes = [], []
     for code, f in sorted(GRAPHIQUES.items()):

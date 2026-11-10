@@ -69,7 +69,7 @@
 | S03_E02 | E | articles Clubic et actu17 (lettre du 22 octobre, réponse des opérateurs) | |
 | S03_E03 | E | article Journal du Coin (24 octobre) | |
 | S03_E04 | E | articles Public Sénat et Maire-info (amendement n°94) | |
-| S03_E05 | E | **le texte de l'amendement n°94 sur senat.fr** | à faire après la vérification du texte (feuille de route, section 8) |
+| S03_E05 | E | **le texte de l'amendement n°94 sur senat.fr** : https://www.senat.fr/amendements/2026-2027/87/Amdt_94.html | défile jusqu'à l'« Objet » et surligne la phrase sur le blocage |
 | S03_E06 | E | article L'Informé (groupe de contact, 30 octobre) | |
 | S03_E07 | E | article Sortiraparis (acte IV) | |
 | S03_G02 | G | bulle « RUMEUR » à part de la frise | Claude |
@@ -154,7 +154,7 @@
 | S09_G09 | G | T6 : « 12 comptes absents » en rouge, puis la comparaison des 3 sessions, puis « 0 absent de façon répétée » | Claude (codes `u_…` seulement) |
 | S09_G10 | G | T7 : ×1,8 et ×2,5 | Claude |
 | S09_G11 | G | DSA : le saut de TikTok le 29 octobre (toute l'Europe), puis le pic d'Instagram du 20 au 27 octobre | Claude, à partir de la base DSA |
-| S09_E05 | E | la décision du Conseil d'État sur la Nouvelle-Calédonie (page officielle) | à la place des images d'archives, dont les droits sont compliqués |
+| S09_E05 | E | le communiqué du Conseil d'État du 1er avril 2025 sur TikTok en Nouvelle-Calédonie (conseil-etat.fr) | à la place des images d'archives, dont les droits sont compliqués ; surligne les trois conditions |
 | S09_F | F | intro du shadowban, verdict, et passage « pourquoi ça compte » | |
 
 ## Séquence 10 : Verdicts et fin
@@ -198,11 +198,8 @@
 
 | séquence | quoi | qui |
 |---|---|---|
-| 0 | citation exacte de la lettre (Blast) | à vérifier |
-| 3 | ce que dit vraiment l'amendement n°94 (blocage d'un site, délai) | à vérifier dans le texte officiel |
 | 5 | les réseaux de tes deux SIM, d'après l'ASN affiché dans OONI | toi (plan S05_T01) |
 | 8 | résultats OONI de samedi sur l'iPhone | toi |
 | 9 | T6 et T7 de la session de lundi | après ta session T7 TikTok |
-| 9 | date de la décision du Conseil d'État | à vérifier |
 
 **Ne tourne pas une phrase qui contient encore un crochet.** Pour ton essai d'aujourd'hui, prends les séquences 1 et 2 : elles sont complètes.
