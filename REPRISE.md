@@ -1,7 +1,7 @@
 # Reprise du projet : où on en est (10 novembre 2026)
 
 > Note de passation pour reprendre le projet dans une nouvelle conversation. À lire en premier, avec `TABLEAU_DE_BORD.md` (pilotage des mesures) et `video/SCRIPT.md` (la vidéo).
-> **Branche de travail : `claude/zen-pasteur-l3whxh`.** Tout le travail récent est sur cette branche, pas sur `main`.
+> **Branche de travail : `main`** (ancienne `claude/zen-pasteur-l3whxh`, renommée le 12/11/2026 ; le dépôt est public).
 
 ---
 
@@ -68,7 +68,7 @@ Faits vérifiés sur les sources primaires (10/11) : amendement n°94 rect. bis 
 
 1. **Cartons « FAUSSE PREUVE N°1 à 5 »** et carton d'ouverture « 5 PREUVES ? », dans le style des miniatures (police Anton, jaune `#FFD60A`, LaFeuille en pose « choc » puis « sceptique »). Codes `FP_1` à `FP_5` dans le script.
 2. **Mettre `video/PLANS.md` à jour** avec la structure du script v2.
-3. **Piste à vérifier** : un avertissement TikTok aux Français depuis le 28 octobre (« La situation évolue rapidement dans ton pays… », capture dans `video/tweets/T_tiktok_avertissement.png`, compte « Jeff Paroddy », peut-être parodique). L'Espresso (30/10/2026) rapporte un message semblable en Italie, ce qui collerait avec le saut européen de TikTok dans la base DSA le 29 octobre. Ce serait une mesure de TikTok, pas de l'État. À confirmer avant d'en parler.
+3. **Piste à vérifier** : un avertissement TikTok aux Français depuis le 28 octobre (« La situation évolue rapidement dans ton pays… », capture dans `video/tweets/T_tiktok_avertissement.png`, publié par un compte de particulier, peut-être parodique). L'Espresso (30/10/2026) rapporte un message semblable en Italie, ce qui collerait avec le saut européen de TikTok dans la base DSA le 29 octobre. Ce serait une mesure de TikTok, pas de l'État. À confirmer avant d'en parler.
 4. **Avant le tournage** : relancer une recherche d'actualité (suite de l'amendement à l'Assemblée nationale, nouveaux faits).
 5. **Fin du suivi (~21 novembre)** : récupérer les CSV du VPS, relancer `analyse_contenus.py`, `analyse_tiktok.py`, `dsa.py --reprendre`, puis arrêter le VPS et les proxies.
 6. **Avant publication** : passer le dépôt en public, mettre à jour la conclusion du `README.md` avec les résultats, compléter la description YouTube (annexe B du script).
